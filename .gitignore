@@ -1,6 +1,5 @@
 node_modules/**/*
 .vscode/**/*
-/node_modules
-/dist
+/dist/**/*
 *.log
 *.cache
