@@ -1,8 +1,6 @@
 node_modules/**/*
 .vscode/**/*
-/packages/*/node_modules
-/packages/*/dist
-/packages/*/LICENSE
-.dist/**/*
+/node_modules
+/dist
 *.log
 *.cache
