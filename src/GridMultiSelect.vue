@@ -37,8 +37,8 @@
           @click.stop.prevent="removeItem(index)"
         >x</span>
       </li>
-      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('footer')">
-        <slot name="footer"></slot>
+      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selectedItemsFooter')">
+        <slot name="selectedItemsFooter"></slot>
       </li>
     </ul>
     <transition name="gridmultiselect__slide">
@@ -79,6 +79,9 @@
                 >{{getItemLabel(item)}}</label>
               </slot>
             </span>
+          </li>
+          <li class="gridmultiselect__itemsfooter" v-if="hasSlot('itemsFooter')">
+            <slot name="itemsFooter"></slot>
           </li>
         </ul>
       </div>
@@ -248,6 +251,9 @@ export default {
 .gridmultiselect__selecteditemitemsfooter {
   padding: 0.5rem;
 }
+.gridmultiselect__itemsfooter {
+  padding: 0.2rem 0.5rem;
+}
 .gridmultiselect__items-wrap {
   max-width: 50%;
   min-width: 20%;
@@ -312,7 +318,9 @@ export default {
   cursor: pointer;
   border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
 }
-
+.gridmultiselect__item:hover {
+  font-weight: bold;
+}
 .gridmultiselect__itemcb-wrap {
   display: flex;
   justify-content: center;
