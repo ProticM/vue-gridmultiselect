@@ -1,6 +1,6 @@
 <template>
-  <section class="gridmultiselect" @click="toggleMenu">
-    <header class="gridmultiselect__header">
+  <div class="gridmultiselect" @click="toggleMenu">
+    <div class="gridmultiselect__header">
       <span class="gridmultiselect__title">{{title}}</span>
       <transition name="gridmultiselect__slide">
         <button
@@ -13,7 +13,7 @@
           <span class="gridmultiselect__burgerline">&nbsp;</span>
         </button>
       </transition>
-    </header>
+    </div>
     <ul class="gridmultiselect__selecteditems">
       <li
         class="gridmultiselect__selecteditem--empty"
@@ -23,7 +23,7 @@
         v-else
         v-for="(selectedItem, index) in selectedItems"
         :key="selectedItem[itemKey]"
-        class="gridmultiselect__selecteditem"
+        class="gridmultiselect__selecteditem gridmultiselect__selecteditem--font-small"
         @click="selectItem(selectedItem)"
       >
         <span class="gridmultiselect__selecteditemtext">
@@ -33,13 +33,16 @@
           >{{getItemLabel(selectedItem, true)}}</slot>
         </span>
         <span
-          class="gridmultiselect__removebutton gridmultiselect__removebutton--red gridmultiselect__removebutton--font-small"
+          class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
           @click.stop.prevent="removeItem(index)"
-        >X</span>
+        >x</span>
+      </li>
+      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('footer')">
+        <slot name="footer"></slot>
       </li>
     </ul>
     <transition name="gridmultiselect__slide">
-      <aside ref="menu" v-show="menuVisible" class="gridmultiselect__items-wrap">
+      <div ref="menu" v-show="menuVisible" class="gridmultiselect__items-wrap">
         <ul class="gridmultiselect__items">
           <li class="gridmultiselect__searchfield-wrap" v-if="searchable">
             <input
@@ -54,6 +57,7 @@
           >{{itemsEmptyMessage}}</li>
           <li
             class="gridmultiselect__item"
+            :class="{'gridmultiselect__item--selected': isSelected(item)}"
             v-else
             v-for="item in internalItems"
             :key="item[itemKey]"
@@ -77,9 +81,9 @@
             </span>
           </li>
         </ul>
-      </aside>
+      </div>
     </transition>
-  </section>
+  </div>
 </template>
 <script>
 import { isEmpty } from "./utils/utils";
@@ -179,6 +183,13 @@ export default {
     selectItem(selectedItem) {
       if (this.menuVisible) return;
       this.$emit("item-selected", selectedItem);
+    },
+    isSelected(item) {
+      const itemKey = this.itemKey;
+      return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
+    },
+    hasSlot(name) {
+      return !!this.$slots[name];
     }
   }
 };
@@ -234,7 +245,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.gridmultiselect__selecteditems {
+.gridmultiselect__selecteditemitemsfooter {
   padding: 0.5rem;
 }
 .gridmultiselect__items-wrap {
@@ -266,23 +277,31 @@ export default {
 }
 
 .gridmultiselect__selecteditem {
-  border: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
-  margin-top: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.gridmultiselect__selecteditem:not(:last-child) {
+  border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+}
+
+.gridmultiselect__selecteditem:nth-child(odd) {
+  background-color: #fdfdfd;
 }
 
 .gridmultiselect__selecteditemtext {
   padding: 0.5rem;
 }
 .gridmultiselect__removebutton {
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: #005f89;
 }
 .gridmultiselect__removebutton:hover {
-  transform: scale(1.2, 1.2);
+  background-color: #f3f3f3;
+  font-weight: bold;
 }
 .gridmultiselect__item {
   padding: 0.2rem 0.5rem;
@@ -302,7 +321,7 @@ export default {
 }
 
 .gridmultiselect__itemcb {
-  cursor: pointer;
+  display: none;
 }
 
 .gridmultiselect__itemtext {
@@ -318,14 +337,20 @@ export default {
 }
 .gridmultiselect__itemlabel--font-small,
 .gridmultiselect__removebutton--font-small,
-.gridmultiselect__searchfield--font-small {
-  font-size: 12px;
+.gridmultiselect__searchfield--font-small,
+.gridmultiselect__selecteditem--font-small {
+  font-size: 13px;
 }
 .gridmultiselect__selecteditem--empty,
 .gridmultiselect__item--empty {
   text-align: center;
   padding: 0.5rem;
   opacity: 0.6;
+}
+
+.gridmultiselect__item--selected {
+  color: #856404;
+  background-color: #fff3cd;
 }
 
 .gridmultiselect__slide-enter-active,
@@ -336,8 +361,5 @@ export default {
 .gridmultiselect__slide-leave-to {
   transform: translateX(15px);
   opacity: 0;
-}
-.gridmultiselect__removebutton--red {
-  color: #ff1a00;
 }
 </style>
