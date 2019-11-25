@@ -16,6 +16,7 @@
 		"select"
 	],
 	"author": "Miloš Protić <protic023@gmail.com> (https://github.com/ProticM)",
+	"homepage": "https://github.com/ProticM/vue-gridmultiselect",
 	"license": "MIT",
 	"directories": {
 		"lib": "src"
