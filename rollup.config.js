@@ -7,7 +7,7 @@ import commonjs from 'rollup-plugin-commonjs';
 export default {
 	input: 'src/index.js',
 	output: [{
-		name: 'vuegridmultiselect',
+		name: 'VueGridMultiselect',
 		file: 'dist/vue-multiselect.js',
 		format: 'umd'
 	},
