@@ -5,21 +5,24 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { uglify } from 'rollup-plugin-uglify';
 
+const extensions = [
+	'.js', '.jsx', '.es6', '.es', '.mjs', '.vue', '.ts'
+];
+
 export default [{
 	input: 'src/index.js',
 	output: [{
 		name: 'VueGridMultiselect',
-		file: 'dist/vue-multiselect.js',
+		file: 'dist/vue-gridmultiselect.js',
 		format: 'umd'
 	}],
 	plugins: [
+		resolve({ extensions }),
 		commonjs(),
-		resolve(),
 		vue({ css: true }),
 		babel({
-			extensions: ['.js', '.vue'],
-			exclude: ['node_modules/**'],
-			presets: ['@babel/preset-env']
+			extensions: extensions,
+			exclude: ['node_modules/**']
 		}),
 		uglify()
 	]
@@ -27,17 +30,16 @@ export default [{
 	input: 'src/index.js',
 	output: [
 		{
-			file: 'dist/vue-multiselect-esm.js',
+			file: 'dist/vue-gridmultiselect-esm.js',
 			format: 'esm'
 		}],
 	plugins: [
+		resolve({ extensions }),
 		commonjs(),
-		resolve(),
 		vue({ css: true }),
 		babel({
-			extensions: ['.js', '.vue'],
-			exclude: ['node_modules/**'],
-			presets: ['@babel/preset-env']
+			extensions: extensions,
+			exclude: ['node_modules/**']
 		})
 	]
 }];
