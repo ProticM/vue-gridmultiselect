@@ -30,7 +30,7 @@
           <slot name="selectedItem" :selectedItem="selectedItem">
             {{getItemLabel(selectedItem, true)}}
             <span
-              v-if="showGroup"
+              v-if="isGroupingEnabled"
               class="gridmultiselect__selecteditemgroupbadge"
             >({{selectedItem[groupBy]}})</span>
           </slot>
@@ -174,6 +174,9 @@ export default {
       set(newValue) {
         this.$emit("input", newValue);
       }
+    },
+    isGroupingEnabled() {
+      return !isEmpty(this.groupBy);
     }
   },
   methods: {
@@ -204,9 +207,6 @@ export default {
     },
     hasSlot(name) {
       return !!this.$slots[name];
-    },
-    showGroup() {
-      return !isEmpty(this.groupBy);
     }
   }
 };
@@ -246,6 +246,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   outline: none;
+  cursor: pointer;
 }
 .gridmultiselect__burger:focus {
   outline: none;
@@ -257,6 +258,7 @@ export default {
   width: 20px;
   display: block;
   margin-top: 3px;
+  cursor: pointer;
 }
 
 .gridmultiselect__selecteditems,
