@@ -7,15 +7,22 @@ const copyArray = (array) => {
 }
 
 const flatGroupBy = (items, key) => {
-	const copy = copyArray(items);
-	const groups = Array.from(new Set(copy.map(item => item[key])));
 
 	if (checkGroupField(items, key)) return [];
 
-	return groups.reduce((acc, group) => {
-		acc.push({ _label: group, _isGroup: true });
-		return [...acc, ...copy.filter(item => item[key] === group)];
-	}, []);
+	const copy = copyArray(items);
+	const grouped = copy.reduce((acc, item) => {
+		(acc[item[key]] = acc[item[key]] || []).push(item);
+		return acc;
+	}, {}), groups = Object.keys(grouped);
+	let flatten = [];
+
+	groups.forEach(group => {
+		flatten.push({ _label: group, _isGroup: true });
+		flatten = flatten.concat(grouped[group]);
+	});
+
+	return flatten;
 };
 
 const checkGroupField = (items, key) => {
