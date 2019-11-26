@@ -27,10 +27,13 @@
         @click="selectItem(selectedItem)"
       >
         <span class="gridmultiselect__selecteditemtext">
-          <slot
-            name="selectedItem"
-            :selectedItem="selectedItem"
-          >{{getItemLabel(selectedItem, true)}}</slot>
+          <slot name="selectedItem" :selectedItem="selectedItem">
+            {{getItemLabel(selectedItem, true)}}
+            <span
+              v-if="showGroup"
+              class="gridmultiselect__selecteditemgroupbadge"
+            >({{selectedItem[groupBy]}})</span>
+          </slot>
         </span>
         <span
           class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
@@ -62,7 +65,8 @@
             v-for="item in internalItems"
             :key="item[itemKey]"
           >
-            <span class="gridmultiselect__itemcb-wrap">
+            <span v-if="item._isGroup" class="gridmultiselect__itemgrouptext">{{item._label}}</span>
+            <span v-if="!item._isGroup" class="gridmultiselect__itemcb-wrap">
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
@@ -71,7 +75,7 @@
                 v-model="selectedItems"
               />
             </span>
-            <span class="gridmultiselect__itemtext">
+            <span v-if="!item._isGroup" class="gridmultiselect__itemtext">
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
@@ -89,7 +93,7 @@
   </div>
 </template>
 <script>
-import { isEmpty } from "./utils/utils";
+import { isEmpty, copyArray, flatGroupBy } from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
@@ -133,6 +137,9 @@ export default {
     selectedItemsEmptyMessage: {
       type: String,
       default: "No Data"
+    },
+    groupBy: {
+      type: String
     }
   },
   computed: {
@@ -140,11 +147,15 @@ export default {
       return this.selectedItemLabel || this.itemLabel;
     },
     internalItems() {
-      const copy = this.items.map(item => ({ ...item }));
+      const copy = isEmpty(this.groupBy)
+        ? copyArray(this.items)
+        : flatGroupBy(this.items, this.groupBy);
 
       return isEmpty(this.searchTerm)
         ? copy
         : copy.filter(item => {
+            if (item._isGroup) return true;
+
             let isOk = false;
             this.itemLabel.split("|").forEach(label => {
               isOk =
@@ -193,6 +204,9 @@ export default {
     },
     hasSlot(name) {
       return !!this.$slots[name];
+    },
+    showGroup() {
+      return !isEmpty(this.groupBy);
     }
   }
 };
@@ -262,7 +276,7 @@ export default {
   top: 0;
   right: 0;
   height: 100%;
-  background-color: rgba(255, 255, 255);
+  background-color: #fff;
   box-shadow: -5px 0px 5px -3px;
   border-left: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
   overflow-y: auto;
@@ -293,11 +307,15 @@ export default {
 }
 
 .gridmultiselect__selecteditem:nth-child(odd) {
-  background-color: #fdfdfd;
+  background-color: #f9f9f9;
 }
 
 .gridmultiselect__selecteditemtext {
   padding: 0.5rem;
+}
+.gridmultiselect__selecteditemgroupbadge {
+  font-size: 10px;
+  font-style: italic;
 }
 .gridmultiselect__removebutton {
   padding: 0.5rem;
@@ -308,6 +326,7 @@ export default {
 .gridmultiselect__removebutton:hover {
   background-color: #f3f3f3;
   font-weight: bold;
+  box-shadow: -2px 0px 2px -1px;
 }
 .gridmultiselect__item {
   padding: 0.2rem 0.5rem;
@@ -318,7 +337,16 @@ export default {
   cursor: pointer;
   border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
 }
-.gridmultiselect__item:hover {
+.gridmultiselect__itemgrouptext {
+  background-color: #f9f9f9;
+  flex-grow: 1;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  padding-left: 0.2rem;
+  font-size: 13px;
+}
+
+.gridmultiselect__itemtext:hover {
   font-weight: bold;
 }
 .gridmultiselect__itemcb-wrap {
