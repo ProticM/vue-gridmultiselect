@@ -224,6 +224,9 @@ export default {
   text-align: left;
   position: relative;
 }
+.gridmultiselect * {
+  box-sizing: border-box;
+}
 .gridmultiselect__header {
   background-color: var(
     --vue-gridmultiselect-header-title-background-color,
