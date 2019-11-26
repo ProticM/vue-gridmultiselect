@@ -4,6 +4,7 @@ import vue from 'rollup-plugin-vue';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { uglify } from 'rollup-plugin-uglify';
+import css from 'rollup-plugin-css-only'
 
 const extensions = [
 	'.js', '.jsx', '.es6', '.es', '.mjs', '.vue', '.ts'
@@ -12,7 +13,8 @@ const extensions = [
 const plugins = [
 	resolve({ extensions }),
 	commonjs(),
-	vue({ css: true }),
+	css({ output: 'dist/vue-gridmultiselect.css' }),
+	vue({ css: false, compileTemplate: true, template: { optimizeSSR: false } }),
 	babel({
 		extensions: extensions,
 		exclude: ['node_modules/**']
