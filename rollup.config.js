@@ -14,7 +14,7 @@ const plugins = [
 	resolve({ extensions }),
 	commonjs(),
 	css({ output: 'dist/vue-gridmultiselect.css' }),
-	vue({ css: false, compileTemplate: true, template: { optimizeSSR: false } }),
+	vue({ css: false, compileTemplate: true, template: { isProduction: true } }),
 	babel({
 		extensions: extensions,
 		exclude: ['node_modules/**']
