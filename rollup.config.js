@@ -9,37 +9,36 @@ const extensions = [
 	'.js', '.jsx', '.es6', '.es', '.mjs', '.vue', '.ts'
 ];
 
+const plugins = [
+	resolve({ extensions }),
+	commonjs(),
+	vue({ css: true }),
+	babel({
+		extensions: extensions,
+		exclude: ['node_modules/**']
+	})
+];
+
+const input = 'src/index.js';
+const getOutput = (format, isMin) => {
+	const isUmd = format === 'umd';
+	return {
+		file: `dist/vue-gridmultiselect${isMin ? '.min' : ''}${isUmd ? '' : '-esm'}.js`,
+		format: format,
+		...isUmd ? { name: 'VueGridMultiselect' } : null
+	};
+};
+
 export default [{
-	input: 'src/index.js',
-	output: [{
-		name: 'VueGridMultiselect',
-		file: 'dist/vue-gridmultiselect.js',
-		format: 'umd'
-	}],
-	plugins: [
-		resolve({ extensions }),
-		commonjs(),
-		vue({ css: true }),
-		babel({
-			extensions: extensions,
-			exclude: ['node_modules/**']
-		}),
-		uglify()
-	]
+	input: input,
+	output: [getOutput('umd', true)],
+	plugins: plugins.concat(uglify())
 }, {
-	input: 'src/index.js',
-	output: [
-		{
-			file: 'dist/vue-gridmultiselect-esm.js',
-			format: 'esm'
-		}],
-	plugins: [
-		resolve({ extensions }),
-		commonjs(),
-		vue({ css: true }),
-		babel({
-			extensions: extensions,
-			exclude: ['node_modules/**']
-		})
-	]
+	input: input,
+	output: [getOutput('umd', false)],
+	plugins: plugins
+}, {
+	input: input,
+	output: [getOutput('esm')],
+	plugins: plugins
 }];
