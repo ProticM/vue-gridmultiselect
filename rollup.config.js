@@ -23,21 +23,21 @@ const plugins = [
 
 const input = 'src/index.js';
 const getOutput = (format, isMin) => {
-	const isIIFE = format === 'iife';
+	const isUMD = format === 'umd';
 	return {
-		file: `dist/vue-gridmultiselect${isMin ? '.min' : ''}${isIIFE ? '' : '-esm'}.js`,
+		file: `dist/vue-gridmultiselect${isMin ? '.min' : ''}${isUMD ? '' : '-esm'}.js`,
 		format: format,
-		...isIIFE ? { name: 'VueGridMultiselect' } : null
+		...isUMD ? { name: 'VueGridMultiselect' } : null
 	};
 };
 
 export default [{
 	input: input,
-	output: [getOutput('iife', true)],
+	output: [getOutput('umd', true)],
 	plugins: plugins.concat(uglify())
 }, {
 	input: input,
-	output: [getOutput('iife', false)],
+	output: [getOutput('umd', false)],
 	plugins: plugins
 }, {
 	input: input,
