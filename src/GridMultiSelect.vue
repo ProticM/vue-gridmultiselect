@@ -70,7 +70,7 @@
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
-                :id="'item-cb' + item[itemKey]"
+                :id="'item-cb' + item[itemKey] + '_' + _uid"
                 :value="item"
                 v-model="selectedItems"
               />
@@ -79,7 +79,7 @@
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :for="'item-cb' + item[itemKey]"
+                  :for="'item-cb' + item[itemKey] + '_' + _uid"
                 >{{getItemLabel(item)}}</label>
               </slot>
             </span>
