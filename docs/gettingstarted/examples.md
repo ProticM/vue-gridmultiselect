@@ -90,3 +90,5 @@ The internal search is based on the `item-label` property, meaning that the sear
 ### Items (the options list)
 
 ### Selected Items (the selected options list)
+
+## Slots
