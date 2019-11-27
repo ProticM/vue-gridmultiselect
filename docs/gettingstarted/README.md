@@ -11,10 +11,19 @@ npm install vue-gridmultiselect --save
 ## Basic Usage
 
 ```html
-<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItems" />
-```
+<template>
+	<GridMultiSelect 
+		:items="items" 
+		item-key="id" 
+		item-label="name" 
+		v-model="selectedItems" 
+	/>
+</template>
 
-```js
+<script>
+import GridMultiSelect from 'vue-gridmultiselect';
+import 'vue-gridmultiselect/dist/vue-gridmultiselect.css';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -29,4 +38,5 @@ export default {
     };
   }
 };
+</script>
 ```
