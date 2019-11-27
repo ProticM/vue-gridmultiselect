@@ -46,9 +46,13 @@ By default, heading is set to `Grid Multiselect` and this can be configured by s
 
 - __title__ (`String`) - Sets the component heading title
 
+#### HTML
+
 ```html
 <GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" title="Cities" />
 ```
+
+#### JS
 
 ```js
 export default {
@@ -72,6 +76,14 @@ export default {
 #### Live Sample
 
 <CustomHeading />
+
+## Searching
+
+Searching is enabled by default, and it doesn't require any property to be set
+
+- __searchable__ (`Boolean`) - Property responsible for controlling whether the search is enabled or not
+
+The internal search is based on the `item-label` property, meaning that the search term will be compared only to this value
 
 ## Labeling
 
