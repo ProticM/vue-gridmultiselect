@@ -70,7 +70,7 @@
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
-                :id="'item-cb' + item[itemKey] + '_' + _uid"
+                :id="'item-cb' + item[itemKey] + '_' + guid"
                 :value="item"
                 v-model="selectedItems"
               />
@@ -79,7 +79,7 @@
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :for="'item-cb' + item[itemKey] + '_' + _uid"
+                  :for="'item-cb' + item[itemKey] + '_' + guid"
                 >{{getItemLabel(item)}}</label>
               </slot>
             </span>
@@ -93,11 +93,12 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy } from "./utils/utils";
+import { isEmpty, copyArray, flatGroupBy, guid } from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
     return {
+      guid: guid(),
       menuVisible: false,
       searchTerm: null
     };

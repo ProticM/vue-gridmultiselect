@@ -18,19 +18,19 @@ export default {
       ],
       items: [
         {
-          id: 1,
+          id: 2,
           name: "Welcome"
         },
         {
-          id: 2,
+          id: 3,
           name: "to"
         },
         {
-          id: 3,
+          id: 4,
           name: "Vue Gridmultiselect"
         },
         {
-          id: 4,
+          id: 5,
           name: "Documentation"
         }
       ]

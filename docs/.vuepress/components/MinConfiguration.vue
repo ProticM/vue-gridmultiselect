@@ -33,7 +33,7 @@ export default {
           name: "Berlin"
         },
         {
-          id: 5,
+          id: 6,
           name: "Rome"
         }
       ]
