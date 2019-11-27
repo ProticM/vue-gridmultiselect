@@ -8,13 +8,13 @@ Vue GridMultiselect requires a minimum of three properties to be set in order fo
 - __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
 - __items__ (`Array`) - A list of objects to bound the component to
 
-#### HTML
+HTML
 
 ```html
 <GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItems" />
 ```
 
-#### JS
+JS
 
 ```js
 export default {
@@ -36,7 +36,7 @@ export default {
 };
 ```
 
-#### Live Sample
+Live Sample
 
 <MinConfiguration />
 
@@ -46,13 +46,13 @@ By default, heading is set to `Grid Multiselect`, and this can be configured by 
 
 - __title__ (`String`) - Sets the component heading title
 
-#### HTML
+HTML
 
 ```html
 <GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" title="Cities" />
 ```
 
-#### JS
+JS
 
 ```js
 export default {
@@ -73,7 +73,7 @@ export default {
   }
 };
 ```
-#### Live Sample
+Live Sample
 
 <CustomHeading />
 
@@ -94,7 +94,7 @@ Each label can be customized, both in items and the selected items list by using
 
 Each of these can hold the property names combination, for example `name|state` combination
 
-### HTML
+HTML
 
 ```html
 <GridMultiSelect 
@@ -107,7 +107,7 @@ Each of these can hold the property names combination, for example `name|state` 
 />
 ```
 
-### JS
+JS
 
 ```js
 export default {
@@ -129,7 +129,7 @@ export default {
 };
 ```
 
-### Live Sample
+Live Sample
 
 <Labeling />
 
@@ -138,7 +138,7 @@ Each _No Data_ message can be customized the same way by using the properties be
 - __items-empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
 - __selected-items-empty-message__ (`String`) - Holds the text to be displayed when items collection is empty. Defaults to `No Data`
 
-### HTML
+HTML
 
 ```html
 <GridMultiSelect 
@@ -153,7 +153,7 @@ Each _No Data_ message can be customized the same way by using the properties be
 />
 ```
 
-### JS
+JS
 
 ```js
 export default {
@@ -175,7 +175,7 @@ export default {
 };
 ```
 
-### Live Sample
+Live Sample
 
 <NoDataMessage />
 

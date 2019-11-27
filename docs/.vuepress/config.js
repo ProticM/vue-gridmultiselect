@@ -7,7 +7,8 @@ module.exports = {
 		displayAllHeaders: true,
 		nav: [
 			{ text: 'Home', link: '/' },
-			{ text: 'Getting Started', link: '/gettingstarted/' }
+			{ text: 'Guide', link: '/gettingstarted/' },
+			{ text: 'GitHub', link: 'https://google.com' }
 		],
 		sidebar: {
 			'/gettingstarted/': [
