@@ -85,10 +85,8 @@ Searching is enabled by default, and it doesn't require any property to be set
 
 The internal search is based on the `item-label` property, meaning that the search term will be compared only to this value
 
-## Labeling
+## Labeling and No Data Messages
 
-### Items Label (the options list)
+### Items (the options list)
 
-### Selected Items Label (the selected options list)
-
-## No Data Message
+### Selected Items (the selected options list)
