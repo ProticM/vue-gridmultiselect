@@ -4,7 +4,7 @@
 <script>
 import GridMultiSelect from "../../../src/GridMultiSelect";
 export default {
-  name: "initial-example",
+  name: "example-initial",
   components: {
     GridMultiSelect
   },

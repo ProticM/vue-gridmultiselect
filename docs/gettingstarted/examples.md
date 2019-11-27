@@ -6,7 +6,7 @@ Vue GridMultiselect requires a minimum of three properties to be set in order fo
 
 - __item-key__ (`String`) - Used internally by the Vue framework to correctly handle list updates. This key must be unique, and it's passed to the `:key` directive
 - __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right
-- __items__ (`Array`) of objects - A list of objects to bound the component to
+- __items__ (`Array`) - A list of objects to bound the component to
 
 #### HTML
 
@@ -38,6 +38,8 @@ export default {
 <MinConfiguration />
 
 ## Custom Heading
+
+<CustomHeading />
 
 ## Labeling
 

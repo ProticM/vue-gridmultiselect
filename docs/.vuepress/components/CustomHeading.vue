@@ -1,10 +1,16 @@
 <template>
-  <GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" />
+  <GridMultiSelect
+    :items="items"
+    item-key="id"
+    item-label="name"
+    v-model="selectedItem"
+    title="Cities"
+  />
 </template>
 <script>
 import GridMultiSelect from "../../../src/GridMultiSelect";
 export default {
-  name: "example-minconfiguration",
+  name: "example-customheading",
   components: {
     GridMultiSelect
   },
