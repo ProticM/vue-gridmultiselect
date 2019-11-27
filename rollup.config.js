@@ -7,7 +7,7 @@ import { uglify } from 'rollup-plugin-uglify';
 import css from 'rollup-plugin-css-only'
 
 const extensions = [
-	'.js', '.jsx', '.es6', '.es', '.mjs', '.vue', '.ts'
+	'.js', '.vue'
 ];
 
 const plugins = [
