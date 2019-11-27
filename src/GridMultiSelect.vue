@@ -215,11 +215,11 @@ export default {
 .gridmultiselect {
   font-family: inherit;
   display: block;
-  border: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border: 1px solid #e6eceb;
   border-radius: 4px;
   overflow: hidden;
   width: 100%;
-  color: var(--vue-gridmultiselect-color, #005f89);
+  color: #005f89;
   font-size: 16px;
   text-align: left;
   position: relative;
@@ -228,12 +228,9 @@ export default {
   box-sizing: border-box;
 }
 .gridmultiselect__header {
-  background-color: var(
-    --vue-gridmultiselect-header-title-background-color,
-    #0093b7
-  );
-  color: var(--vue-gridmultiselect-title-header-color, #fff);
-  padding: var(--vue-gridmultiselect-header-padding, 0.5rem);
+  background-color: #0093b7;
+  color: #fff;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -283,20 +280,20 @@ export default {
   height: 100%;
   background-color: #fff;
   box-shadow: -5px 0px 5px -3px;
-  border-left: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border-left: 1px solid #e6eceb;
   overflow-y: auto;
   z-index: 1;
 }
 .gridmultiselect__searchfield-wrap {
   padding-top: 0.2rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border-bottom: 1px solid #e6eceb;
 }
 .gridmultiselect__searchfield {
   width: 100%;
   display: block;
   outline: none;
-  border: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border: 1px solid #e6eceb;
   border-radius: 4px;
   padding: 0.2rem;
 }
@@ -308,7 +305,7 @@ export default {
 }
 
 .gridmultiselect__selecteditem:not(:last-child) {
-  border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border-bottom: 1px solid #e6eceb;
 }
 
 .gridmultiselect__selecteditem:nth-child(odd) {
@@ -340,7 +337,7 @@ export default {
   align-content: center;
   align-items: center;
   cursor: pointer;
-  border-bottom: 1px solid var(--vue-gridmultiselect-border-color, #e6eceb);
+  border-bottom: 1px solid #e6eceb;
 }
 .gridmultiselect__itemgrouptext {
   background-color: #f9f9f9;
