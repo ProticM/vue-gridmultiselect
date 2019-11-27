@@ -17,7 +17,7 @@
     <ul class="gridmultiselect__selecteditems">
       <li
         class="gridmultiselect__selecteditem--empty"
-        v-if="selectedItems.length === 0"
+        v-if="!selectedItems || selectedItems.length === 0"
       >{{selectedItemsEmptyMessage}}</li>
       <li
         v-else
