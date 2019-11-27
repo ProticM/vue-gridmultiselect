@@ -3,6 +3,7 @@
     :items="items"
     item-key="id"
     item-label="name"
+    selected-item-label="state|name"
     v-model="selectedItems"
     title="Cities"
   />
@@ -10,7 +11,7 @@
 <script>
 import GridMultiSelect from "../../../src/GridMultiSelect";
 export default {
-  name: "example-customheading",
+  name: "example-labeling",
   components: {
     GridMultiSelect
   },
@@ -18,30 +19,12 @@ export default {
     return {
       selectedItems: [],
       items: [
-        {
-          id: 1,
-          name: "San Francisco"
-        },
-        {
-          id: 2,
-          name: "Las Vegas"
-        },
-        {
-          id: 3,
-          name: "Washington"
-        },
-        {
-          id: 4,
-          name: "Munich"
-        },
-        {
-          id: 5,
-          name: "Berlin"
-        },
-        {
-          id: 6,
-          name: "Rome"
-        }
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
       ]
     };
   }

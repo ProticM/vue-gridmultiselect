@@ -5,7 +5,7 @@
 Vue GridMultiselect requires a minimum of three properties to be set in order for it to function properly. These properties are:
 
 - __item-key__ (`String`) - Used internally by the Vue framework to correctly handle list updates. This key must be unique, and it's passed to the `:key` directive
-- __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right
+- __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
 - __items__ (`Array`) - A list of objects to bound the component to
 
 #### HTML
@@ -42,7 +42,7 @@ export default {
 
 ## Custom Heading
 
-By default, heading is set to `Grid Multiselect` and this can be configured by setting the `title` property
+By default, heading is set to `Grid Multiselect`, and this can be configured by setting the `title` property
 
 - __title__ (`String`) - Sets the component heading title
 
@@ -79,16 +79,104 @@ export default {
 
 ## Searching
 
-Searching is enabled by default, and it doesn't require any property to be set
+By default, searching is enabled, and it doesn't require any property to be set
 
-- __searchable__ (`Boolean`) - Property responsible for controlling whether the search is enabled or not
+- __searchable__ (`Boolean`) - Property responsible for controlling the search option
 
 The internal search is based on the `item-label` property, meaning that the search term will be compared only to this value
 
 ## Labeling and No Data Messages
 
-### Items (the options list)
+Each label can be customized, both in items and the selected items list by using the following properties:
 
-### Selected Items (the selected options list)
+- __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
+- __selected-item-label__ (`String`) - Value to be displayed as text within the selected items on the left. Holds the property name of the item object containing the desired value. If not provided, __item-label__ is used instead
+
+Each of these can hold the property names combination, for example `name|state` combination
+
+### HTML
+
+```html
+<GridMultiSelect 
+	:items="items" 
+	item-key="id" 
+	item-label="name" 
+	selected-item-label="state|name" 
+	v-model="selectedItems" 
+	title="Cities" 
+/>
+```
+
+### JS
+
+```js
+export default {
+  name: "example",
+  components: { GridMultiSelect },
+  data() {
+    return {
+	  selectedItems: [],
+      items: [
+		{ id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
+    };
+  }
+};
+```
+
+### Live Sample
+
+<Labeling />
+
+Each _No Data_ message can be customized the same way by using the properties below
+
+- __items-empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
+- __selected-items-empty-message__ (`String`) - Holds the text to be displayed when items collection is empty. Defaults to `No Data`
+
+### HTML
+
+```html
+<GridMultiSelect 
+	:items="items" 
+	item-key="id" 
+	item-label="name" 
+	selected-item-label="state|name"
+	items-empty-message="No Items"
+	selected-items-empty-message="No Selection"
+	v-model="selectedItems" 
+	title="Cities" 
+/>
+```
+
+### JS
+
+```js
+export default {
+  name: "example",
+  components: { GridMultiSelect },
+  data() {
+    return {
+	  selectedItems: [],
+      items: [
+		{ id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
+    };
+  }
+};
+```
+
+### Live Sample
+
+<NoDataMessage />
 
 ## Slots
