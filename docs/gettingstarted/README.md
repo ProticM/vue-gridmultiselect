@@ -33,10 +33,15 @@ export default {
       items: [
         { id: 1, name: "Say Hello" },
         { id: 2, name: "to" },
-        { id: 3, name: "Vue GridMultiselect" }
+        { id: 3, name: "Vue GridMultiselect" },
+        { id: 4, name: "Documentation" }
       ]
     };
   }
 };
 </script>
 ```
+
+### Live Example
+
+<InitialExample />

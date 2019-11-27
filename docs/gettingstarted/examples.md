@@ -11,7 +11,7 @@ Vue GridMultiselect requires a minimum of three properties to be set in order fo
 #### HTML
 
 ```html
-<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" />
+<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItems" />
 ```
 
 #### JS
@@ -22,11 +22,14 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-      selectedItems: [],
+	  selectedItems: [],
       items: [
-        { id: 1, name: "Say Hello" },
-        { id: 2, name: "to" },
-        { id: 3, name: "Vue GridMultiselect" }
+		{ id: 1, name: "San Francisco" },
+        { id: 2, name: "Las Vegas" },
+        { id: 3, name: "Washington" },
+        { id: 4, name: "Munich" },
+        { id: 5, name: "Berlin" },
+        { id: 6, name: "Rome" }
       ]
     };
   }
@@ -38,6 +41,35 @@ export default {
 <MinConfiguration />
 
 ## Custom Heading
+
+By default, heading is set to `Grid Multiselect` and this can be configured by setting the `title` property
+
+- __title__ (`String`) - Sets the component heading title
+
+```html
+<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" title="Cities" />
+```
+
+```js
+export default {
+  name: "example",
+  components: { GridMultiSelect },
+  data() {
+    return {
+	  selectedItems: [],
+      items: [
+		{ id: 1, name: "San Francisco" },
+        { id: 2, name: "Las Vegas" },
+        { id: 3, name: "Washington" },
+        { id: 4, name: "Munich" },
+        { id: 5, name: "Berlin" },
+        { id: 6, name: "Rome" }
+      ]
+    };
+  }
+};
+```
+#### Live Sample
 
 <CustomHeading />
 
