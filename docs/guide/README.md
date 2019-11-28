@@ -1,8 +1,6 @@
-# Getting Started
+# Installation
 
-## Intallation
-
-### via NPM
+## via NPM
 
 ```js
 npm install vue-gridmultiselect --save
@@ -41,7 +39,3 @@ export default {
 };
 </script>
 ```
-
-### Live Example
-
-<InitialExample />

@@ -11,7 +11,12 @@ Vue GridMultiselect requires a minimum of three properties to be set in order fo
 HTML
 
 ```html
-<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItems" />
+<GridMultiSelect 
+	:items="items" 
+	item-key="id" 
+	item-label="name" 
+	v-model="selectedItems" 
+/>
 ```
 
 JS
@@ -49,7 +54,13 @@ By default, heading is set to `Grid Multiselect`, and this can be configured by 
 HTML
 
 ```html
-<GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItem" title="Cities" />
+<GridMultiSelect 
+	:items="items" 
+	item-key="id" 
+	item-label="name" 
+	v-model="selectedItem" 
+	title="Cities" 
+/>
 ```
 
 JS

@@ -7,11 +7,11 @@ module.exports = {
 		displayAllHeaders: true,
 		nav: [
 			{ text: 'Home', link: '/' },
-			{ text: 'Guide', link: '/gettingstarted/' },
+			{ text: 'Guide', link: '/guide/' },
 			{ text: 'GitHub', link: 'https://google.com' }
 		],
 		sidebar: {
-			'/gettingstarted/': [
+			'/guide/': [
 				'',
 				'examples'
 			]
