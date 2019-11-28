@@ -1,4 +1,5 @@
 module.exports = {
+	base: '/vue-gridmultiselect/',
 	title: 'Docs',
 	description: 'Vue GridMultiselect',
 	themeConfig: {
