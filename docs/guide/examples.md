@@ -22,6 +22,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -66,6 +68,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -121,6 +125,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -167,6 +173,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -214,6 +222,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -268,6 +278,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -314,6 +326,8 @@ HTML
 JS
 
 ```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
 export default {
   name: "example",
   components: { GridMultiSelect },
@@ -366,4 +380,67 @@ Live Sample
 
 ## Events
 
+- __Input__ - Listen to `@input`
+- __Item Removed__ - Listen to `@item-removed`
+- __Item Selected__ - Listen to `@item-selected`
+
 ## Vuex
+
+Vuex is supported by default. You need to replace `v-model` with `:value` binding and `@input` event
+
+HTML
+
+```html
+<GridMultiSelect 
+	:items="items" 
+	item-key="id" 
+	item-label="name" 
+	group-by="state"
+	:value="selectedItems"
+	@input="updateSelectedItems"
+	title="Cities" 
+/>
+```
+
+JS
+
+```js
+import GridMultiSelect from 'vue-gridmultiselect';
+import Vue from "vue";
+import Vuex from "vuex";
+import { mapActions, mapState } from "vuex";
+
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+  state: {
+	selectedItems: [],
+	items: [
+		{ id: 1, name: "San Francisco", state: "USA" },
+		{ id: 2, name: "Las Vegas", state: "USA" },
+		{ id: 3, name: "Washington", state: "USA" },
+		{ id: 4, name: "Munich", state: "Germany" },
+		{ id: 5, name: "Berlin", state: "Germany" },
+		{ id: 6, name: "Rome", state: "Italy" }
+	]
+  },
+  mutations: {
+    updateSelectedItems(state, value) {
+      state.selectedItems = value;
+    }
+  },
+  actions: {
+    updateSelectedItems({ commit }, value) {
+      commit("updateSelectedItems", value);
+    }
+  }
+});
+
+export default {
+  name: "example",
+  store,
+  components: { GridMultiSelect },
+  computed: mapState(["selectedItems", "items"]),
+  methods: mapActions(["updateSelectedItems"])
+};
+```
