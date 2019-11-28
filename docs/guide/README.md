@@ -1,12 +1,23 @@
-# Installation
+# Getting Started
 
-## via NPM
+## Installation
+
+### npm
 
 ```js
 npm install vue-gridmultiselect --save
 ```
 
+### cdn
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue-gridmultiselect"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-gridmultiselect/dist/vue-gridmultiselect.css">
+```
+
 ## Basic Usage
+
+### npm
 
 ```html
 <template>
@@ -38,4 +49,10 @@ export default {
   }
 };
 </script>
+```
+
+### cdn
+
+```js
+Vue.component('vue-gridmultiselect', VueGridMultiselect);
 ```
