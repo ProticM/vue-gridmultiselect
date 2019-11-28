@@ -7,22 +7,22 @@
     v-model="selectedItems"
     title="Cities"
   >
-    <template
-      v-slot:selectedItem="{selectedItem}"
-    >The city {{selectedItem.name}} is located in {{selectedItem.state}}</template>
+    <template v-slot:selectedItemsFooter>
+      <div class="buttons">
+        <button @click="save">Save</button>
+        <button @click="deselect">Cancel</button>
+      </div>
+    </template>
   </GridMultiSelect>
 </template>
 <script>
 import GridMultiSelect from "../../../src/GridMultiSelect";
 export default {
-  name: "example-selecteditemsslot",
+  name: "example-selecteditemsfooterslot",
   components: { GridMultiSelect },
   data() {
     return {
-      selectedItems: [
-        { id: 1, name: "San Francisco", state: "USA" },
-        { id: 5, name: "Berlin", state: "Germany" }
-      ],
+      selectedItems: [{ id: 1, name: "San Francisco", state: "USA" }],
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
@@ -32,6 +32,14 @@ export default {
         { id: 6, name: "Rome", state: "Italy" }
       ]
     };
+  },
+  methods: {
+    save() {
+      alert(JSON.stringify(this.selectedItems));
+    },
+    deselect() {
+      this.selectedItems = [];
+    }
   }
 };
 </script>
@@ -39,5 +47,17 @@ export default {
 .gridmultiselect {
   min-height: 100px;
   margin-top: 0.7rem;
+}
+.buttons {
+  text-align: right;
+}
+.buttons > button {
+  background-color: #32a8c5;
+  color: #fff;
+  outline: none;
+  padding: 0.5rem;
+  border: 1px solid #e6eceb;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>

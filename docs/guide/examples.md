@@ -273,10 +273,7 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [
-		  { id: 1, name: "San Francisco", state: "USA" },
-		  { id: 5, name: "Berlin", state: "Germany" }
-		],
+	  selectedItems: [],
       items: [
 		{ id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
@@ -293,6 +290,79 @@ export default {
 Live Sample
 
 <SelectedItemSlot />
+
+HTML
+
+```html
+  <GridMultiSelect
+    :items="items"
+    item-key="id"
+    item-label="name"
+    group-by="state"
+    v-model="selectedItems"
+    title="Cities"
+  >
+    <template v-slot:selectedItemsFooter>
+      <div class="buttons">
+		<button @click="save">Save</button>
+		<button @click="deselect">Cancel</button>
+      </div>
+    </template>
+  </GridMultiSelect>
+```
+
+JS
+
+```js
+export default {
+  name: "example",
+  components: { GridMultiSelect },
+  data() {
+    return {
+      selectedItems: [{ id: 1, name: "San Francisco", state: "USA" }],
+      items: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
+    };
+  },
+  methods: {
+    save() {
+      alert(JSON.stringify(this.selectedItems));
+    },
+    deselect() {
+      this.selectedItems = [];
+    }
+  }
+};
+```
+
+CSS 
+
+```css
+<style scoped>
+.buttons {
+	text-align: right;
+}
+.buttons > button {
+	background-color: #32a8c5;
+	color: #fff;
+	outline: none;
+	padding: 0.5rem;
+	border: 1px solid #e6eceb;
+	border-radius: 4px;
+	cursor: pointer;
+}
+</style>
+```
+
+Live Sample
+
+<SelectedItemsFooterSlot />
 
 ## Events
 
