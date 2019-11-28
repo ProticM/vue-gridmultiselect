@@ -93,7 +93,7 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy, guid } from "./utils/utils";
+import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
@@ -112,15 +112,12 @@ export default {
       default: "Grid Multiselect"
     },
     itemLabel: {
-      type: String,
+      value: [String, Array],
       required: true
     },
     itemKey: {
       type: String,
       required: true
-    },
-    selectedItemLabel: {
-      type: String
     },
     items: {
       type: Array,
@@ -134,11 +131,7 @@ export default {
       type: Boolean,
       default: true
     },
-    itemsEmptyMessage: {
-      type: String,
-      default: "No Data"
-    },
-    selectedItemsEmptyMessage: {
+    emptyMessage: {
       type: String,
       default: "No Data"
     },
@@ -147,8 +140,10 @@ export default {
     }
   },
   computed: {
-    internalSelectedItemLabel() {
-      return this.selectedItemLabel || this.itemLabel;
+    selectedItemLabel() {
+      const isItemLabelArray = Array.isArray(this.itemLabel);
+      const hasSelectedItemLabelDefined = isItemLabelArray && this.itemLabel.length > 1;
+      return hasSelectedItemLabelDefined ? this.itemLabel[1] : ensureValue(this.itemLabel);
     },
     internalItems() {
       const copy = isEmpty(this.groupBy)
@@ -160,15 +155,9 @@ export default {
         : copy.filter(item => {
             if (item._isGroup) return true;
 
-            let isOk = false;
-            this.itemLabel.split("|").forEach(label => {
-              isOk =
-                isOk ||
-                item[label.trim()]
-                  .toLowerCase()
+            const label = this.getItemLabel(item, false);
+            return label.trim().toLowerCase()
                   .indexOf(this.searchTerm.trim().toLowerCase()) > -1;
-            });
-            return isOk;
           });
     },
     selectedItems: {
@@ -181,6 +170,12 @@ export default {
     },
     isGroupingEnabled() {
       return !isEmpty(this.groupBy);
+    },
+    itemsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split("|"));
+    },
+    selectedItemsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split("|"), 1);
     }
   },
   methods: {
@@ -195,7 +190,8 @@ export default {
       this.$emit("item-removed", removedItem);
     },
     getItemLabel(item, isSelectedItem) {
-      return (isSelectedItem ? this.internalSelectedItemLabel : this.itemLabel)
+      const itemLabel = ensureValue(this.itemLabel);
+      return (isSelectedItem ? this.selectedItemLabel : itemLabel)
         .split("|")
         .map(label => item[label.trim()])
         .join(" ")
