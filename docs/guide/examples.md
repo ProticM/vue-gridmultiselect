@@ -5,17 +5,17 @@
 Vue GridMultiselect requires a minimum of three properties to be set in order for it to function properly. These properties are:
 
 - __item-key__ (`String`) - Used internally by the Vue framework to correctly handle list updates. This key must be unique, and it's passed to the `:key` directive
-- __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
+- __item-label__ (`String` or `Array`) - Value to be displayed as text within the for each item in the list/s. Holds the property name/s of the item object containing the desired value
 - __items__ (`Array`) - A list of objects to bound the component to
 
 HTML
 
 ```html
 <GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	v-model="selectedItems" 
+  :items="items" 
+  item-key="id" 
+  item-label="name" 
+  v-model="selectedItems" 
 />
 ```
 
@@ -49,7 +49,7 @@ Live Sample
 
 ## Custom Heading
 
-By default, heading is set to `Grid Multiselect`, and this can be configured by setting the `title` property
+By default, heading is set to `Grid Multiselect`, and this can be configured by setting the `title` property.
 
 - __title__ (`String`) - Sets the component heading title
 
@@ -57,11 +57,11 @@ HTML
 
 ```html
 <GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	v-model="selectedItem" 
-	title="Cities" 
+  :items="items" 
+  item-key="id" 
+  item-label="name" 
+  v-model="selectedItem" 
+  title="Cities" 
 />
 ```
 
@@ -94,31 +94,35 @@ Live Sample
 
 ## Searching
 
-By default, searching is enabled, and it doesn't require any property to be set
+By default, searching is enabled, and it doesn't require any property to be set.
 
 - __searchable__ (`Boolean`) - Property responsible for controlling the search option
 
-The internal search is based on the `item-label` property, meaning that the search term will be compared only to this value
+The internal search is based on the `item-label` property, meaning that the search term will be compared only to this value.
 
 ## Labeling and No Data Messages
 
-Each label is customizable, both in items and the selected items list by using the following properties:
+### Labeling
 
-- __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
-- __selected-item-label__ (`String`) - Value to be displayed as text within the selected items on the left. Holds the property name of the item object containing the desired value. If not provided, __item-label__ is used instead
+Each label is customizable, both in items and the selected items list by using the following property:
 
-Each of these can hold the property names combination, for example `name|state` combination
+- __item-label__ (`String` or `Array`) - Value to be displayed as text for each item in the list/s. Holds the property name/s of the item object containing the desired value
+
+Pass an array of property names to handle both lists. The first element in the array is the item property name holding the items list label. The second element is the same but for the selected items list label. 
+
+If `String` or `Array` with one element is passed, the same label is used for both lists.
+
+Each of these can hold the property names combination, for example `name|state` combination.
 
 HTML
 
 ```html
 <GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	selected-item-label="state|name" 
-	v-model="selectedItems" 
-	title="Cities" 
+  :items="items" 
+  item-key="id" 
+  :item-label="['name', 'state|name']" 
+  v-model="selectedItems" 
+  title="Cities" 
 />
 ```
 
@@ -134,7 +138,7 @@ export default {
     return {
 	  selectedItems: [],
       items: [
-		{ id: 1, name: "San Francisco", state: "USA" },
+        { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
         { id: 3, name: "Washington", state: "USA" },
         { id: 4, name: "Munich", state: "Germany" },
@@ -150,22 +154,24 @@ Live Sample
 
 <Labeling />
 
-Each _No Data_ message can be customized the same way by using the properties below
+### No Data Messages
 
-- __items-empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
-- __selected-items-empty-message__ (`String`) - Holds the text to be displayed when items collection is empty. Defaults to `No Data`
+Each _No Data_ message can be customized by using the property:
+
+- __empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
+
+Use delimiter `|` to handle both lists. The value before `|` is used for the items list and the value after is used for the selected items list.
 
 HTML
 
 ```html
 <GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	selected-item-label="state|name"
+  :items="items" 
+  item-key="id" 
+  :item-label="['name', 'state|name']" 
   empty-message="No Items|No Selection"
-	v-model="selectedItems" 
-	title="Cities" 
+  v-model="selectedItems" 
+  title="Cities" 
 />
 ```
 
@@ -181,7 +187,7 @@ export default {
     return {
 	  selectedItems: [],
       items: [
-		{ id: 1, name: "San Francisco", state: "USA" },
+        { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
         { id: 3, name: "Washington", state: "USA" },
         { id: 4, name: "Munich", state: "Germany" },
@@ -203,18 +209,18 @@ The items list can contain groups. To enable grouping you need to provide one ad
 
 - __group-by__ - Holds the item property name having the desired group label value
 
-In the current version, the selected items are stored as a flat array
+In the current version, the selected items are stored as a flat array.
 
 HTML
 
 ```html
 <GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	group-by="state"
-	v-model="selectedItems" 
-	title="Cities" 
+  :items="items" 
+  item-key="id" 
+  item-label="name" 
+  group-by="state"
+  v-model="selectedItems" 
+  title="Cities" 
 />
 ```
 
@@ -228,12 +234,12 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [
-		  { id: 1, name: "San Francisco", state: "USA" },
-		  { id: 5, name: "Berlin", state: "Germany" }
-		],
+      selectedItems: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 5, name: "Berlin", state: "Germany" }
+      ],
       items: [
-		{ id: 1, name: "San Francisco", state: "USA" },
+        { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
         { id: 3, name: "Washington", state: "USA" },
         { id: 4, name: "Munich", state: "Germany" },
@@ -285,14 +291,14 @@ export default {
   data() {
     return {
 	  selectedItems: [],
-      items: [
-		{ id: 1, name: "San Francisco", state: "USA" },
-        { id: 2, name: "Las Vegas", state: "USA" },
-        { id: 3, name: "Washington", state: "USA" },
-        { id: 4, name: "Munich", state: "Germany" },
-        { id: 5, name: "Berlin", state: "Germany" },
-        { id: 6, name: "Rome", state: "Italy" }
-      ]
+    items: [
+      { id: 1, name: "San Francisco", state: "USA" },
+      { id: 2, name: "Las Vegas", state: "USA" },
+      { id: 3, name: "Washington", state: "USA" },
+      { id: 4, name: "Munich", state: "Germany" },
+      { id: 5, name: "Berlin", state: "Germany" },
+      { id: 6, name: "Rome", state: "Italy" }
+    ]
     };
   }
 };
@@ -305,21 +311,21 @@ Live Sample
 HTML
 
 ```html
-  <GridMultiSelect
-    :items="items"
-    item-key="id"
-    item-label="name"
-    group-by="state"
-    v-model="selectedItems"
-    title="Cities"
-  >
-    <template v-slot:selectedItemsFooter>
-      <div class="buttons">
-		<button @click="save">Save</button>
-		<button @click="deselect">Cancel</button>
-      </div>
-    </template>
-  </GridMultiSelect>
+<GridMultiSelect
+  :items="items"
+  item-key="id"
+  item-label="name"
+  group-by="state"
+  v-model="selectedItems"
+  title="Cities"
+>
+  <template v-slot:selectedItemsFooter>
+    <div class="buttons">
+  <button @click="save">Save</button>
+  <button @click="deselect">Cancel</button>
+    </div>
+  </template>
+</GridMultiSelect>
 ```
 
 JS
@@ -385,7 +391,7 @@ Live Sample
 
 ## Vuex
 
-By default, Vuex is supported. To make it work, replace `v-model` directive with `:value` binding and `@input` event. Simple as that
+By default, Vuex is supported. To make it work, replace `v-model` directive with `:value` binding and `@input` event. Simple as that.
 
 HTML
 
