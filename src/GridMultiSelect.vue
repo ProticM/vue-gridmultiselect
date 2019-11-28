@@ -112,15 +112,12 @@ export default {
       default: "Grid Multiselect"
     },
     itemLabel: {
-      type: String,
+      value: [String, Array],
       required: true
     },
     itemKey: {
       type: String,
       required: true
-    },
-    selectedItemLabel: {
-      type: String
     },
     items: {
       type: Array,
@@ -147,8 +144,11 @@ export default {
     }
   },
   computed: {
-    internalSelectedItemLabel() {
-      return this.selectedItemLabel || this.itemLabel;
+    selectedItemLabel() {
+      const isItemLabelArray = Array.isArray(this.itemLabel);
+      const hasSelectedItemLabelDefined = isItemLabelArray && this.itemLabel.length > 1;
+      return hasSelectedItemLabelDefined ? this.itemLabel[1] : 
+          isItemLabelArray ? this.itemLabel[0] : this.itemLabel;
     },
     internalItems() {
       const copy = isEmpty(this.groupBy)
@@ -160,15 +160,9 @@ export default {
         : copy.filter(item => {
             if (item._isGroup) return true;
 
-            let isOk = false;
-            this.itemLabel.split("|").forEach(label => {
-              isOk =
-                isOk ||
-                item[label.trim()]
-                  .toLowerCase()
+            const label = this.getItemLabel(item, false);
+            return label.trim().toLowerCase()
                   .indexOf(this.searchTerm.trim().toLowerCase()) > -1;
-            });
-            return isOk;
           });
     },
     selectedItems: {
@@ -195,7 +189,8 @@ export default {
       this.$emit("item-removed", removedItem);
     },
     getItemLabel(item, isSelectedItem) {
-      return (isSelectedItem ? this.internalSelectedItemLabel : this.itemLabel)
+      const itemLabel = Array.isArray(this.itemLabel) ? this.itemLabel[0] : this.itemLabel;
+      return (isSelectedItem ? this.selectedItemLabel : itemLabel)
         .split("|")
         .map(label => item[label.trim()])
         .join(" ")
