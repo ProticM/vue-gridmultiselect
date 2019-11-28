@@ -4,4 +4,3 @@
 /docs/.vuepress/dist
 *.log
 *.cache
-*.sh
