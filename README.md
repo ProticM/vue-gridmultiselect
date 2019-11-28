@@ -1,3 +1,5 @@
 # vue-gridmultiselect
 
-> In progress
+> In progress. Check out the official [docs](https://proticm.github.io/vue-gridmultiselect/)
+
+
