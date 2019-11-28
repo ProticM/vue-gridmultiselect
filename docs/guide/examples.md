@@ -386,7 +386,7 @@ Live Sample
 
 ## Vuex
 
-Vuex is supported by default. You need to replace `v-model` with `:value` binding and `@input` event
+By default, Vuex is supported. To make it work, replace `v-model` directive with `:value` binding and `@input` event. Simple as that
 
 HTML
 
