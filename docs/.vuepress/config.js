@@ -9,7 +9,7 @@ module.exports = {
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Guide', link: '/guide/' },
-			{ text: 'GitHub', link: 'https://google.com' }
+			{ text: 'GitHub', link: 'https://github.com/ProticM/vue-gridmultiselect' }
 		],
 		sidebar: {
 			'/guide/': [
