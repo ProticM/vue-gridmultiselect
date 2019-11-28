@@ -268,15 +268,15 @@ HTML
 
 ```html
 <GridMultiSelect
-	:items="items"
-	item-key="id"
-	item-label="name"
-	group-by="state"
-	v-model="selectedItems"
-	title="Cities">
-		<template v-slot:selectedItem="{selectedItem}">
-				The city {{selectedItem.name}} is located in {{selectedItem.state}}
-		</template>
+  :items="items"
+  item-key="id"
+  item-label="name"
+  group-by="state"
+  v-model="selectedItems"
+  title="Cities">
+    <template v-slot:selectedItem="{selectedItem}">
+        The city {{selectedItem.name}} is located in {{selectedItem.state}}
+    </template>
 </GridMultiSelect>
 ```
 
