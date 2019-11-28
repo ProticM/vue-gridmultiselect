@@ -87,7 +87,7 @@ The internal search is based on the `item-label` property, meaning that the sear
 
 ## Labeling and No Data Messages
 
-Each label can be customized, both in items and the selected items list by using the following properties:
+Each label is customizable, both in items and the selected items list by using the following properties:
 
 - __item-label__ (`String`) - Value to be displayed as text within the closable menu on the right. Holds the property name of the item object containing the desired value
 - __selected-item-label__ (`String`) - Value to be displayed as text within the selected items on the left. Holds the property name of the item object containing the desired value. If not provided, __item-label__ is used instead
@@ -230,3 +230,5 @@ Live Sample
 <Grouping />
 
 ## Slots
+
+## Events

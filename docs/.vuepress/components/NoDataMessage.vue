@@ -5,7 +5,7 @@
     item-label="name"
     selected-item-label="state|name"
     items-empty-message="No Items"
-    selected-items-empty-message="Nothing Selection"
+    selected-items-empty-message="No Selection"
     v-model="selectedItems"
     title="Cities"
   />
