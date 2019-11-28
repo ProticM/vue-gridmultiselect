@@ -45,9 +45,15 @@ const guid = () => {
 	});
 }
 
+const ensureValue = (value, index = 0) => {
+	return Array.isArray(value) ? 
+		(value[index] || value[0]) : value;
+}
+
 export {
 	isEmpty,
 	flatGroupBy,
 	copyArray,
-	guid
+	guid,
+	ensureValue
 }

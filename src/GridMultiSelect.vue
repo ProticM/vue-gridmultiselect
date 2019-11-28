@@ -93,7 +93,7 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy, guid } from "./utils/utils";
+import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
@@ -131,11 +131,7 @@ export default {
       type: Boolean,
       default: true
     },
-    itemsEmptyMessage: {
-      type: String,
-      default: "No Data"
-    },
-    selectedItemsEmptyMessage: {
+    emptyMessage: {
       type: String,
       default: "No Data"
     },
@@ -147,8 +143,7 @@ export default {
     selectedItemLabel() {
       const isItemLabelArray = Array.isArray(this.itemLabel);
       const hasSelectedItemLabelDefined = isItemLabelArray && this.itemLabel.length > 1;
-      return hasSelectedItemLabelDefined ? this.itemLabel[1] : 
-          isItemLabelArray ? this.itemLabel[0] : this.itemLabel;
+      return hasSelectedItemLabelDefined ? this.itemLabel[1] : ensureValue(this.itemLabel);
     },
     internalItems() {
       const copy = isEmpty(this.groupBy)
@@ -175,6 +170,12 @@ export default {
     },
     isGroupingEnabled() {
       return !isEmpty(this.groupBy);
+    },
+    itemsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split("|"));
+    },
+    selectedItemsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split("|"), 1);
     }
   },
   methods: {
@@ -189,7 +190,7 @@ export default {
       this.$emit("item-removed", removedItem);
     },
     getItemLabel(item, isSelectedItem) {
-      const itemLabel = Array.isArray(this.itemLabel) ? this.itemLabel[0] : this.itemLabel;
+      const itemLabel = ensureValue(this.itemLabel);
       return (isSelectedItem ? this.selectedItemLabel : itemLabel)
         .split("|")
         .map(label => item[label.trim()])

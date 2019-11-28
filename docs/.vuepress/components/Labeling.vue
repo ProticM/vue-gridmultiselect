@@ -2,8 +2,7 @@
   <GridMultiSelect
     :items="items"
     item-key="id"
-    item-label="name"
-    selected-item-label="state|name"
+    :item-label="['name', 'state|name']"
     v-model="selectedItems"
     title="Cities"
   />

@@ -163,8 +163,7 @@ HTML
 	item-key="id" 
 	item-label="name" 
 	selected-item-label="state|name"
-	items-empty-message="No Items"
-	selected-items-empty-message="No Selection"
+  empty-message="No Items|No Selection"
 	v-model="selectedItems" 
 	title="Cities" 
 />
