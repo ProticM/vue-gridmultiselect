@@ -1,16 +1,16 @@
 ---
 home: true
 heroText: Vue Gridmultiselect
-tagline: Hero subtitle
+tagline: Simple multi-select with items displayed in a table UI
 actionText: Guide →
 actionLink: /guide/
 features:
-- title: Simplicity First
-  details: Minimal setup with markdown-centered project structure helps you focus on writing.
-- title: Vue-Powered
-  details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue.
-- title: Performant
-  details: VuePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.
+- title: No Dependencies
+  details: Minimal setup, single module installation.
+- title: Different Approach
+  details: Replace a dropdown and display the selection within the nice table/grid UI. 
+- title: V-Model and Vuex Support
+  details: Built-in data updating mechanisms based on Vue core without events
 footer: MIT Licensed | Copyright © 2019-present Miloš Protić
 ---
 
