@@ -2,7 +2,8 @@
 	"name": "vue-gridmultiselect",
 	"version": "1.0.0",
 	"description": "Selectable items with grid/table preview",
-	"main": "dist/vue-gridmultiselect.js",
+	"main": "dist/vue-gridmultiselect.min.js",
+	"jsnext:main": "dist/vue-gridmultiselect.esm.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"docs:dev": "vuepress dev docs",
@@ -22,7 +23,8 @@
 		"lib": "src"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"src"
 	],
 	"repository": {
 		"type": "git",
