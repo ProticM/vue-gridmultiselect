@@ -25,7 +25,7 @@ const input = 'src/index.js';
 const getOutput = (format, isMin) => {
 	const isUMD = format === 'umd';
 	return {
-		file: `dist/vue-gridmultiselect${isMin ? '.min' : ''}${isUMD ? '' : '-esm'}.js`,
+		file: `dist/vue-gridmultiselect${isMin ? '.min' : ''}${isUMD ? '' : '.esm'}.js`,
 		format: format,
 		...isUMD ? { name: 'VueGridMultiselect' } : null
 	};
