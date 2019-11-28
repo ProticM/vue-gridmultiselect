@@ -98,10 +98,13 @@ export default {
   name: "vue-gridmultiselect",
   data() {
     return {
-      guid: guid(),
+      guid: null,
       menuVisible: false,
       searchTerm: null
     };
+  },
+  mounted() {
+    this.guid = guid();
   },
   props: {
     title: {
