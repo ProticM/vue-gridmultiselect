@@ -29,9 +29,9 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [],
+	  selectedItems: null,
       items: [
-		{ id: 1, name: "San Francisco" },
+        { id: 1, name: "San Francisco" },
         { id: 2, name: "Las Vegas" },
         { id: 3, name: "Washington" },
         { id: 4, name: "Munich" },
@@ -75,9 +75,9 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [],
+	  selectedItems: null,
       items: [
-		{ id: 1, name: "San Francisco" },
+        { id: 1, name: "San Francisco" },
         { id: 2, name: "Las Vegas" },
         { id: 3, name: "Washington" },
         { id: 4, name: "Munich" },
@@ -136,7 +136,7 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [],
+	  selectedItems: null,
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
@@ -185,7 +185,7 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [],
+	  selectedItems: null,
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
@@ -290,15 +290,15 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-	  selectedItems: [],
-    items: [
-      { id: 1, name: "San Francisco", state: "USA" },
-      { id: 2, name: "Las Vegas", state: "USA" },
-      { id: 3, name: "Washington", state: "USA" },
-      { id: 4, name: "Munich", state: "Germany" },
-      { id: 5, name: "Berlin", state: "Germany" },
-      { id: 6, name: "Rome", state: "Italy" }
-    ]
+      selectedItems: null,
+      items: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
     };
   }
 };
@@ -419,7 +419,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-	selectedItems: [],
+	selectedItems: null,
 	items: [
 		{ id: 1, name: "San Francisco", state: "USA" },
 		{ id: 2, name: "Las Vegas", state: "USA" },

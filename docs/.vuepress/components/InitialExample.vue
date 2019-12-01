@@ -1,5 +1,5 @@
 <template>
-  <GridMultiSelect :items="items" item-key="id" item-label="name" v-model="selectedItems" />
+  <GridMultiSelect :items="items" item-key="id" item-label="text" v-model="selectedItems" />
 </template>
 <script>
 import GridMultiSelect from "../../../src/GridMultiSelect";
@@ -13,33 +13,33 @@ export default {
       selectedItems: [
         {
           id: 1,
-          name: "Welcome"
+          text: "Welcome"
         },
         {
           id: 2,
-          name: "to"
+          text: "to"
         },
         {
           id: 3,
-          name: "Vue Gridmultiselect"
+          text: "Vue Gridmultiselect"
         }
       ],
       items: [
         {
           id: 1,
-          name: "Welcome"
+          text: "Welcome"
         },
         {
           id: 2,
-          name: "to"
+          text: "to"
         },
         {
           id: 3,
-          name: "Vue Gridmultiselect"
+          text: "Vue Gridmultiselect"
         },
         {
           id: 4,
-          name: "Documentation"
+          text: "Documentation"
         }
       ]
     };

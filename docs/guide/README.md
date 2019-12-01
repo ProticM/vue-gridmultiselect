@@ -21,12 +21,12 @@ npm install vue-gridmultiselect --save
 
 ```html
 <template>
-	<GridMultiSelect 
-		:items="items" 
-		item-key="id" 
-		item-label="name" 
-		v-model="selectedItems" 
-	/>
+  <GridMultiSelect 
+    :items="items" 
+    item-key="id" 
+    item-label="text" 
+    v-model="selectedItems" 
+  />
 </template>
 
 <script>
@@ -38,12 +38,12 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-      selectedItems: [],
+      selectedItems: null,
       items: [
-        { id: 1, name: "Say Hello" },
-        { id: 2, name: "to" },
-        { id: 3, name: "Vue GridMultiselect" },
-        { id: 4, name: "Documentation" }
+        { id: 1, text: "Say Hello" },
+        { id: 2, text: "to" },
+        { id: 3, text: "Vue GridMultiselect" },
+        { id: 4, text: "Documentation" }
       ]
     };
   }
