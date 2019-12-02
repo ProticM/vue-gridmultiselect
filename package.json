@@ -1,55 +1,58 @@
 {
-  "name": "vue-gridmultiselect",
-  "version": "1.1.0-alpha.2",
-  "description": "Selectable items with grid/table preview",
-  "main": "dist/vue-gridmultiselect.min.js",
-  "jsnext:main": "dist/vue-gridmultiselect.esm.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "build": "rollup -c",
-    "clean": "rimraf dist",
-    "release": "npm run clean && npm run build && release-it"
-  },
-  "keywords": [
-    "vue",
-    "grid",
-    "multiselect",
-    "select"
-  ],
-  "author": "Miloš Protić <protic023@gmail.com> (https://github.com/ProticM)",
-  "homepage": "https://github.com/ProticM/vue-gridmultiselect",
-  "license": "MIT",
-  "directories": {
-    "lib": "src"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ProticM/vue-gridmultiselect"
-  },
-  "bugs": {
-    "url": "https://github.com/ProticM/vue-gridmultiselect/issues"
-  },
-  "dependencies": {
-    "vue": "^2.6.10"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
-    "release-it": "^12.4.3",
-    "rimraf": "^3.0.0",
-    "rollup": "^1.27.4",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-css-only": "^1.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.3",
-    "rollup-plugin-vue": "^5.0.1",
-    "vuepress": "^1.2.0"
-  }
+	"name": "vue-gridmultiselect",
+	"version": "1.1.0-alpha.2",
+	"description": "Selectable items with grid/table preview",
+	"main": "dist/vue-gridmultiselect.min.js",
+	"jsnext:main": "dist/vue-gridmultiselect.esm.js",
+	"scripts": {
+		"test": "vue-cli-service test:unit",
+		"docs:dev": "vuepress dev docs",
+		"docs:build": "vuepress build docs",
+		"build": "rollup -c",
+		"clean": "rimraf dist",
+		"release": "npm run clean && npm run build && release-it"
+	},
+	"keywords": [
+		"vue",
+		"grid",
+		"multiselect",
+		"select"
+	],
+	"author": "Miloš Protić <protic023@gmail.com> (https://github.com/ProticM)",
+	"homepage": "https://github.com/ProticM/vue-gridmultiselect",
+	"license": "MIT",
+	"directories": {
+		"lib": "src"
+	},
+	"files": [
+		"dist",
+		"src"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ProticM/vue-gridmultiselect"
+	},
+	"bugs": {
+		"url": "https://github.com/ProticM/vue-gridmultiselect/issues"
+	},
+	"dependencies": {
+		"vue": "^2.6.10"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.7.4",
+		"@babel/preset-env": "^7.7.4",
+		"@vue/cli-plugin-unit-jest": "^4.1.1",
+		"@vue/cli-service": "^4.1.1",
+		"@vue/test-utils": "^1.0.0-beta.30",
+		"release-it": "^12.4.3",
+		"rimraf": "^3.0.0",
+		"rollup": "^1.27.4",
+		"rollup-plugin-babel": "^4.3.3",
+		"rollup-plugin-commonjs": "^10.0.1",
+		"rollup-plugin-css-only": "^1.0.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-uglify": "^6.0.3",
+		"rollup-plugin-vue": "^5.0.1",
+		"vuepress": "^1.2.0"
+	}
 }
