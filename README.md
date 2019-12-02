@@ -74,7 +74,7 @@ export default {
   components: { GridMultiSelect },
   data() {
     return {
-      selectedItems: [],
+      selectedItems: null,
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
@@ -159,6 +159,9 @@ npm install
 
 // build the component into dist
 npm run build
+
+// run tests
+npm run test
 
 // serve at localhost:8080
 npm run docs:dev
