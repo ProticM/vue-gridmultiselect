@@ -160,6 +160,9 @@ npm install
 // build the component into dist
 npm run build
 
+// run tests
+npm run test
+
 // serve at localhost:8080
 npm run docs:dev
 
