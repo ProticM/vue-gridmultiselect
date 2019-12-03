@@ -328,6 +328,9 @@ export default {
 
 .gridmultiselect__selecteditemtext {
   padding: 0.5rem;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: normal;
 }
 .gridmultiselect__selecteditemgroupbadge {
   font-size: 10px;
@@ -380,6 +383,9 @@ export default {
   cursor: pointer;
   display: flex;
   flex-grow: 1;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: normal;
 }
 .gridmultiselect__itemlabel {
   margin: 0;
