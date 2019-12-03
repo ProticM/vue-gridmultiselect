@@ -1,7 +1,7 @@
 import { wrapShallow } from './util';
 
 describe('labeling', () => {
-	it('should have default text property value as a label in the selected items list', () => {
+	it('should have text property value as a label in the selected items list', () => {
 		const wrapper = wrapShallow({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
@@ -16,7 +16,7 @@ describe('labeling', () => {
 		).toEqual('Item 2');
 	});
 
-	it('should have default text property value as a label in the items list and the text2 property value as a value in the selected items list', () => {
+	it('should have text property value as a label in the items list and the text2 property value as a value in the selected items list', () => {
 		const wrapper = wrapShallow({
 			value: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }],
 			items: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }, { id: 2, text: 'Item 2', text2: 'Item 2.2' }]
@@ -35,7 +35,7 @@ describe('labeling', () => {
 		).toEqual('Item 1.2');
 	});
 
-	it('should have default text property value as a label in the items list and the combination of text and text2 property value as a value in the selected items list', () => {
+	it('should have text property value as a label in the items list and the combination of text and text2 property value as a value in the selected items list', () => {
 		const wrapper = wrapShallow({
 			value: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }],
 			items: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }, { id: 2, text: 'Item 2', text2: 'Item 2.2' }]
