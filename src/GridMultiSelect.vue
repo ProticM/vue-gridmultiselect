@@ -28,8 +28,8 @@
       >
         <div
           class="gridmultiselect__selecteditemtext"
-          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailsEnabled}"
-          @click="isRowDetailsEnabled ? toggleDetails(selectedItem) : null"
+          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}"
+          @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
         >
           <slot name="selectedItem" :selectedItem="selectedItem">
             {{getItemLabel(selectedItem, "selectedItemLabel")}}
@@ -38,7 +38,7 @@
               class="gridmultiselect__selecteditemgroupbadge"
             >({{selectedItem[groupBy]}})</span>
           </slot>
-          <transition v-if="isRowDetailsEnabled" name="gridmultiselect__slidedown">
+          <transition v-if="isRowDetailEnabled" name="gridmultiselect__slidedown">
             <div
               @click.stop.prevent
               class="gridmultiselect__selecteditemdetails"
@@ -211,7 +211,7 @@ export default {
     selectedItemsEmptyMessage() {
       return ensureValue(this.emptyMessage.split("|"), 1);
     },
-    isRowDetailsEnabled() {
+    isRowDetailEnabled() {
       return !isEmpty(this.itemDetails);
     }
   },
