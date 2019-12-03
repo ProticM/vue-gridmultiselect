@@ -18,7 +18,7 @@ const flatGroupBy = (items, key) => {
 	let flatten = [];
 
 	groups.forEach(group => {
-		flatten.push({ _label: group, _isGroup: true });
+		flatten.push({ _label: group, $isGroup: true });
 		flatten = flatten.concat(grouped[group]);
 	});
 
@@ -46,7 +46,7 @@ const guid = () => {
 }
 
 const ensureValue = (value, index = 0) => {
-	return Array.isArray(value) ? 
+	return Array.isArray(value) ?
 		(value[index] || value[0]) : value;
 }
 

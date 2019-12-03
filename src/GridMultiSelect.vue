@@ -65,8 +65,8 @@
             v-for="item in internalItems"
             :key="item[itemKey]"
           >
-            <span v-if="item._isGroup" class="gridmultiselect__itemgrouptext">{{item._label}}</span>
-            <span v-if="!item._isGroup" class="gridmultiselect__itemcb-wrap">
+            <span v-if="item.$isGroup" class="gridmultiselect__itemgrouptext">{{item._label}}</span>
+            <span v-if="!item.$isGroup" class="gridmultiselect__itemcb-wrap">
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
@@ -75,7 +75,7 @@
                 v-model="selectedItems"
               />
             </span>
-            <span v-if="!item._isGroup" class="gridmultiselect__itemtext">
+            <span v-if="!item.$isGroup" class="gridmultiselect__itemtext">
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
@@ -153,7 +153,7 @@ export default {
       return isEmpty(this.searchTerm)
         ? copy
         : copy.filter(item => {
-            if (item._isGroup) return true;
+            if (item.$isGroup) return true;
 
             const label = this.getItemLabel(item, false);
             return label.trim().toLowerCase()
