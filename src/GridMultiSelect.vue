@@ -364,7 +364,7 @@ export default {
 .gridmultiselect__selecteditemtext {
   padding: 0.5rem;
   overflow: hidden;
-  word-break: break-all;
+  word-break: break-word;
   white-space: normal;
   flex-grow: 1;
 }
@@ -420,7 +420,7 @@ export default {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
-  word-break: break-all;
+  word-break: break-word;
   white-space: normal;
 }
 .gridmultiselect__itemlabel {
