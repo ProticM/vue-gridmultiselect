@@ -26,19 +26,32 @@
         class="gridmultiselect__selecteditem gridmultiselect__selecteditem--font-small"
         @click="selectItem(selectedItem)"
       >
-        <span class="gridmultiselect__selecteditemtext">
+        <div
+          class="gridmultiselect__selecteditemtext"
+          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailsEnabled}"
+          @click="isRowDetailsEnabled ? toggleDetails(selectedItem) : null"
+        >
           <slot name="selectedItem" :selectedItem="selectedItem">
-            {{getItemLabel(selectedItem, true)}}
+            {{getItemLabel(selectedItem, "selectedItemLabel")}}
             <span
               v-if="isGroupingEnabled"
               class="gridmultiselect__selecteditemgroupbadge"
             >({{selectedItem[groupBy]}})</span>
           </slot>
-        </span>
-        <span
+          <slot v-if="isRowDetailsEnabled" name="selectedItemDetails" :selectedItem="selectedItem">
+            <transition name="gridmultiselect__slidedown">
+              <div
+                @click.stop.prevent
+                class="gridmultiselect__selecteditemdetails"
+                v-show="rowDetails.includes(selectedItem[itemKey])"
+              >{{getItemLabel(selectedItem, "itemDetails")}}</div>
+            </transition>
+          </slot>
+        </div>
+        <div
           class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
           @click.stop.prevent="removeItem(index)"
-        >x</span>
+        >x</div>
       </li>
       <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selectedItemsFooter')">
         <slot name="selectedItemsFooter"></slot>
@@ -60,7 +73,7 @@
           >{{itemsEmptyMessage}}</li>
           <li
             class="gridmultiselect__item"
-            :class="{'gridmultiselect__item--selected': isSelected(item)}"
+            :class="{ 'gridmultiselect__item--selected': isSelected(item) }"
             v-else
             v-for="item in internalItems"
             :key="item[itemKey]"
@@ -79,7 +92,7 @@
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :class="(item.$isDisabled ? 'gridmultiselect__itemlabel--disabled' : null)"
+                  :class="{'gridmultiselect__itemlabel--disabled': item.$isDisabled}"
                   :for="(item.$isDisabled ? null : 'item-cb' + item[itemKey] + '_' + guid)"
                 >{{getItemLabel(item)}}</label>
               </slot>
@@ -107,7 +120,8 @@ export default {
     return {
       guid: null,
       menuVisible: false,
-      searchTerm: null
+      searchTerm: null,
+      rowDetails: []
     };
   },
   mounted() {
@@ -144,6 +158,9 @@ export default {
     },
     groupBy: {
       type: String
+    },
+    itemDetails: {
+      type: String
     }
   },
   computed: {
@@ -165,7 +182,7 @@ export default {
         : copy.filter(item => {
             if (item.$isGroup) return true;
 
-            const label = this.getItemLabel(item, false);
+            const label = this.getItemLabel(item);
             return (
               label
                 .trim()
@@ -190,6 +207,9 @@ export default {
     },
     selectedItemsEmptyMessage() {
       return ensureValue(this.emptyMessage.split("|"), 1);
+    },
+    isRowDetailsEnabled() {
+      return !isEmpty(this.itemDetails);
     }
   },
   methods: {
@@ -203,9 +223,9 @@ export default {
       const removedItem = this.selectedItems.splice(index, 1);
       this.$emit("item-removed", removedItem);
     },
-    getItemLabel(item, isSelectedItem) {
-      const itemLabel = ensureValue(this.itemLabel);
-      return (isSelectedItem ? this.selectedItemLabel : itemLabel)
+    getItemLabel(item, key = "itemLabel") {
+      const label = ensureValue(this[key]);
+      return label
         .split("|")
         .map(label => item[label.trim()])
         .join(" ")
@@ -221,6 +241,17 @@ export default {
     },
     hasSlot(name) {
       return !!this.$slots[name];
+    },
+    toggleDetails(item) {
+      const isOpened = this.rowDetails.includes(item[this.itemKey]);
+
+      if (!isOpened) {
+        this.rowDetails.push(item[this.itemKey]);
+        return;
+      }
+
+      const index = this.rowDetails.indexOf(item[this.itemKey]);
+      this.rowDetails.splice(index, 1);
     }
   }
 };
@@ -331,6 +362,7 @@ export default {
   overflow: hidden;
   word-break: break-all;
   white-space: normal;
+  flex-grow: 1;
 }
 .gridmultiselect__selecteditemgroupbadge {
   font-size: 10px;
@@ -392,6 +424,12 @@ export default {
   cursor: pointer;
   flex-grow: 1;
 }
+
+.gridmultiselect__selecteditemdetails {
+  padding-top: 0.5rem;
+  cursor: auto;
+}
+
 .gridmultiselect__itemlabel--font-small,
 .gridmultiselect__removebutton--font-small,
 .gridmultiselect__searchfield--font-small,
@@ -414,14 +452,31 @@ export default {
   color: #856404;
   background-color: #fff3cd;
 }
+.gridmultiselect__selecteditemtext--cursor-pointer {
+  cursor: pointer;
+}
 
 .gridmultiselect__slide-enter-active,
-.gridmultiselect__slide-leave-active {
+.gridmultiselect__slide-leave-active,
+.gridmultiselect__slidedown-enter-active,
+.gridmultiselect__slidedown-leave-active {
   transition: all 0.3s ease;
 }
 .gridmultiselect__slide-enter,
 .gridmultiselect__slide-leave-to {
   transform: translateX(15px);
+  opacity: 0;
+}
+
+.gridmultiselect__slidedown-enter-to,
+.gridmultiselect__slidedown-leave {
+  max-height: 400px;
+  overflow-y: hidden;
+}
+.gridmultiselect__slidedown-enter,
+.gridmultiselect__slidedown-leave-to {
+  max-height: 0;
+  overflow-y: hidden;
   opacity: 0;
 }
 </style>
