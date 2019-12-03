@@ -384,6 +384,7 @@ Further customization is possible with following slots:
 
 - __item__ - Custom template for the item
 - __selectedItem__ - Custom template for the selected item
+- __selectedItemDetails__ - Custom template for the selected item details section
 - __itemsFooter__ - The additional section below the items section
 - __selectedItemsFooter__ - The additional section below the selected items section
 
