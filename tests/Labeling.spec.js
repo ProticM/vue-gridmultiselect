@@ -34,4 +34,23 @@ describe('labeling', () => {
 			wrapper.findAll('.gridmultiselect__selecteditemtext').at(0).text()
 		).toEqual('Item 1.2');
 	});
+
+	it('should have default text property value as a label in the items list and the combination of text and text2 property value as a value in the selected items list', () => {
+		const wrapper = wrapShallow({
+			value: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }],
+			items: [{ id: 1, text: 'Item 1', text2: 'Item 1.2' }, { id: 2, text: 'Item 2', text2: 'Item 2.2' }]
+		}, { itemKey: 'id', itemLabel: ['text', 'text|text2'] });
+
+		expect(
+			wrapper.findAll('.gridmultiselect__itemlabel').at(0).text()
+		).toEqual('Item 1');
+
+		expect(
+			wrapper.findAll('.gridmultiselect__itemlabel').at(1).text()
+		).toEqual('Item 2');
+
+		expect(
+			wrapper.findAll('.gridmultiselect__selecteditemtext').at(0).text()
+		).toEqual('Item 1 Item 1.2');
+	});
 })
