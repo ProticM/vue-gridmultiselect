@@ -66,7 +66,7 @@
             :key="item[itemKey]"
           >
             <span v-if="item.$isGroup" class="gridmultiselect__itemgrouptext">{{item.$label}}</span>
-            <span v-if="!item.$isGroup" class="gridmultiselect__itemcb-wrap">
+            <span v-if="!item.$isGroup && !item.$isDisabled" class="gridmultiselect__itemcb-wrap">
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
@@ -79,7 +79,8 @@
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :for="'item-cb' + item[itemKey] + '_' + guid"
+                  :class="(item.$isDisabled ? 'gridmultiselect__itemlabel--disabled' : null)"
+                  :for="(item.$isDisabled ? null : 'item-cb' + item[itemKey] + '_' + guid)"
                 >{{getItemLabel(item)}}</label>
               </slot>
             </span>
@@ -360,8 +361,7 @@ export default {
   padding-left: 0.2rem;
   font-size: 13px;
 }
-
-.gridmultiselect__itemtext:hover {
+.gridmultiselect__itemlabel:not(.gridmultiselect__itemlabel--disabled):hover {
   font-weight: bold;
 }
 .gridmultiselect__itemcb-wrap {
@@ -397,6 +397,11 @@ export default {
   text-align: center;
   padding: 0.5rem;
   opacity: 0.6;
+}
+.gridmultiselect__itemlabel--disabled {
+  opacity: 0.5;
+  font-weight: normal;
+  cursor: not-allowed;
 }
 
 .gridmultiselect__item--selected {
