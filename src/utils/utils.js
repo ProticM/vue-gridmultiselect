@@ -18,7 +18,7 @@ const flatGroupBy = (items, key) => {
 	let flatten = [];
 
 	groups.forEach(group => {
-		flatten.push({ _label: group, $isGroup: true });
+		flatten.push({ $label: group, $isGroup: true });
 		flatten = flatten.concat(grouped[group]);
 	});
 

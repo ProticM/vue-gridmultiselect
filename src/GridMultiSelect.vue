@@ -65,7 +65,7 @@
             v-for="item in internalItems"
             :key="item[itemKey]"
           >
-            <span v-if="item.$isGroup" class="gridmultiselect__itemgrouptext">{{item._label}}</span>
+            <span v-if="item.$isGroup" class="gridmultiselect__itemgrouptext">{{item.$label}}</span>
             <span v-if="!item.$isGroup" class="gridmultiselect__itemcb-wrap">
               <input
                 type="checkbox"
@@ -93,7 +93,13 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "./utils/utils";
+import {
+  isEmpty,
+  copyArray,
+  flatGroupBy,
+  guid,
+  ensureValue
+} from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
@@ -142,8 +148,11 @@ export default {
   computed: {
     selectedItemLabel() {
       const isItemLabelArray = Array.isArray(this.itemLabel);
-      const hasSelectedItemLabelDefined = isItemLabelArray && this.itemLabel.length > 1;
-      return hasSelectedItemLabelDefined ? this.itemLabel[1] : ensureValue(this.itemLabel);
+      const hasSelectedItemLabelDefined =
+        isItemLabelArray && this.itemLabel.length > 1;
+      return hasSelectedItemLabelDefined
+        ? this.itemLabel[1]
+        : ensureValue(this.itemLabel);
     },
     internalItems() {
       const copy = isEmpty(this.groupBy)
@@ -156,8 +165,12 @@ export default {
             if (item.$isGroup) return true;
 
             const label = this.getItemLabel(item, false);
-            return label.trim().toLowerCase()
-                  .indexOf(this.searchTerm.trim().toLowerCase()) > -1;
+            return (
+              label
+                .trim()
+                .toLowerCase()
+                .indexOf(this.searchTerm.trim().toLowerCase()) > -1
+            );
           });
     },
     selectedItems: {
