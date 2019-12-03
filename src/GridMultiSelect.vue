@@ -65,8 +65,8 @@
             v-for="item in internalItems"
             :key="item[itemKey]"
           >
-            <span v-if="item._isGroup" class="gridmultiselect__itemgrouptext">{{item._label}}</span>
-            <span v-if="!item._isGroup" class="gridmultiselect__itemcb-wrap">
+            <span v-if="item.$isGroup" class="gridmultiselect__itemgrouptext">{{item.$label}}</span>
+            <span v-if="!item.$isGroup && !item.$isDisabled" class="gridmultiselect__itemcb-wrap">
               <input
                 type="checkbox"
                 class="gridmultiselect__itemcb"
@@ -75,11 +75,12 @@
                 v-model="selectedItems"
               />
             </span>
-            <span v-if="!item._isGroup" class="gridmultiselect__itemtext">
+            <span v-if="!item.$isGroup" class="gridmultiselect__itemtext">
               <slot name="item" :item="item">
                 <label
                   class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :for="'item-cb' + item[itemKey] + '_' + guid"
+                  :class="(item.$isDisabled ? 'gridmultiselect__itemlabel--disabled' : null)"
+                  :for="(item.$isDisabled ? null : 'item-cb' + item[itemKey] + '_' + guid)"
                 >{{getItemLabel(item)}}</label>
               </slot>
             </span>
@@ -93,7 +94,13 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "./utils/utils";
+import {
+  isEmpty,
+  copyArray,
+  flatGroupBy,
+  guid,
+  ensureValue
+} from "./utils/utils";
 export default {
   name: "vue-gridmultiselect",
   data() {
@@ -142,8 +149,11 @@ export default {
   computed: {
     selectedItemLabel() {
       const isItemLabelArray = Array.isArray(this.itemLabel);
-      const hasSelectedItemLabelDefined = isItemLabelArray && this.itemLabel.length > 1;
-      return hasSelectedItemLabelDefined ? this.itemLabel[1] : ensureValue(this.itemLabel);
+      const hasSelectedItemLabelDefined =
+        isItemLabelArray && this.itemLabel.length > 1;
+      return hasSelectedItemLabelDefined
+        ? this.itemLabel[1]
+        : ensureValue(this.itemLabel);
     },
     internalItems() {
       const copy = isEmpty(this.groupBy)
@@ -153,11 +163,15 @@ export default {
       return isEmpty(this.searchTerm)
         ? copy
         : copy.filter(item => {
-            if (item._isGroup) return true;
+            if (item.$isGroup) return true;
 
             const label = this.getItemLabel(item, false);
-            return label.trim().toLowerCase()
-                  .indexOf(this.searchTerm.trim().toLowerCase()) > -1;
+            return (
+              label
+                .trim()
+                .toLowerCase()
+                .indexOf(this.searchTerm.trim().toLowerCase()) > -1
+            );
           });
     },
     selectedItems: {
@@ -347,8 +361,7 @@ export default {
   padding-left: 0.2rem;
   font-size: 13px;
 }
-
-.gridmultiselect__itemtext:hover {
+.gridmultiselect__itemlabel:not(.gridmultiselect__itemlabel--disabled):hover {
   font-weight: bold;
 }
 .gridmultiselect__itemcb-wrap {
@@ -384,6 +397,11 @@ export default {
   text-align: center;
   padding: 0.5rem;
   opacity: 0.6;
+}
+.gridmultiselect__itemlabel--disabled {
+  opacity: 0.5;
+  font-weight: normal;
+  cursor: not-allowed;
 }
 
 .gridmultiselect__item--selected {
