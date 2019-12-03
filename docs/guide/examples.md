@@ -303,7 +303,7 @@ export default {
 
 ## Row Details
 
-Selected items can be shown together with a certain amount of details. To achieve this component prop `item-details` should be set.
+Selected items can be shown together with a certain amount of details. To achieve this, component prop `item-details` should be set.
 
 - __item-details__ - Holds the item property name having the desired details label value
 
