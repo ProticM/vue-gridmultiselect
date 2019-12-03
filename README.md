@@ -43,9 +43,11 @@ A simple multi-select component for Vue framework with items displayed in a tabl
 
 #### Features and Characteristics (alpha)
 
-- No dependencies (except for Vue)
+- No dependencies
 - Searching
 - Grouping
+- Disabling Items
+- Row Details
 - Easily configurable
 - Custom slots
 - V-model suppport
