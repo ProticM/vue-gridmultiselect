@@ -60,7 +60,7 @@ HTML
   :items="items" 
   item-key="id" 
   item-label="name" 
-  v-model="selectedItem" 
+  v-model="selectedItems"
   title="Cities" 
 />
 ```
@@ -445,8 +445,8 @@ HTML
 >
   <template v-slot:selectedItemsFooter>
     <div class="buttons">
-  <button @click="save">Save</button>
-  <button @click="deselect">Cancel</button>
+      <button @click="save">Save</button>
+      <button @click="deselect">Cancel</button>
     </div>
   </template>
 </GridMultiSelect>
@@ -520,14 +520,14 @@ By default, Vuex is supported. To make it work, replace `v-model` directive with
 HTML
 
 ```html
-<GridMultiSelect 
-	:items="items" 
-	item-key="id" 
-	item-label="name" 
-	group-by="state"
-	:value="selectedItems"
-	@input="updateSelectedItems"
-	title="Cities" 
+<GridMultiSelect
+  :items="items" 
+  item-key="id" 
+  item-label="name" 
+  group-by="state"
+  :value="selectedItems"
+  @input="updateSelectedItems"
+  title="Cities" 
 />
 ```
 
