@@ -38,10 +38,11 @@
               class="gridmultiselect__selecteditemgroupbadge"
             >({{selectedItem[groupBy]}})</span>
           </slot>
-          <transition v-if="isRowDetailEnabled" name="gridmultiselect__slidedown">
+          <transition name="gridmultiselect__slidedown">
             <div
               @click.stop.prevent
               class="gridmultiselect__selecteditemdetails"
+              v-if="isRowDetailEnabled"
               v-show="rowDetails.includes(selectedItem[itemKey])"
             >
               <slot
