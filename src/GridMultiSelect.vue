@@ -38,15 +38,18 @@
               class="gridmultiselect__selecteditemgroupbadge"
             >({{selectedItem[groupBy]}})</span>
           </slot>
-          <slot v-if="isRowDetailsEnabled" name="selectedItemDetails" :selectedItem="selectedItem">
-            <transition name="gridmultiselect__slidedown">
-              <div
-                @click.stop.prevent
-                class="gridmultiselect__selecteditemdetails"
-                v-show="rowDetails.includes(selectedItem[itemKey])"
-              >{{getItemLabel(selectedItem, "itemDetails")}}</div>
-            </transition>
-          </slot>
+          <transition v-if="isRowDetailsEnabled" name="gridmultiselect__slidedown">
+            <div
+              @click.stop.prevent
+              class="gridmultiselect__selecteditemdetails"
+              v-show="rowDetails.includes(selectedItem[itemKey])"
+            >
+              <slot
+                name="selectedItemDetails"
+                :selectedItem="selectedItem"
+              >{{getItemLabel(selectedItem, "itemDetails")}}</slot>
+            </div>
+          </transition>
         </div>
         <div
           class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
