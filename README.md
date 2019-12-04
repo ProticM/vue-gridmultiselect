@@ -98,7 +98,7 @@ Vue.component('vue-gridmultiselect', VueGridMultiselect);
 
 ## Getting Started and Documentation
 
-Detailed documentation can be found [here](https://proticm.github.io/vue-gridmultiselect/).
+Detailed documentation and demos can be found [here](https://proticm.github.io/vue-gridmultiselect/).
 
 #### Custom Heading
 
@@ -151,7 +151,7 @@ Detailed documentation can be found [here](https://proticm.github.io/vue-gridmul
     </template>
 </GridMultiSelect>
 ```
-Detailed documentation can be found [here](https://proticm.github.io/vue-gridmultiselect/).
+Detailed documentation and demos can be found [here](https://proticm.github.io/vue-gridmultiselect/).
 
 ## Contribution
 
