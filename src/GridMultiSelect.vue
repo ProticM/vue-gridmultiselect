@@ -40,7 +40,7 @@
           </slot>
           <transition name="gridmultiselect__slidedown">
             <div
-              @click.stop.prevent
+              @click.stop.prevent="toggleMenu"
               class="gridmultiselect__selecteditemdetails"
               v-if="isRowDetailEnabled"
               v-show="rowDetails.includes(selectedItem[itemKey])"
@@ -472,15 +472,9 @@ export default {
   opacity: 0;
 }
 
-.gridmultiselect__slidedown-enter-to,
-.gridmultiselect__slidedown-leave {
-  max-height: 400px;
-  overflow-y: hidden;
-}
 .gridmultiselect__slidedown-enter,
 .gridmultiselect__slidedown-leave-to {
-  max-height: 0;
-  overflow-y: hidden;
+  transform: translateY(-15px);
   opacity: 0;
 }
 </style>
