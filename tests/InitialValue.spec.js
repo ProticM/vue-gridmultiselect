@@ -7,5 +7,18 @@ describe('value binding', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		});
 		expect(wrapper.vm.selectedItems).toEqual([]);
-	})
+	});
+
+	it('should preselect initial value', () => {
+		const wrapper = wrapShallow({
+			value: [{ id: 1, text: 'Item 1' }],
+			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
+		});
+
+		expect(wrapper.vm.selectedItems).toEqual([{ id: 1, text: 'Item 1' }]);
+
+		expect(
+			wrapper.findAll('.gridmultiselect__selecteditemtext').at(0).text()
+		).toEqual('Item 1');
+	});
 })
