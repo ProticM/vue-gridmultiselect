@@ -41,7 +41,7 @@ Or, place the following tags on your page:
 
 A simple multi-select component for Vue framework with items displayed in a table like UI. An alternative to dropdown based select components.
 
-#### Features and Characteristics (alpha)
+#### Features and Characteristics
 
 - No dependencies
 - Searching
