@@ -1,5 +1,9 @@
 <template>
-  <div class="gridmultiselect" @click="toggleMenu">
+  <div
+    class="gridmultiselect"
+    :class="{'gridmultiselect--floatingmenu':isMenuFloating}"
+    @click="toggleMenu"
+  >
     <div class="gridmultiselect__header">
       <span class="gridmultiselect__title">{{title}}</span>
       <transition name="gridmultiselect__slide">
@@ -62,7 +66,12 @@
       </li>
     </ul>
     <transition name="gridmultiselect__slide">
-      <div ref="menu" v-show="menuVisible" class="gridmultiselect__items-wrap">
+      <div
+        ref="menu"
+        v-show="menuVisible"
+        class="gridmultiselect__items-wrap"
+        :class="{'gridmultiselect__items-floatingwrap':isMenuFloating}"
+      >
         <ul class="gridmultiselect__items">
           <li class="gridmultiselect__searchfield-wrap" v-if="searchable">
             <input
@@ -166,6 +175,10 @@ export default {
     },
     itemDetails: {
       type: String
+    },
+    menuPosition: {
+      type: String,
+      default: "dock"
     }
   },
   computed: {
@@ -215,6 +228,9 @@ export default {
     },
     isRowDetailEnabled() {
       return !isEmpty(this.itemDetails);
+    },
+    isMenuFloating() {
+      return this.menuPosition === "float";
     }
   },
   methods: {
@@ -334,6 +350,17 @@ export default {
   overflow-y: auto;
   z-index: 1;
 }
+.gridmultiselect__items-floatingwrap {
+  height: auto;
+  border: 1px solid rgb(230, 236, 235);
+  padding: 0.5rem;
+  border-radius: 4px;
+  z-index: 2;
+  top: 20px;
+  right: 20px;
+  max-height: 350px;
+  box-shadow: 0px 0px 3px 0px;
+}
 .gridmultiselect__searchfield-wrap {
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
@@ -435,6 +462,10 @@ export default {
 .gridmultiselect__selecteditemdetails {
   padding-top: 0.5rem;
   cursor: auto;
+}
+
+.gridmultiselect--floatingmenu {
+  overflow: visible;
 }
 
 .gridmultiselect__itemlabel--font-small,
