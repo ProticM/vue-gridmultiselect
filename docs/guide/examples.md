@@ -378,6 +378,53 @@ export default {
 
 <RowDetails />
 
+## Menu Position
+
+Side menu can be `dock` or `float` positioned. You can change this by setting the `menu-position` prop.
+
+- __menu-position__ - Position where to display the side menu. Can be `float` or `dock`
+
+If not specified, `dock` value is used.
+
+HTML
+
+```html
+<GridMultiSelect
+  :items="items"
+  item-key="id"
+  :item-label="['name', 'state|name']"
+  v-model="selectedItems"
+  title="Cities"
+  menu-position="float"
+/>
+```
+
+```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
+export default {
+  name: "example-floatingmenu",
+  components: {
+    GridMultiSelect
+  },
+  data() {
+    return {
+      selectedItems: null,
+      items: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
+    };
+  }
+};
+```
+
+<FloatingMenu />
+
 ## Slots
 
 Further customization is possible with following slots:

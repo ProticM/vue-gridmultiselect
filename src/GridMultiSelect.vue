@@ -363,7 +363,7 @@ export default {
 }
 .gridmultiselect__searchfield-wrap {
   padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid #e6eceb;
 }
 .gridmultiselect__searchfield {
