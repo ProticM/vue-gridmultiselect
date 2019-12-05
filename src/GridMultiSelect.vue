@@ -66,6 +66,7 @@
         <ul class="gridmultiselect__items">
           <li class="gridmultiselect__searchfield-wrap" v-if="searchable">
             <input
+              type="text"
               class="gridmultiselect__searchfield gridmultiselect__searchfield--font-small"
               placeholder="Search..."
               v-model="searchTerm"
@@ -335,7 +336,7 @@ export default {
 }
 .gridmultiselect__searchfield-wrap {
   padding-top: 0.2rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
   border-bottom: 1px solid #e6eceb;
 }
 .gridmultiselect__searchfield {
@@ -345,6 +346,8 @@ export default {
   border: 1px solid #e6eceb;
   border-radius: 4px;
   padding: 0.2rem;
+  border: none;
+  padding-left: 0.2rem 0.2rem 0.2rem 0.7rem;
 }
 
 .gridmultiselect__selecteditem {
