@@ -50,7 +50,7 @@ A simple multi-select component for Vue framework with items displayed in a tabl
 - Row Details
 - Easily configurable
 - Custom slots
-- V-model suppport
+- V-model support
 - Vuex support
 
 ## Basic Usage
