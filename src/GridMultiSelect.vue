@@ -2,16 +2,13 @@
   <div
     class="gridmultiselect"
     :class="{'gridmultiselect--floatingmenu':isMenuFloating}"
-    @click="toggleMenu"
+    :tabindex="searchable ? -1 : tabIndex"
+    @blur="menuVisible = false"
   >
     <div class="gridmultiselect__header">
       <span class="gridmultiselect__title">{{title}}</span>
       <transition name="gridmultiselect__slide">
-        <button
-          class="gridmultiselect__burger"
-          v-show="!menuVisible"
-          @click.stop.prevent="menuVisible = true"
-        >
+        <button class="gridmultiselect__burger" v-show="!menuVisible" @click="showMenu">
           <span class="gridmultiselect__burgerline">&nbsp;</span>
           <span class="gridmultiselect__burgerline">&nbsp;</span>
           <span class="gridmultiselect__burgerline">&nbsp;</span>
@@ -44,7 +41,6 @@
           </slot>
           <transition name="gridmultiselect__slidedown">
             <div
-              @click.stop.prevent="toggleMenu"
               class="gridmultiselect__selecteditemdetails"
               v-if="isRowDetailEnabled"
               v-show="rowDetails.includes(selectedItem[itemKey])"
@@ -58,7 +54,7 @@
         </div>
         <div
           class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
-          @click.stop.prevent="removeItem(index)"
+          @click="removeItem(index)"
         >x</div>
       </li>
       <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selectedItemsFooter')">
@@ -71,14 +67,19 @@
         v-show="menuVisible"
         class="gridmultiselect__items-wrap"
         :class="{'gridmultiselect__items-floatingwrap':isMenuFloating}"
+        @mousedown.prevent
       >
-        <ul class="gridmultiselect__items">
+        <ul class="gridmultiselect__items" @mousedown.prevent>
           <li class="gridmultiselect__searchfield-wrap" v-if="searchable">
             <input
               type="text"
+              ref="search"
               class="gridmultiselect__searchfield gridmultiselect__searchfield--font-small"
               placeholder="Search..."
               v-model="searchTerm"
+              :tabindex="tabIndex"
+              @focus.prevent="showMenu"
+              @blur.prevent="menuVisible = false"
             />
           </li>
           <li
@@ -179,6 +180,10 @@ export default {
     menuPosition: {
       type: String,
       default: "dock"
+    },
+    tabIndex: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -234,11 +239,15 @@ export default {
     }
   },
   methods: {
-    toggleMenu(ev) {
-      const menu = this.$refs["menu"];
-      if (ev.target !== menu && !menu.contains(ev.target)) {
-        this.menuVisible = false;
-      }
+    showMenu() {
+      if (this.menuVisible) return;
+
+      this.menuVisible = true;
+      const el = this.searchable ? this.$refs.search : this.$el;
+
+      this.$nextTick(() => {
+        el.focus();
+      });
     },
     removeItem(index) {
       const removedItem = this.selectedItems.splice(index, 1);
@@ -289,6 +298,10 @@ export default {
   font-size: 16px;
   text-align: left;
   position: relative;
+}
+.gridmultiselect:focus {
+  outline: none;
+  border: 1px solid #e6eceb;
 }
 .gridmultiselect * {
   box-sizing: border-box;
