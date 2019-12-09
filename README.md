@@ -11,6 +11,9 @@
     <a href="https://www.npmjs.com/package/vue-gridmultiselect">
     <img src="https://img.shields.io/npm/v/vue-gridmultiselect.svg?style=flat" alt="version" />
     </a>
+    <a href="https://npmcharts.com/compare/vue-gridmultiselect?minimal=true">
+    <img src="https://img.shields.io/npm/dw/vue-gridmultiselect.svg" alt="downloads" />
+    </a>
     </h1>
 </p>
 <p align="center">
