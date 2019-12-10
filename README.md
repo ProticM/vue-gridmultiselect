@@ -175,7 +175,7 @@ npm run docs:dev
 npm run docs:build
 ```
 
-> Contributing guide is in progress
+Please read the full [Contributing Guide](https://github.com/ProticM/vue-gridmultiselect/blob/master/CONTRIBUTING.md) before making a pull request.
 
 ## License
 
