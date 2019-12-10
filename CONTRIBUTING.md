@@ -50,7 +50,7 @@ npm run docs:build
 
 ## Financial Contribution
 
-[Donate via PayPal](https://www.paypal.me/mprotic) or [buy me a coffee](https://ko-fi.com/milosprotic).
+[Donate via PayPal](https://www.paypal.me/mprotic) or [Buy Me a Coffee](https://ko-fi.com/milosprotic).
 
 
 __Thank you for reading these guidelines and for considering to contribute to vue-gridmultiselect.__
