@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/npm/dw/vue-gridmultiselect.svg" alt="downloads" />
     </a>
     <a href="https://bundlephobia.com/result?p=vue-gridmultiselect">
-    <img src="https://badgen.net/bundlephobia/min/vue-gridmultiselect?" alt="min-size" />
+    <img src="https://badgen.net/bundlephobia/min/vue-gridmultiselect" alt="min-size" />
     </a>
     </h1>
 </p>
