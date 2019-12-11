@@ -1,6 +1,6 @@
 import { wrapShallow } from './util';
 
-describe('row details', () => {
+describe('row details indicator', () => {
 
 	it('should have row details enabled', () => {
 		const wrapper = wrapShallow({
