@@ -416,11 +416,11 @@ export default {
 .gridmultiselect__selecteditemtext--collapsed::before,
 .gridmultiselect__selecteditemtext--expanded::before {
   display: inline-block;
-  color: #0093b7;
+  color: #b8bcbc;
   padding-top: 2px;
   border-style: solid;
   border-width: 5px 5px 0;
-  border-color: #0093b7 transparent transparent;
+  border-color: #b8bcbc transparent transparent;
   content: "";
   border-radius: 2px;
   transition: transform 0.3s ease;
