@@ -29,9 +29,9 @@
       >
         <div
           class="gridmultiselect__selecteditemtext"
-          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled, 
-			'gridmultiselect__selecteditemtext--expanded': isGroupingEnabled && rowDetails.includes(selectedItem[itemKey]), 
-			'gridmultiselect__selecteditemtext--collapsed': isGroupingEnabled && !rowDetails.includes(selectedItem[itemKey])}"
+          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled,
+			'gridmultiselect__selecteditemtext--expanded': isRowDetailEnabled && rowDetails.includes(selectedItem[itemKey]), 
+			'gridmultiselect__selecteditemtext--collapsed': isRowDetailEnabled && !rowDetails.includes(selectedItem[itemKey])}"
           @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
         >
           <slot name="selectedItem" :selectedItem="selectedItem">
