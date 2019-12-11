@@ -29,7 +29,9 @@
       >
         <div
           class="gridmultiselect__selecteditemtext"
-          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}"
+          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled, 
+			'gridmultiselect__selecteditemtext--expanded': isGroupingEnabled && rowDetails.includes(selectedItem[itemKey]), 
+			'gridmultiselect__selecteditemtext--collapsed': isGroupingEnabled && !rowDetails.includes(selectedItem[itemKey])}"
           @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
         >
           <slot name="selectedItem" :selectedItem="selectedItem">
@@ -410,6 +412,24 @@ export default {
   word-break: break-word;
   white-space: normal;
   flex-grow: 1;
+}
+.gridmultiselect__selecteditemtext--collapsed::before,
+.gridmultiselect__selecteditemtext--expanded::before {
+  display: inline-block;
+  color: #0093b7;
+  padding-top: 2px;
+  border-style: solid;
+  border-width: 5px 5px 0;
+  border-color: #0093b7 transparent transparent;
+  content: "";
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+  margin-right: 5px;
+}
+
+.gridmultiselect__selecteditemtext--expanded::before {
+  transform: rotate(180deg);
+  margin-bottom: 2px;
 }
 .gridmultiselect__selecteditemgroupbadge {
   font-size: 10px;
