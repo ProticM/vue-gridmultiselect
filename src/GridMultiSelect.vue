@@ -29,9 +29,7 @@
       >
         <div
           class="gridmultiselect__selecteditemtext"
-          :class="{ 'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled,
-			'gridmultiselect__selecteditemtext--expanded': isRowDetailEnabled && rowDetails.includes(selectedItem[itemKey]), 
-			'gridmultiselect__selecteditemtext--collapsed': isRowDetailEnabled && !rowDetails.includes(selectedItem[itemKey])}"
+          :class="[{'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}, getRowDetailsIndicatorClass(selectedItem)]"
           @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
         >
           <slot name="selectedItem" :selectedItem="selectedItem">
@@ -284,6 +282,15 @@ export default {
 
       const index = this.rowDetails.indexOf(item[this.itemKey]);
       this.rowDetails.splice(index, 1);
+    },
+    getRowDetailsIndicatorClass(item) {
+      return this.isRowDetailEnabled
+        ? `gridmultiselect__selecteditemtext--${
+            this.rowDetails.includes(item[this.itemKey])
+              ? "expanded"
+              : "collapsed"
+          }`
+        : null;
     }
   }
 };
