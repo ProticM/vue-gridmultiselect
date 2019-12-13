@@ -49,7 +49,7 @@ export default {
 </script>
 <style scoped>
 .gridmultiselect {
-  min-height: 100px;
+  min-height: 200px;
   margin-top: 0.7rem;
 }
 </style>

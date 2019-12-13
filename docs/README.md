@@ -14,4 +14,25 @@ features:
 footer: MIT Licensed | Copyright © 2019-present Miloš Protić
 ---
 
+#### Default Behaviour
+
 <InitialExample />
+
+#### Characteristics
+
+- No dependencies
+- Searching
+- Grouping
+- Labeling (title, _no data_ messages, multiple keys as a label source...)
+- Disabling Items
+- Row Details
+- Menu Positioning
+- Easily configurable
+- Custom slots
+- V-model support
+- Vuex support
+
+#### Resources
+
+- [CodePen](https://codepen.io/protic_milos/pen/vYEKywq)
+- [GitHub](https://github.com/ProticM/vue-gridmultiselect)
