@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/npm/v/vue-gridmultiselect.svg?style=flat" alt="version" />
     </a>
     <a href="https://npmcharts.com/compare/vue-gridmultiselect?minimal=true">
-    <img src="https://img.shields.io/npm/dw/vue-gridmultiselect.svg" alt="downloads" />
+    <img src="https://img.shields.io/npm/dt/vue-gridmultiselect.svg" alt="downloads" />
     </a>
     <a href="https://bundlephobia.com/result?p=vue-gridmultiselect">
     <img src="https://badgen.net/bundlephobia/min/vue-gridmultiselect" alt="min-size" />
