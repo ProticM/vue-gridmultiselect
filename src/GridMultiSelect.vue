@@ -351,12 +351,18 @@ export default {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  min-height: inherit;
 }
 .gridmultiselect__selecteditemitemsfooter {
   padding: 0.5rem;
+  margin-top: auto;
 }
 .gridmultiselect__itemsfooter {
   padding: 0.2rem 0.5rem;
+  margin-top: auto;
 }
 .gridmultiselect__items-wrap {
   max-width: 50%;
