@@ -116,7 +116,7 @@ Detailed documentation and demos can be found [here](https://proticm.github.io/v
   :items="items" 
   item-key="id" 
   item-label="name" 
-  v-model="selectedItem" 
+  v-model="selectedItems" 
   title="Cities"
 />
 ```
