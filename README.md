@@ -155,7 +155,7 @@ Detailed documentation and demos can be found [here](https://proticm.github.io/v
   group-by="state"
   v-model="selectedItems"
   title="Cities">
-    <template v-slot:selectedItem="{selectedItem}">
+    <template v-slot:selected-item="{selectedItem}">
         The city {{selectedItem.name}} is located in {{selectedItem.state}}
     </template>
 </GridMultiSelect>
