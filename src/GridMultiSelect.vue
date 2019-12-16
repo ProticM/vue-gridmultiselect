@@ -270,7 +270,7 @@ export default {
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
     hasSlot(name) {
-      return !!this.$slots[name];
+      return !!this.$slots[name] || !!this.$scopedSlots[name];
     },
     toggleDetails(item) {
       const isOpened = this.rowDetails.includes(item[this.itemKey]);
