@@ -122,5 +122,3 @@ emptyMessage: {
   default: "No Data"
 }
 ```
-
-## Slots
