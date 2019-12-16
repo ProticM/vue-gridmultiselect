@@ -32,7 +32,7 @@
           :class="[{'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}, getRowDetailsIndicatorClass(selectedItem)]"
           @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
         >
-          <slot name="selectedItem" :selectedItem="selectedItem">
+          <slot name="selected-item" :selectedItem="selectedItem">
             {{getItemLabel(selectedItem, "selectedItemLabel")}}
             <span
               v-if="isGroupingEnabled"
@@ -46,7 +46,7 @@
               v-show="rowDetails.includes(selectedItem[itemKey])"
             >
               <slot
-                name="selectedItemDetails"
+                name="selected-item-details"
                 :selectedItem="selectedItem"
               >{{getItemLabel(selectedItem, "itemDetails")}}</slot>
             </div>
@@ -57,8 +57,8 @@
           @click="removeItem(index)"
         >x</div>
       </li>
-      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selectedItemsFooter')">
-        <slot name="selectedItemsFooter"></slot>
+      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selected-items-footer')">
+        <slot name="selected-items-footer"></slot>
       </li>
     </ul>
     <transition name="gridmultiselect__slide">
@@ -113,8 +113,8 @@
               </slot>
             </span>
           </li>
-          <li class="gridmultiselect__itemsfooter" v-if="hasSlot('itemsFooter')">
-            <slot name="itemsFooter"></slot>
+          <li class="gridmultiselect__itemsfooter" v-if="hasSlot('items-footer')">
+            <slot name="items-footer"></slot>
           </li>
         </ul>
       </div>
@@ -270,7 +270,7 @@ export default {
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
     hasSlot(name) {
-      return !!this.$slots[name];
+      return !!this.$slots[name] || !!this.$scopedSlots[name];
     },
     toggleDetails(item) {
       const isOpened = this.rowDetails.includes(item[this.itemKey]);

@@ -7,7 +7,7 @@
     v-model="selectedItems"
     title="Cities"
   >
-    <template v-slot:selectedItemsFooter>
+    <template v-slot:selected-items-footer>
       <div class="buttons">
         <button @click="save">Save</button>
         <button @click="deselect">Cancel</button>

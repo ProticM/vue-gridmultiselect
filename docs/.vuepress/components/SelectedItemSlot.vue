@@ -8,7 +8,7 @@
     title="Cities"
   >
     <template
-      v-slot:selectedItem="{selectedItem}"
+      v-slot:selected-item="{selectedItem}"
     >The city {{selectedItem.name}} is located in {{selectedItem.state}}</template>
   </GridMultiSelect>
 </template>

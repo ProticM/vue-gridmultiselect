@@ -430,10 +430,10 @@ export default {
 Further customization is possible with following slots:
 
 - __item__ - Custom template for the item
-- __selectedItem__ - Custom template for the selected item
-- __selectedItemDetails__ - Custom template for the selected item details section
-- __itemsFooter__ - The additional section below the items section
-- __selectedItemsFooter__ - The additional section below the selected items section
+- __selected-item__ - Custom template for the selected item
+- __selected-item-details__ - Custom template for the selected item details section
+- __items-footer__ - The additional section below the items section
+- __selected-items-footer__ - The additional section below the selected items section
 
 HTML
 
@@ -445,7 +445,7 @@ HTML
   group-by="state"
   v-model="selectedItems"
   title="Cities">
-    <template v-slot:selectedItem="{selectedItem}">
+    <template v-slot:selected-item="{selectedItem}">
         The city {{selectedItem.name}} is located in {{selectedItem.state}}
     </template>
 </GridMultiSelect>
@@ -490,7 +490,7 @@ HTML
   v-model="selectedItems"
   title="Cities"
 >
-  <template v-slot:selectedItemsFooter>
+  <template v-slot:selected-items-footer>
     <div class="buttons">
       <button @click="save">Save</button>
       <button @click="deselect">Cancel</button>
