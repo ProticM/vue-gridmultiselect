@@ -80,4 +80,47 @@ searchable: {
 }
 ```
 
+### groupBy
+
+Holds the item property name to group the data source by. The selected items list is not grouped.
+
+```js
+groupBy: {
+  type: String
+}
+```
+
+### menuPosition
+
+Sets the components menu position. It can be `dock` or `float`.
+
+```js
+menuPosition: {
+  type: String,
+  default: "dock"
+}
+```
+
+### tabIndex
+
+Sets the tabindex of the component.
+
+```js
+tabIndex: {
+  type: Number,
+  default: 0
+}
+```
+
+### emptyMessage
+
+Holds the text to be displayed when nothing is selected.
+
+```js
+emptyMessage: {
+  type: String,
+  default: "No Data"
+}
+```
+
 ## Slots
