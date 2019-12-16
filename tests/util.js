@@ -10,6 +10,17 @@ const wrapShallow = (propsData = {}, requiredProps = { itemKey: 'id', itemLabel:
 	});
 };
 
+const wrapShallowWithOptions = (propsData = {}, options = {}, requiredProps = { itemKey: 'id', itemLabel: 'text' }) => {
+	return shallowMount(GridMultiselect, {
+		propsData: {
+			...requiredProps,
+			...propsData
+		},
+		...options
+	});
+};
+
 export {
-	wrapShallow
+	wrapShallow,
+	wrapShallowWithOptions
 }
