@@ -445,7 +445,7 @@ HTML
   group-by="state"
   v-model="selectedItems"
   title="Cities">
-    <template v-slot:selectedItem="{selectedItem}">
+    <template v-slot:selected-item="{selectedItem}">
         The city {{selectedItem.name}} is located in {{selectedItem.state}}
     </template>
 </GridMultiSelect>
@@ -490,7 +490,7 @@ HTML
   v-model="selectedItems"
   title="Cities"
 >
-  <template v-slot:selectedItemsFooter>
+  <template v-slot:selected-items-footer>
     <div class="buttons">
       <button @click="save">Save</button>
       <button @click="deselect">Cancel</button>
