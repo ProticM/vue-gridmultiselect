@@ -122,3 +122,67 @@ emptyMessage: {
   default: "No Data"
 }
 ```
+
+## Slots
+
+### `item`
+
+Use it to customize the item appearance in the sidebar list.
+
+Scope
+
+- __item__ (`Object`) - Current item in the datasource
+
+```html
+<template v-slot:item="{item}">
+	<!-- // use the item here -->
+</template>
+```
+
+### `selected-item`
+
+Use it to customize the selected item appearance.
+
+Scope
+
+- __selectedItem__ (`Object`) - A selected item
+
+```html
+<template v-slot:selected-item="{selectedItem}">
+	<!-- // use the selected item here -->
+</template>
+```
+
+### `selected-item-details`
+
+Use it to customize the selected item row details.
+
+Scope
+
+- __selectedItem__ (`Object`) - A selected item
+
+```html
+<template v-slot:selected-item-details="{selectedItem}">
+	<!-- // use the selected item here -->
+</template>
+```
+
+### `items-footer`
+
+Use it to add a section at the bottom of the sidebar list.
+
+```html
+<template v-slot:items-footer>
+	<!-- // your html -->
+</template>
+```
+
+### `selected-items-footer`
+
+Use it to add a section at the bottom of the selected items list.
+
+```html
+<template v-slot:selected-items-footer>
+	<!-- // your html -->
+</template>
+```
