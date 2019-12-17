@@ -14,6 +14,7 @@ module.exports = {
 			'/guide/': [
 				'',
 				'examples',
+				'styling',
 				'api'
 			]
 		}
