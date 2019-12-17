@@ -452,7 +452,7 @@ export default {
   padding: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #005f89;
+  color: inherit;
 }
 .gridmultiselect__removebutton:hover {
   background-color: #f3f3f3;
