@@ -186,3 +186,11 @@ Use it to add a section at the bottom of the selected items list.
 	<!-- // your html -->
 </template>
 ```
+
+## Events
+
+| Name                  |     Arguments              | Description |
+| --------------------- | -------------------------- | ------------|
+| __Input__ (`@input`) | `(value)` | Emitted after value changes |
+| __Item Removed__ (`@item-removed`) | `(removedItem)` | Emitted after removing an item from the selection |
+| __Item Selected__ (`@item-selected`) | `(selectedItem)` | Emitted after clicking on an item in the selection |
