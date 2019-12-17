@@ -554,12 +554,6 @@ Live Sample
 
 <SelectedItemsFooterSlot />
 
-## Events
-
-- __Input__ - Listen to `@input`
-- __Item Removed__ - Listen to `@item-removed`
-- __Item Selected__ - Listen to `@item-selected`
-
 ## Vuex
 
 By default, Vuex is supported. To make it work, replace `v-model` directive with `:value` binding and `@input` event. Simple as that.
