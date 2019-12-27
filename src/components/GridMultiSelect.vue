@@ -261,6 +261,8 @@ export default {
 }
 .gridmultiselect_splitview {
   flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
 }
 .gridmultiselect__selecteditems,
 .gridmultiselect__items {
@@ -424,6 +426,7 @@ export default {
 .gridmultiselect__selecteditemdetails {
   padding-top: 0.5rem;
   cursor: auto;
+  width: 100%;
 }
 
 .gridmultiselect--floatingmenu {
