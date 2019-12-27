@@ -16,7 +16,7 @@
         :class="[{'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}, getRowDetailsIndicatorClass(selectedItem)]"
         @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
       >
-        <slot name="selected-item" :selectedItem="selectedItem">
+        <slot name="selected-item" :data="selectedItem">
           {{getItemLabel(selectedItem, "selectedItemLabel")}}
           <span
             v-if="isGroupingEnabled"
@@ -31,7 +31,7 @@
           >
             <slot
               name="selected-item-details"
-              :selectedItem="selectedItem"
+              :data="selectedItem"
             >{{getItemLabel(selectedItem, "itemDetails")}}</slot>
           </div>
         </transition>

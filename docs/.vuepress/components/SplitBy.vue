@@ -8,7 +8,11 @@
     v-model="selectedItems"
     title="Cities"
     split-by="state"
-  />
+  >
+    <template
+      v-slot:selected-item="{selectedItem}"
+    >The city {{selectedItem.name}} is located in {{selectedItem.state}}</template>
+  </GridMultiSelect>
 </template>
 <script>
 import GridMultiSelect from "../../../src/components/GridMultiSelect";

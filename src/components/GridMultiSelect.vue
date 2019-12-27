@@ -21,10 +21,24 @@
         <SelectedItems
           v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
           v-on:item-removed="removeItem"
-        />
+        >
+          <template v-for="slot in $slots">
+            <slot :name="slot"></slot>
+          </template>
+          <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
+            <slot :name="name" :[toCamelCase(name)]="data"></slot>
+          </template>
+        </SelectedItems>
       </div>
     </div>
-    <SelectedItems v-else v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems}" />
+    <SelectedItems v-else v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems}">
+      <template v-for="slot in $slots">
+        <slot :name="slot"></slot>
+      </template>
+      <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
+        <slot :name="name" :[toCamelCase(name)]="data"></slot>
+      </template>
+    </SelectedItems>
     <transition name="gridmultiselect__slide">
       <div
         ref="menu"
@@ -199,6 +213,10 @@ export default {
     isSelected(item) {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
+    },
+    toCamelCase(name) {
+      debugger;
+      return name.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
     }
   }
 };
