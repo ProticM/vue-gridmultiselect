@@ -15,7 +15,16 @@
         </button>
       </transition>
     </div>
-    <SelectedItems v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems}" />
+    <div v-if="isSplitByEnabled" class="gridmultiselect_splitviewcontainer">
+      <div v-for="(view, name) in views" :key="name" class="gridmultiselect_splitview">
+        <div>{{name}}</div>
+        <SelectedItems
+          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
+          v-on:item-removed="removeItem"
+        />
+      </div>
+    </div>
+    <SelectedItems v-else v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems}" />
     <transition name="gridmultiselect__slide">
       <div
         ref="menu"
@@ -77,7 +86,14 @@
   </div>
 </template>
 <script>
-import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "../utils";
+import {
+  isEmpty,
+  copyArray,
+  flatGroupBy,
+  guid,
+  ensureValue,
+  groupBy
+} from "../utils";
 import mixins from "../mixins";
 import SelectedItems from "./SelectedItems";
 export default {
@@ -237,7 +253,15 @@ export default {
   margin-top: 3px;
   cursor: pointer;
 }
-
+.gridmultiselect_splitviewcontainer {
+  display: flex;
+  justify-content: flex-start;
+  height: inherit;
+  min-height: inherit;
+}
+.gridmultiselect_splitview {
+  flex-grow: 1;
+}
 .gridmultiselect__selecteditems,
 .gridmultiselect__items {
   list-style: none;

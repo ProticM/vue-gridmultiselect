@@ -554,6 +554,10 @@ Live Sample
 
 <SelectedItemsFooterSlot />
 
+## Split By
+
+<SplitBy />
+
 ## Vuex
 
 By default, Vuex is supported. To make it work, replace `v-model` directive with `:value` binding and `@input` event. Simple as that.

@@ -64,9 +64,6 @@ export default {
       default: () => []
     }
   },
-  mounted() {
-    console.log(this.selectedItems);
-  },
   computed: {
     selectedItemLabel() {
       const isItemLabelArray = Array.isArray(this.itemLabel);

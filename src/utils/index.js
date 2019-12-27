@@ -6,15 +6,20 @@ const copyArray = (array) => {
 	return array.map(item => ({ ...item }));
 }
 
+const groupBy = (array, key) => {
+	return array.reduce((acc, item) => {
+		(acc[item[key]] = acc[item[key]] || []).push(item);
+		return acc;
+	}, {})
+}
+
 const flatGroupBy = (items, key) => {
 
 	if (checkGroupField(items, key)) return [];
 
 	const copy = copyArray(items);
-	const grouped = copy.reduce((acc, item) => {
-		(acc[item[key]] = acc[item[key]] || []).push(item);
-		return acc;
-	}, {}), groups = Object.keys(grouped);
+	const grouped = groupBy(copy, key),
+		groups = Object.keys(grouped);
 	let flatten = [];
 
 	groups.forEach(group => {
@@ -55,5 +60,6 @@ export {
 	flatGroupBy,
 	copyArray,
 	guid,
-	ensureValue
+	ensureValue,
+	groupBy
 }
