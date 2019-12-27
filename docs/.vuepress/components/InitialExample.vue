@@ -2,7 +2,7 @@
   <GridMultiSelect :items="items" item-key="id" item-label="text" v-model="selectedItems" />
 </template>
 <script>
-import GridMultiSelect from "../../../src/GridMultiSelect";
+import GridMultiSelect from "../../../src/components/GridMultiSelect";
 export default {
   name: "example-initial",
   components: {

@@ -11,7 +11,7 @@
   />
 </template>
 <script>
-import GridMultiSelect from "../../../src/GridMultiSelect";
+import GridMultiSelect from "../../../src/components/GridMultiSelect";
 export default {
   name: "example-styled",
   components: {

@@ -15,10 +15,7 @@
         </button>
       </transition>
     </div>
-    <SelectedItems
-      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
-      v-on:item-removed="removeItem"
-    />
+    <SelectedItems v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems}" />
     <transition name="gridmultiselect__slide">
       <div
         ref="menu"
@@ -80,13 +77,7 @@
   </div>
 </template>
 <script>
-import {
-  isEmpty,
-  copyArray,
-  flatGroupBy,
-  guid,
-  ensureValue
-} from "../utils";
+import { isEmpty, copyArray, flatGroupBy, guid, ensureValue } from "../utils";
 import mixins from "../mixins";
 import SelectedItems from "./SelectedItems";
 export default {
