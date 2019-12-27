@@ -20,7 +20,8 @@
         <div>{{name}}</div>
         <SelectedItems
           v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
-          v-on:item-removed="removeItem"
+          :viewName="name"
+          v-on:item-removed="removeFromView"
         >
           <template v-for="slot in $slots">
             <slot :name="slot"></slot>
@@ -215,8 +216,14 @@ export default {
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
     toCamelCase(name) {
-      debugger;
       return name.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+    },
+    removeFromView(view, removedItem) {
+      const index = this.selectedItems.findIndex(
+        item => item[this.itemKey] === removedItem[this.itemKey]
+      );
+      this.selectedItems.splice(index, 1);
+      this.$emit("item-removed", removedItem);
     }
   }
 };

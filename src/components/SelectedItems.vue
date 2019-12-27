@@ -62,6 +62,9 @@ export default {
     selectedItems: {
       type: Array,
       default: () => []
+    },
+    viewName: {
+      type: String
     }
   },
   computed: {
@@ -107,6 +110,10 @@ export default {
     selectItem(selectedItem) {
       if (this.menuVisible) return;
       this.$emit("item-selected", selectedItem);
+    },
+    removeItem(index) {
+      const removedItem = this.selectedItems.splice(index, 1).pop();
+      this.$emit("item-removed", this.viewName, removedItem);
     }
   }
 };

@@ -13,9 +13,5 @@ export default {
 			.map(label => item[label.trim()])
 			.join(" ")
 			.trim();
-	},
-	removeItem(index) {
-		const removedItem = this.selectedItems.splice(index, 1);
-		this.$emit("item-removed", removedItem);
 	}
 }
