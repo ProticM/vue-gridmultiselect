@@ -15,52 +15,10 @@
         </button>
       </transition>
     </div>
-    <ul class="gridmultiselect__selecteditems">
-      <li
-        class="gridmultiselect__selecteditem--empty"
-        v-if="selectedItems.length === 0"
-      >{{selectedItemsEmptyMessage}}</li>
-      <li
-        v-else
-        v-for="(selectedItem, index) in selectedItems"
-        :key="selectedItem[itemKey]"
-        class="gridmultiselect__selecteditem gridmultiselect__selecteditem--font-small"
-        @click="selectItem(selectedItem)"
-      >
-        <div
-          class="gridmultiselect__selecteditemtext"
-          :class="[{'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}, getRowDetailsIndicatorClass(selectedItem)]"
-          @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
-        >
-          <slot name="selected-item" :selectedItem="selectedItem">
-            {{getItemLabel(selectedItem, "selectedItemLabel")}}
-            <span
-              v-if="isGroupingEnabled"
-              class="gridmultiselect__selecteditemgroupbadge"
-            >({{selectedItem[groupBy]}})</span>
-          </slot>
-          <transition name="gridmultiselect__slidedown">
-            <div
-              class="gridmultiselect__selecteditemdetails"
-              v-if="isRowDetailEnabled"
-              v-show="rowDetails.includes(selectedItem[itemKey])"
-            >
-              <slot
-                name="selected-item-details"
-                :selectedItem="selectedItem"
-              >{{getItemLabel(selectedItem, "itemDetails")}}</slot>
-            </div>
-          </transition>
-        </div>
-        <div
-          class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
-          @click="removeItem(index)"
-        >x</div>
-      </li>
-      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selected-items-footer')">
-        <slot name="selected-items-footer"></slot>
-      </li>
-    </ul>
+    <SelectedItems
+      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
+      v-on:item-removed="removeItem"
+    />
     <transition name="gridmultiselect__slide">
       <div
         ref="menu"
@@ -128,15 +86,18 @@ import {
   flatGroupBy,
   guid,
   ensureValue
-} from "./utils/utils";
+} from "../utils";
+import mixins from "../mixins";
+import SelectedItems from "./SelectedItems";
 export default {
   name: "vue-gridmultiselect",
+  mixins: [mixins],
+  components: { SelectedItems },
   data() {
     return {
       guid: null,
       menuVisible: false,
-      searchTerm: null,
-      rowDetails: []
+      searchTerm: null
     };
   },
   mounted() {
@@ -146,14 +107,6 @@ export default {
     title: {
       type: String,
       default: "Grid Multiselect"
-    },
-    itemLabel: {
-      value: [String, Array],
-      required: true
-    },
-    itemKey: {
-      type: String,
-      required: true
     },
     items: {
       type: Array,
@@ -167,14 +120,7 @@ export default {
       type: Boolean,
       default: true
     },
-    emptyMessage: {
-      type: String,
-      default: "No Data"
-    },
     groupBy: {
-      type: String
-    },
-    itemDetails: {
       type: String
     },
     menuPosition: {
@@ -184,17 +130,12 @@ export default {
     tabIndex: {
       type: Number,
       default: 0
+    },
+    splitBy: {
+      type: String
     }
   },
   computed: {
-    selectedItemLabel() {
-      const isItemLabelArray = Array.isArray(this.itemLabel);
-      const hasSelectedItemLabelDefined =
-        isItemLabelArray && this.itemLabel.length > 1;
-      return hasSelectedItemLabelDefined
-        ? this.itemLabel[1]
-        : ensureValue(this.itemLabel);
-    },
     internalItems() {
       const copy = isEmpty(this.groupBy)
         ? copyArray(this.items)
@@ -222,20 +163,19 @@ export default {
         this.$emit("input", newValue);
       }
     },
-    isGroupingEnabled() {
-      return !isEmpty(this.groupBy);
-    },
     itemsEmptyMessage() {
       return ensureValue(this.emptyMessage.split("|"));
     },
-    selectedItemsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"), 1);
-    },
-    isRowDetailEnabled() {
-      return !isEmpty(this.itemDetails);
-    },
     isMenuFloating() {
       return this.menuPosition === "float";
+    },
+    views() {
+      return isEmpty(this.splitBy)
+        ? []
+        : groupBy(this.selectedItems, this.splitBy);
+    },
+    isSplitByEnabled() {
+      return !isEmpty(this.splitBy);
     }
   },
   methods: {
@@ -249,48 +189,9 @@ export default {
         el.focus();
       });
     },
-    removeItem(index) {
-      const removedItem = this.selectedItems.splice(index, 1);
-      this.$emit("item-removed", removedItem);
-    },
-    getItemLabel(item, key = "itemLabel") {
-      const label = ensureValue(this[key]);
-      return label
-        .split("|")
-        .map(label => item[label.trim()])
-        .join(" ")
-        .trim();
-    },
-    selectItem(selectedItem) {
-      if (this.menuVisible) return;
-      this.$emit("item-selected", selectedItem);
-    },
     isSelected(item) {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
-    },
-    hasSlot(name) {
-      return !!this.$slots[name] || !!this.$scopedSlots[name];
-    },
-    toggleDetails(item) {
-      const isOpened = this.rowDetails.includes(item[this.itemKey]);
-
-      if (!isOpened) {
-        this.rowDetails.push(item[this.itemKey]);
-        return;
-      }
-
-      const index = this.rowDetails.indexOf(item[this.itemKey]);
-      this.rowDetails.splice(index, 1);
-    },
-    getRowDetailsIndicatorClass(item) {
-      return this.isRowDetailEnabled
-        ? `gridmultiselect__selecteditemtext--${
-            this.rowDetails.includes(item[this.itemKey])
-              ? "expanded"
-              : "collapsed"
-          }`
-        : null;
     }
   }
 };
