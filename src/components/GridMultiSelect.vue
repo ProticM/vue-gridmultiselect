@@ -17,7 +17,7 @@
     </div>
     <div v-if="isSplitByEnabled" class="gridmultiselect_splitviewcontainer">
       <div v-for="(view, name) in views" :key="name" class="gridmultiselect_splitview">
-        <div>{{name}}</div>
+        <div class="gridmultiselect_splitviewheader">{{name}}</div>
         <SelectedItems
           v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
           :viewName="name"
@@ -280,14 +280,26 @@ export default {
 }
 .gridmultiselect_splitviewcontainer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: inherit;
   min-height: inherit;
+  padding: 0.5rem;
 }
 .gridmultiselect_splitview {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
+  border: 1px solid #e6eceb;
+  border-radius: 4px;
+}
+.gridmultiselect_splitview:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.gridmultiselect_splitviewheader {
+  padding: 0.5rem;
+  font-size: 13px;
+  font-weight: bold;
+  border-bottom: 1px solid #e6eceb;
 }
 .gridmultiselect__selecteditems,
 .gridmultiselect__items {
