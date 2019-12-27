@@ -27,7 +27,7 @@
             <slot :name="slot"></slot>
           </template>
           <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
-            <slot :name="name" :[toCamelCase(name)]="data"></slot>
+            <slot :name="name" :[kebabToCamelCase(name)]="data"></slot>
           </template>
         </SelectedItems>
       </div>
@@ -37,7 +37,7 @@
         <slot :name="slot"></slot>
       </template>
       <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
-        <slot :name="name" :[toCamelCase(name)]="data"></slot>
+        <slot :name="name" :[kebabToCamelCase(name)]="data"></slot>
       </template>
     </SelectedItems>
     <transition name="gridmultiselect__slide">
@@ -215,7 +215,7 @@ export default {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
-    toCamelCase(name) {
+    kebabToCamelCase(name) {
       return name.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
     },
     removeFromView(view, removedItem) {
