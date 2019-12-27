@@ -27,7 +27,7 @@ const buildBanner = () => {
 		'/*!',
 		'* Vue GridMultiselect v' + pck.version,
 		'* Copyright ' + pck.author + ' and other contributors',
-		'* Licensed under ' + pck.license + ' (https://github.com/ProticM/plazar-js/blob/master/LICENSE)',
+		'* Licensed under ' + pck.license + ' (https://github.com/ProticM/vue-gridmultiselect/blob/master/LICENSE)',
 		'*/'
 	].join('\n');
 };
