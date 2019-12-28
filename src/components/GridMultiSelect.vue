@@ -18,7 +18,7 @@
     <div
       v-if="isSplitByEnabled"
       class="gridmultiselect_splitviewcontainer"
-      :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'column',
+      :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'row',
         'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
     >
       <div v-if="!hasSelectedViews()" class="gridmultiselect_splitviewcontainer--empty">No Data</div>
@@ -26,7 +26,7 @@
         v-for="(view, name) in views"
         :key="name"
         class="gridmultiselect_splitview"
-        :class="{'gridmultiselect_splitview--column':splitByOrientation === 'column',
+        :class="{'gridmultiselect_splitview--column':splitByOrientation === 'row',
           'gridmultiselect_splitview--single': isSingleViewSelected()}"
       >
         <div class="gridmultiselect_splitviewheader">{{name}}</div>
@@ -220,7 +220,7 @@ export default {
     },
     splitByOrientation() {
       const splitByOptions = this.splitBy.split("|");
-      return splitByOptions[1] || "row";
+      return splitByOptions[1] || "column";
     }
   },
   methods: {

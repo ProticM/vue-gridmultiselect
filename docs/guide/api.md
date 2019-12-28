@@ -123,6 +123,16 @@ emptyMessage: {
 }
 ```
 
+### splitBy
+
+Holds the item property name to split the selected items view by.
+
+```js
+splitBy: {
+  type: String
+}
+```
+
 ## Slots
 
 ### `item`

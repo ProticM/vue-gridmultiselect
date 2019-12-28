@@ -5,7 +5,7 @@
     item-label="name"
     v-model="selectedItems"
     title="Cities"
-    split-by="state"
+    split-by="state|row"
   />
 </template>
 <script>
