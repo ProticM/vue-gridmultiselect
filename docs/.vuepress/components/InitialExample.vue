@@ -100,16 +100,4 @@ export default {
   margin-top: 0.7rem;
   min-height: 150px;
 }
-.buttons {
-  text-align: right;
-}
-.buttons > button {
-  background-color: #32a8c5;
-  color: #fff;
-  outline: none;
-  padding: 0.5rem;
-  border: 1px solid #e6eceb;
-  border-radius: 4px;
-  cursor: pointer;
-}
 </style>
