@@ -54,10 +54,12 @@ const ensureValue = (value, index = 0) => {
 	return Array.isArray(value) ?
 		(value[index] || value[0]) : value;
 }
+
 const slotScopes = {
 	"selected-item": "selectedItem",
 	"selected-item-details": "selectedItem"
 }
+
 const getSlotScope = (name) => {
 	return slotScopes[name] || null;
 }
