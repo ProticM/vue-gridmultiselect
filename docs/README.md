@@ -14,7 +14,7 @@ features:
 footer: MIT Licensed | Copyright © 2019-present Miloš Protić
 ---
 
-#### Default Behaviour
+#### Example
 
 <InitialExample />
 

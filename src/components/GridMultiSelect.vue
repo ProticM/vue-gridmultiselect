@@ -320,6 +320,8 @@ export default {
   flex-basis: 0;
   border: 1px solid #e6eceb;
   border-radius: 4px;
+  height: inherit;
+  min-height: inherit;
 }
 .gridmultiselect_splitview:not(:last-child) {
   margin-right: 0.5rem;
