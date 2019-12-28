@@ -160,7 +160,7 @@ Each _No Data_ message can be customized by using the property:
 
 - __empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
 
-Use delimiter `|` to handle both lists. The value before `|` is used for the items list and the value after is used for the selected items list.
+Use delimiter `|` to handle both lists. The value before `|` is used for the items list and the value after is used for the selected items list. If view split is enabled, the additional third part after another `|` represents the text to be shown when no views are selected. A quick example looks something like this: `No Items|No Selection|No Views`
 
 HTML
 

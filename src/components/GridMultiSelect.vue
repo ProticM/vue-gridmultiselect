@@ -21,7 +21,10 @@
       :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'row',
         'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
     >
-      <div v-if="!hasSelectedViews()" class="gridmultiselect_splitviewcontainer--empty">No Data</div>
+      <div
+        v-if="!hasSelectedViews()"
+        class="gridmultiselect_splitviewcontainer--empty"
+      >{{viewsEmptyMessage}}</div>
       <div
         v-for="(view, name) in views"
         :key="name"
@@ -201,6 +204,9 @@ export default {
     },
     itemsEmptyMessage() {
       return ensureValue(this.emptyMessage.split("|"));
+    },
+    viewsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split("|"), 2);
     },
     isMenuFloating() {
       return this.menuPosition === "float";
