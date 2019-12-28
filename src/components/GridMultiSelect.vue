@@ -210,8 +210,9 @@ export default {
         ? []
         : (() => {
             const splitBy = ensureValue(this.splitBy.split("|"));
-            checkGroupField(this.selectedItems, splitBy);
-            return groupBy(this.selectedItems, splitBy);
+            return checkGroupField(this.selectedItems, splitBy)
+              ? []
+              : groupBy(this.selectedItems, splitBy);
           })();
     },
     isSplitByEnabled() {
