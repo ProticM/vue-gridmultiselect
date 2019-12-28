@@ -118,3 +118,78 @@ export default {
   }
 };
 </script>
+<style>
+.gridmultiselect__selecteditems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  min-height: inherit;
+}
+.gridmultiselect__selecteditem--empty {
+  text-align: center;
+  padding: 0.5rem;
+  opacity: 0.6;
+}
+.gridmultiselect__selecteditemitemsfooter {
+  padding: 0.5rem;
+  margin-top: auto;
+}
+
+.gridmultiselect__selecteditem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gridmultiselect__selecteditem:not(:last-child) {
+  border-bottom: 1px solid #e6eceb;
+}
+
+.gridmultiselect__selecteditem:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.gridmultiselect__selecteditemtext {
+  padding: 0.5rem;
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
+  flex-grow: 1;
+}
+.gridmultiselect__selecteditemtext--collapsed::before,
+.gridmultiselect__selecteditemtext--expanded::before {
+  display: inline-block;
+  color: #b8bcbc;
+  padding-top: 2px;
+  border-style: solid;
+  border-width: 5px 5px 0;
+  border-color: #b8bcbc transparent transparent;
+  content: "";
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+  margin-right: 5px;
+}
+
+.gridmultiselect__selecteditemtext--expanded::before {
+  transform: rotate(180deg);
+  margin-bottom: 2px;
+}
+.gridmultiselect__selecteditemgroupbadge {
+  font-size: 10px;
+  font-style: italic;
+}
+.gridmultiselect__selecteditemdetails {
+  padding-top: 0.5rem;
+  cursor: auto;
+  width: 100%;
+}
+.gridmultiselect__selecteditem--font-small {
+  font-size: 13px;
+}
+.gridmultiselect__selecteditemtext--cursor-pointer {
+  cursor: pointer;
+}
+</style>

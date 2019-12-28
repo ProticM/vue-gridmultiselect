@@ -329,7 +329,6 @@ export default {
   font-weight: bold;
   border-bottom: 1px solid #e6eceb;
 }
-.gridmultiselect__selecteditems,
 .gridmultiselect__items {
   list-style: none;
   margin: 0;
@@ -339,10 +338,7 @@ export default {
   height: inherit;
   min-height: inherit;
 }
-.gridmultiselect__selecteditemitemsfooter {
-  padding: 0.5rem;
-  margin-top: auto;
-}
+
 .gridmultiselect__itemsfooter {
   padding: 0.2rem 0.5rem;
   margin-top: auto;
@@ -388,49 +384,6 @@ export default {
   padding-left: 0.2rem 0.2rem 0.2rem 0.7rem;
 }
 
-.gridmultiselect__selecteditem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.gridmultiselect__selecteditem:not(:last-child) {
-  border-bottom: 1px solid #e6eceb;
-}
-
-.gridmultiselect__selecteditem:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.gridmultiselect__selecteditemtext {
-  padding: 0.5rem;
-  overflow: hidden;
-  word-break: break-word;
-  white-space: normal;
-  flex-grow: 1;
-}
-.gridmultiselect__selecteditemtext--collapsed::before,
-.gridmultiselect__selecteditemtext--expanded::before {
-  display: inline-block;
-  color: #b8bcbc;
-  padding-top: 2px;
-  border-style: solid;
-  border-width: 5px 5px 0;
-  border-color: #b8bcbc transparent transparent;
-  content: "";
-  border-radius: 2px;
-  transition: transform 0.3s ease;
-  margin-right: 5px;
-}
-
-.gridmultiselect__selecteditemtext--expanded::before {
-  transform: rotate(180deg);
-  margin-bottom: 2px;
-}
-.gridmultiselect__selecteditemgroupbadge {
-  font-size: 10px;
-  font-style: italic;
-}
 .gridmultiselect__removebutton {
   padding: 0.5rem;
   cursor: pointer;
@@ -488,23 +441,15 @@ export default {
   flex-grow: 1;
 }
 
-.gridmultiselect__selecteditemdetails {
-  padding-top: 0.5rem;
-  cursor: auto;
-  width: 100%;
-}
-
 .gridmultiselect--floatingmenu {
   overflow: visible;
 }
 
 .gridmultiselect__itemlabel--font-small,
 .gridmultiselect__removebutton--font-small,
-.gridmultiselect__searchfield--font-small,
-.gridmultiselect__selecteditem--font-small {
+.gridmultiselect__searchfield--font-small {
   font-size: 13px;
 }
-.gridmultiselect__selecteditem--empty,
 .gridmultiselect__item--empty,
 .gridmultiselect_splitviewcontainer--empty {
   text-align: center;
@@ -520,9 +465,6 @@ export default {
 .gridmultiselect__item--selected {
   color: #856404;
   background-color: #fff3cd;
-}
-.gridmultiselect__selecteditemtext--cursor-pointer {
-  cursor: pointer;
 }
 
 .gridmultiselect__slide-enter-active,
