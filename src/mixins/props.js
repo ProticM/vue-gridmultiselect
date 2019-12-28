@@ -13,5 +13,8 @@ export default {
 	},
 	itemDetails: {
 		type: String
+	},
+	groupBy: {
+		type: String
 	}
 }
