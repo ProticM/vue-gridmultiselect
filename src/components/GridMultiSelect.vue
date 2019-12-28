@@ -499,6 +499,10 @@ export default {
 .gridmultiselect_splitviewcontainer--single {
   padding: 0;
 }
+.gridmultiselect_splitview--column {
+  height: auto;
+  min-height: auto;
+}
 .gridmultiselect_splitview--column:not(:last-child) {
   margin-right: 0;
   margin-bottom: 0.5rem;
