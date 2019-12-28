@@ -21,7 +21,7 @@
       :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'column',
         'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
     >
-      <div v-if="!hasViews()" class="gridmultiselect_splitviewcontainer--empty">No Data</div>
+      <div v-if="!hasSelectedViews()" class="gridmultiselect_splitviewcontainer--empty">No Data</div>
       <div
         v-for="(view, name) in views"
         :key="name"
@@ -251,7 +251,7 @@ export default {
       return new Set(views).size === 1;
     },
     getSlotScope: getSlotScope,
-    hasViews() {
+    hasSelectedViews() {
       return Object.keys(this.views).length > 0;
     }
   }
