@@ -35,8 +35,7 @@ const checkGroupField = (items, key) => {
 	const hasItemWithoutGroupingField = !isEmpty(itemWithoutGroupingField);
 
 	if (hasItemWithoutGroupingField) {
-		console.warn('Item '.concat(JSON.stringify(itemWithoutGroupingField))
-			.concat(' does not contain grouping field: '.concat(key)));
+		console.warn(`Item ${JSON.stringify(itemWithoutGroupingField)} does not contain grouping field: ${key}`);
 	}
 
 	return hasItemWithoutGroupingField;
