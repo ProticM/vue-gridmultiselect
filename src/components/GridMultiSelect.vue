@@ -15,8 +15,20 @@
         </button>
       </transition>
     </div>
-    <div v-if="isSplitByEnabled" class="gridmultiselect_splitviewcontainer">
-      <div v-for="(view, name) in views" :key="name" class="gridmultiselect_splitview">
+    <div
+      v-if="isSplitByEnabled"
+      class="gridmultiselect_splitviewcontainer"
+      :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'column',
+        'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
+    >
+      <div v-if="!hasViews()" class="gridmultiselect_splitviewcontainer--empty">No Data</div>
+      <div
+        v-for="(view, name) in views"
+        :key="name"
+        class="gridmultiselect_splitview"
+        :class="{'gridmultiselect_splitview--column':splitByOrientation === 'column',
+          'gridmultiselect_splitview--single': isSingleViewSelected()}"
+      >
         <div class="gridmultiselect_splitviewheader">{{name}}</div>
         <SelectedItems
           v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, selectedItems:view}"
@@ -27,7 +39,7 @@
             <slot :name="slot"></slot>
           </template>
           <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
-            <slot :name="name" :[kebabToCamelCase(name)]="data"></slot>
+            <slot :name="name" :[getSlotScope(name)]="data"></slot>
           </template>
         </SelectedItems>
       </div>
@@ -37,7 +49,7 @@
         <slot :name="slot"></slot>
       </template>
       <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
-        <slot :name="name" :[kebabToCamelCase(name)]="data"></slot>
+        <slot :name="name" :[getSlotScope(name)]="data"></slot>
       </template>
     </SelectedItems>
     <transition name="gridmultiselect__slide">
@@ -107,7 +119,9 @@ import {
   flatGroupBy,
   guid,
   ensureValue,
-  groupBy
+  groupBy,
+  checkGroupField,
+  getSlotScope
 } from "../utils";
 import mixins from "../mixins";
 import SelectedItems from "./SelectedItems";
@@ -194,10 +208,18 @@ export default {
     views() {
       return isEmpty(this.splitBy)
         ? []
-        : groupBy(this.selectedItems, this.splitBy);
+        : (() => {
+            const splitBy = ensureValue(this.splitBy.split("|"));
+            checkGroupField(this.selectedItems, splitBy);
+            return groupBy(this.selectedItems, splitBy);
+          })();
     },
     isSplitByEnabled() {
       return !isEmpty(this.splitBy);
+    },
+    splitByOrientation() {
+      const splitByOptions = this.splitBy.split("|");
+      return splitByOptions[1] || "row";
     }
   },
   methods: {
@@ -215,15 +237,21 @@ export default {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
-    kebabToCamelCase(name) {
-      return name.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
-    },
     removeFromView(view, removedItem) {
       const index = this.selectedItems.findIndex(
         item => item[this.itemKey] === removedItem[this.itemKey]
       );
       this.selectedItems.splice(index, 1);
       this.$emit("item-removed", removedItem);
+    },
+    isSingleViewSelected() {
+      const splitBy = ensureValue(this.splitBy.split("|"));
+      const views = this.selectedItems.map(item => item[splitBy]);
+      return new Set(views).size === 1;
+    },
+    getSlotScope: getSlotScope,
+    hasViews() {
+      return Object.keys(this.views).length > 0;
     }
   }
 };
@@ -477,7 +505,8 @@ export default {
   font-size: 13px;
 }
 .gridmultiselect__selecteditem--empty,
-.gridmultiselect__item--empty {
+.gridmultiselect__item--empty,
+.gridmultiselect_splitviewcontainer--empty {
   text-align: center;
   padding: 0.5rem;
   opacity: 0.6;
@@ -512,5 +541,21 @@ export default {
 .gridmultiselect__slidedown-leave-to {
   transform: translateY(-15px);
   opacity: 0;
+}
+.gridmultiselect_splitviewcontainer--column {
+  flex-direction: column;
+}
+.gridmultiselect_splitviewcontainer--single {
+  padding: 0;
+}
+.gridmultiselect_splitview--column:not(:last-child) {
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+}
+.gridmultiselect_splitview--single {
+  border: 0;
+}
+.gridmultiselect_splitviewcontainer--empty {
+  flex-grow: 1;
 }
 </style>
