@@ -1,9 +1,9 @@
-import { wrapShallow } from './util';
+import { wrap } from './util';
 
 describe('searching', () => {
 
 	it('should enable search', () => {
-		const wrapper = wrapShallow({
+		const wrapper = wrap({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		});
@@ -14,7 +14,7 @@ describe('searching', () => {
 	});
 
 	it('should disable search', () => {
-		const wrapper = wrapShallow({
+		const wrapper = wrap({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			searchable: false
@@ -26,7 +26,7 @@ describe('searching', () => {
 	});
 
 	it('should find text item 1', () => {
-		const wrapper = wrapShallow({
+		const wrapper = wrap({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		}), input = wrapper.find('.gridmultiselect__searchfield');
