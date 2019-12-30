@@ -34,7 +34,7 @@
       >
         <div class="gridmultiselect_splitviewheader">{{name}}</div>
         <SelectedItems
-          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, selectedItems:view}"
+          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitByEnabled, selectedItems:view}"
           :viewName="name"
           @item-removed="removeFromView"
         >
@@ -49,7 +49,7 @@
     </div>
     <SelectedItems
       v-else
-      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, selectedItems}"
+      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitByEnabled, selectedItems}"
     >
       <template v-for="slot in $slots">
         <slot :name="slot"></slot>
@@ -244,12 +244,12 @@ export default {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
-    removeFromView(view, removedItem) {
+    removeFromView(removedItem, viewName) {
       const index = this.selectedItems.findIndex(
         item => item[this.itemKey] === removedItem[this.itemKey]
       );
       this.selectedItems.splice(index, 1);
-      this.$emit("item-removed", removedItem);
+      this.$emit("item-removed", removedItem, viewName);
     },
     isSingleViewSelected() {
       const splitBy = ensureValue(this.splitBy.split("|"));

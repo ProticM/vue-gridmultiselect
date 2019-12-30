@@ -68,6 +68,9 @@ export default {
     },
     menuVisible: {
       type: Boolean
+    },
+    isSplitByEnabled: {
+      type: Boolean
     }
   },
   computed: {
@@ -116,7 +119,11 @@ export default {
     },
     removeItem(index) {
       const removedItem = this.selectedItems.splice(index, 1).pop();
-      this.$emit("item-removed", removedItem);
+      if (this.isSplitByEnabled) {
+        this.$emit("item-removed", removedItem, this.viewName);
+      } else {
+        this.$parent.$emit("item-removed", removedItem);
+      }
     }
   }
 };
