@@ -1,4 +1,5 @@
 import { wrap } from './util';
+import SelectedItems from '@/components/SelectedItems';
 
 describe('value binding', () => {
 	it('should work when selected items are initially set to null', () => {
@@ -6,7 +7,10 @@ describe('value binding', () => {
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		});
+		const selectedItems = wrapper.find(SelectedItems);
+
 		expect(wrapper.vm.selectedItems).toEqual([]);
+		expect(selectedItems.vm.selectedItems).toEqual([]);
 	});
 
 	it('should preselect initial value', () => {

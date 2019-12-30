@@ -16,7 +16,7 @@
       </transition>
     </div>
     <div
-      v-if="isSplitByEnabled"
+      v-if="isSplitViewEnabled"
       class="gridmultiselect_splitviewcontainer"
       :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'row',
         'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
@@ -34,7 +34,7 @@
       >
         <div class="gridmultiselect_splitviewheader">{{name}}</div>
         <SelectedItems
-          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitByEnabled, selectedItems:view}"
+          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems:view}"
           :viewName="name"
           @item-removed="removeFromView"
         >
@@ -49,7 +49,7 @@
     </div>
     <SelectedItems
       v-else
-      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitByEnabled, selectedItems}"
+      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems}"
     >
       <template v-for="slot in $slots">
         <slot :name="slot"></slot>
@@ -221,7 +221,7 @@ export default {
               : groupBy(this.selectedItems, splitBy);
           })();
     },
-    isSplitByEnabled() {
+    isSplitViewEnabled() {
       return !isEmpty(this.splitBy);
     },
     splitByOrientation() {

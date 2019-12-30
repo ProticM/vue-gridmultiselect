@@ -69,7 +69,7 @@ export default {
     menuVisible: {
       type: Boolean
     },
-    isSplitByEnabled: {
+    isSplitViewEnabled: {
       type: Boolean
     }
   },
@@ -119,7 +119,7 @@ export default {
     },
     removeItem(index) {
       const removedItem = this.selectedItems.splice(index, 1).pop();
-      if (this.isSplitByEnabled) {
+      if (this.isSplitViewEnabled) {
         this.$emit("item-removed", removedItem, this.viewName);
       } else {
         this.$parent.$emit("item-removed", removedItem);
