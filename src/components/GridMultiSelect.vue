@@ -254,7 +254,10 @@ export default {
     isSingleViewSelected() {
       const splitBy = ensureValue(this.splitBy.split("|"));
       const views = this.selectedItems.map(item => item[splitBy]);
-      return new Set(views).size === 1;
+      return (
+        views.filter((view, index, self) => self.indexOf(view) === index)
+          .length === 1
+      );
     },
     getSlotScope: getSlotScope,
     hasSelectedViews() {
