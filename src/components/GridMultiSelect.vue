@@ -253,7 +253,7 @@ export default {
     },
     isSingleViewSelected() {
       const splitBy = ensureValue(this.splitBy.split("|"));
-      const views = this.selectedItems.map(item => item[splitBy]);
+      const views = this.selectedItems.map(item => item[splitBy]).sort();
       return (
         views.filter((view, index, self) => self.indexOf(view) === index)
           .length === 1
