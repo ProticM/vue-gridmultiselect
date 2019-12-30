@@ -38,7 +38,7 @@
       </div>
       <div
         class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
-        @click="removeItem(index)"
+        @click.stop.prevent="removeItem(index)"
       >x</div>
     </li>
     <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selected-items-footer')">
@@ -65,6 +65,9 @@ export default {
     },
     viewName: {
       type: String
+    },
+    menuVisible: {
+      type: Boolean
     }
   },
   computed: {
@@ -109,11 +112,11 @@ export default {
     },
     selectItem(selectedItem) {
       if (this.menuVisible) return;
-      this.$emit("item-selected", selectedItem);
+      this.$parent.$emit("item-selected", selectedItem);
     },
     removeItem(index) {
       const removedItem = this.selectedItems.splice(index, 1).pop();
-      this.$emit("item-removed", this.viewName, removedItem);
+      this.$emit("item-removed", removedItem);
     }
   }
 };

@@ -34,9 +34,9 @@
       >
         <div class="gridmultiselect_splitviewheader">{{name}}</div>
         <SelectedItems
-          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, selectedItems:view}"
+          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, selectedItems:view}"
           :viewName="name"
-          v-on:item-removed="removeFromView"
+          @item-removed="removeFromView"
         >
           <template v-for="slot in $slots">
             <slot :name="slot"></slot>
@@ -49,7 +49,7 @@
     </div>
     <SelectedItems
       v-else
-      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, selectedItems}"
+      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, selectedItems}"
     >
       <template v-for="slot in $slots">
         <slot :name="slot"></slot>
