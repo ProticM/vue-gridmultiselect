@@ -1,6 +1,5 @@
-import {
-	ensureValue
-} from "../utils";
+import { SEPARATOR } from '../constants';
+import { ensureValue } from "../utils";
 
 export default {
 	hasSlot(name) {
@@ -9,7 +8,7 @@ export default {
 	getItemLabel(item, key = "itemLabel") {
 		const label = ensureValue(this[key]);
 		return label
-			.split("|")
+			.split(SEPARATOR)
 			.map(label => item[label.trim()])
 			.join(" ")
 			.trim();
