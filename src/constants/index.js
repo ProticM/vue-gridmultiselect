@@ -9,7 +9,29 @@ const SLOT_SCOPES = {
 	"selected-item-details": "selectedItem"
 }
 
+const EVENT_NAMES = {
+	input: "input",
+	itemRemoved: "item-removed",
+	itemSelected: "item-selected"
+}
+
+const VIEW_ORIENTATION = {
+	row: "row",
+	column: "column"
+}
+
+const MENU_POSITION = {
+	dock: "dock",
+	float: "float"
+}
+
+const SEPARATOR = "|";
+
 export {
 	SELECTED_ITEMS_SLOTNAMES,
-	SLOT_SCOPES
+	SLOT_SCOPES,
+	EVENT_NAMES,
+	SEPARATOR,
+	VIEW_ORIENTATION,
+	MENU_POSITION
 }

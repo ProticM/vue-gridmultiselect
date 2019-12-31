@@ -123,7 +123,13 @@ import {
   checkGroupField,
   getSlotScope
 } from "../utils";
-import { SELECTED_ITEMS_SLOTNAMES } from "../constants";
+import {
+  SELECTED_ITEMS_SLOTNAMES,
+  EVENT_NAMES,
+  SEPARATOR,
+  VIEW_ORIENTATION,
+  MENU_POSITION
+} from "../constants";
 import mixins from "../mixins";
 import SelectedItems from "./SelectedItems";
 export default {
@@ -159,7 +165,7 @@ export default {
     },
     menuPosition: {
       type: String,
-      default: "dock"
+      default: MENU_POSITION.dock
     },
     tabIndex: {
       type: Number,
@@ -194,23 +200,23 @@ export default {
         return this.value || [];
       },
       set(newValue) {
-        this.$emit("input", newValue);
+        this.$emit(EVENT_NAMES.input, newValue);
       }
     },
     itemsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"));
+      return ensureValue(this.emptyMessage.split(SEPARATOR));
     },
     viewsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"), 2);
+      return ensureValue(this.emptyMessage.split(SEPARATOR), 2);
     },
     isMenuFloating() {
-      return this.menuPosition === "float";
+      return this.menuPosition === MENU_POSITION.float;
     },
     views() {
       return isEmpty(this.splitBy)
         ? []
         : (() => {
-            const splitBy = ensureValue(this.splitBy.split("|"));
+            const splitBy = ensureValue(this.splitBy.split(SEPARATOR));
             return checkGroupField(this.selectedItems, splitBy)
               ? []
               : groupBy(this.selectedItems, splitBy);
@@ -220,8 +226,8 @@ export default {
       return !isEmpty(this.splitBy);
     },
     splitByOrientation() {
-      const splitByOptions = this.splitBy.split("|");
-      return splitByOptions[1] || "column";
+      const splitByOptions = this.splitBy.split(SEPARATOR);
+      return splitByOptions[1] || VIEW_ORIENTATION.column;
     },
     selectedItemsSlots() {
       return SELECTED_ITEMS_SLOTNAMES.reduce((slots, name) => {
@@ -252,10 +258,10 @@ export default {
         item => item[this.itemKey] === removedItem[this.itemKey]
       );
       this.selectedItems.splice(index, 1);
-      this.$emit("item-removed", removedItem, viewName);
+      this.$emit(EVENT_NAMES.itemRemoved, removedItem, viewName);
     },
     isSingleViewSelected() {
-      const splitBy = ensureValue(this.splitBy.split("|"));
+      const splitBy = ensureValue(this.splitBy.split(SEPARATOR));
       const views = this.selectedItems.map(item => item[splitBy]).sort();
       return (
         views.filter((view, index, self) => self.indexOf(view) === index)
