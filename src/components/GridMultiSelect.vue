@@ -38,9 +38,6 @@
           :viewName="name"
           @item-removed="removeFromView"
         >
-          <template v-for="slot in $slots">
-            <slot :name="slot"></slot>
-          </template>
           <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
             <slot :name="name" :[getSlotScope(name)]="data"></slot>
           </template>
@@ -51,9 +48,6 @@
       v-else
       v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems}"
     >
-      <template v-for="slot in $slots">
-        <slot :name="slot"></slot>
-      </template>
       <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
         <slot :name="name" :[getSlotScope(name)]="data"></slot>
       </template>
