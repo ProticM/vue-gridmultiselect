@@ -47,6 +47,7 @@
   </ul>
 </template>
 <script>
+import { SEPARATOR, EVENT_NAMES } from "../constants";
 import { isEmpty, ensureValue } from "../utils";
 import mixins from "../mixins";
 
@@ -83,7 +84,7 @@ export default {
         : ensureValue(this.itemLabel);
     },
     selectedItemsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"), 1);
+      return ensureValue(this.emptyMessage.split(SEPARATOR), 1);
     },
     isRowDetailEnabled() {
       return !isEmpty(this.itemDetails);
@@ -115,14 +116,14 @@ export default {
     },
     selectItem(selectedItem) {
       if (this.menuVisible) return;
-      this.$parent.$emit("item-selected", selectedItem);
+      this.$parent.$emit(EVENT_NAMES.itemSelected, selectedItem);
     },
     removeItem(index) {
       const removedItem = this.selectedItems.splice(index, 1).pop();
       if (this.isSplitViewEnabled) {
-        this.$emit("item-removed", removedItem, this.viewName);
+        this.$emit(EVENT_NAMES.itemRemoved, removedItem, this.viewName);
       } else {
-        this.$parent.$emit("item-removed", removedItem);
+        this.$parent.$emit(EVENT_NAMES.itemRemoved, removedItem);
       }
     }
   }
