@@ -10,7 +10,8 @@
 		"docs:build": "vuepress build docs",
 		"build": "rollup -c",
 		"clean": "rimraf dist",
-		"release": "release-it"
+		"release": "release-it",
+		"publish": "npm publish"
 	},
 	"keywords": [
 		"vue",
