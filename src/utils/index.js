@@ -1,3 +1,5 @@
+import { SLOT_SCOPES } from '../constants';
+
 const isEmpty = (value) => {
 	return value === null || value === undefined || value === "";
 }
@@ -54,13 +56,8 @@ const ensureValue = (value, index = 0) => {
 		(value[index] || value[0]) : value;
 }
 
-const slotScopes = {
-	"selected-item": "selectedItem",
-	"selected-item-details": "selectedItem"
-}
-
 const getSlotScope = (name) => {
-	return slotScopes[name] || null;
+	return SLOT_SCOPES[name] || null;
 }
 
 export {

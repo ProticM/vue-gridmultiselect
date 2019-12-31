@@ -38,7 +38,7 @@
           :viewName="name"
           @item-removed="removeFromView"
         >
-          <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
+          <template v-for="(index, name) in selectedItemsSlots" v-slot:[name]="{data}">
             <slot :name="name" :[getSlotScope(name)]="data"></slot>
           </template>
         </SelectedItems>
@@ -48,7 +48,7 @@
       v-else
       v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems}"
     >
-      <template v-for="(index, name) in $scopedSlots" v-slot:[name]="{data}">
+      <template v-for="(index, name) in selectedItemsSlots" v-slot:[name]="{data}">
         <slot :name="name" :[getSlotScope(name)]="data"></slot>
       </template>
     </SelectedItems>
@@ -123,6 +123,7 @@ import {
   checkGroupField,
   getSlotScope
 } from "../utils";
+import { SELECTED_ITEMS_SLOTNAMES } from "../constants";
 import mixins from "../mixins";
 import SelectedItems from "./SelectedItems";
 export default {
@@ -221,6 +222,14 @@ export default {
     splitByOrientation() {
       const splitByOptions = this.splitBy.split("|");
       return splitByOptions[1] || "column";
+    },
+    selectedItemsSlots() {
+      return SELECTED_ITEMS_SLOTNAMES.reduce((slots, name) => {
+        if (!isEmpty(this.$scopedSlots[name]))
+          slots[name] = this.$scopedSlots[name];
+
+        return slots;
+      }, {});
     }
   },
   methods: {
