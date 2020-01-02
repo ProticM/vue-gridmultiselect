@@ -55,8 +55,11 @@ A simple multi-select component for Vue framework with items displayed in a tabl
 - No dependencies
 - Searching
 - Grouping
+- Split View
+- Labeling (title, _no data_ messages, multiple keys as a label source...)
 - Disabling Items
 - Row Details
+- Menu Positioning
 - Easily configurable
 - Custom slots
 - V-model support

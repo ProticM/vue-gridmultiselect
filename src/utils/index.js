@@ -1,3 +1,5 @@
+import { SLOT_SCOPES } from '../constants';
+
 const isEmpty = (value) => {
 	return value === null || value === undefined || value === "";
 }
@@ -6,15 +8,20 @@ const copyArray = (array) => {
 	return array.map(item => ({ ...item }));
 }
 
+const groupBy = (array, key) => {
+	return array.reduce((acc, item) => {
+		(acc[item[key]] = acc[item[key]] || []).push(item);
+		return acc;
+	}, {})
+}
+
 const flatGroupBy = (items, key) => {
 
 	if (checkGroupField(items, key)) return [];
 
 	const copy = copyArray(items);
-	const grouped = copy.reduce((acc, item) => {
-		(acc[item[key]] = acc[item[key]] || []).push(item);
-		return acc;
-	}, {}), groups = Object.keys(grouped);
+	const grouped = groupBy(copy, key),
+		groups = Object.keys(grouped);
 	let flatten = [];
 
 	groups.forEach(group => {
@@ -30,8 +37,7 @@ const checkGroupField = (items, key) => {
 	const hasItemWithoutGroupingField = !isEmpty(itemWithoutGroupingField);
 
 	if (hasItemWithoutGroupingField) {
-		console.warn('Item '.concat(JSON.stringify(itemWithoutGroupingField))
-			.concat(' doesn not contain grouping field: '.concat(key)));
+		console.warn(`Item ${JSON.stringify(itemWithoutGroupingField)} does not contain grouping field: ${key}`);
 	}
 
 	return hasItemWithoutGroupingField;
@@ -50,10 +56,17 @@ const ensureValue = (value, index = 0) => {
 		(value[index] || value[0]) : value;
 }
 
+const getSlotScope = (name) => {
+	return SLOT_SCOPES[name] || null;
+}
+
 export {
 	isEmpty,
 	flatGroupBy,
 	copyArray,
 	guid,
-	ensureValue
+	ensureValue,
+	groupBy,
+	checkGroupField,
+	getSlotScope
 }

@@ -15,52 +15,43 @@
         </button>
       </transition>
     </div>
-    <ul class="gridmultiselect__selecteditems">
-      <li
-        class="gridmultiselect__selecteditem--empty"
-        v-if="selectedItems.length === 0"
-      >{{selectedItemsEmptyMessage}}</li>
-      <li
-        v-else
-        v-for="(selectedItem, index) in selectedItems"
-        :key="selectedItem[itemKey]"
-        class="gridmultiselect__selecteditem gridmultiselect__selecteditem--font-small"
-        @click="selectItem(selectedItem)"
+    <div
+      v-if="isSplitViewEnabled"
+      class="gridmultiselect_splitviewcontainer"
+      :class="{'gridmultiselect_splitviewcontainer--column':splitByOrientation === 'row',
+        'gridmultiselect_splitviewcontainer--single': isSingleViewSelected()}"
+    >
+      <div
+        v-if="!hasSelectedViews()"
+        class="gridmultiselect_splitviewcontainer--empty"
+      >{{viewsEmptyMessage}}</div>
+      <div
+        v-for="(view, name) in views"
+        :key="name"
+        class="gridmultiselect_splitview"
+        :class="{'gridmultiselect_splitview--column':splitByOrientation === 'row',
+          'gridmultiselect_splitview--single': isSingleViewSelected()}"
       >
-        <div
-          class="gridmultiselect__selecteditemtext"
-          :class="[{'gridmultiselect__selecteditemtext--cursor-pointer': isRowDetailEnabled}, getRowDetailsIndicatorClass(selectedItem)]"
-          @click="isRowDetailEnabled ? toggleDetails(selectedItem) : null"
+        <div class="gridmultiselect_splitviewheader">{{name}}</div>
+        <SelectedItems
+          v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems:view}"
+          :viewName="name"
+          @item-removed="removeFromView"
         >
-          <slot name="selected-item" :selectedItem="selectedItem">
-            {{getItemLabel(selectedItem, "selectedItemLabel")}}
-            <span
-              v-if="isGroupingEnabled"
-              class="gridmultiselect__selecteditemgroupbadge"
-            >({{selectedItem[groupBy]}})</span>
-          </slot>
-          <transition name="gridmultiselect__slidedown">
-            <div
-              class="gridmultiselect__selecteditemdetails"
-              v-if="isRowDetailEnabled"
-              v-show="rowDetails.includes(selectedItem[itemKey])"
-            >
-              <slot
-                name="selected-item-details"
-                :selectedItem="selectedItem"
-              >{{getItemLabel(selectedItem, "itemDetails")}}</slot>
-            </div>
-          </transition>
-        </div>
-        <div
-          class="gridmultiselect__removebutton gridmultiselect__removebutton--font-small"
-          @click="removeItem(index)"
-        >x</div>
-      </li>
-      <li class="gridmultiselect__selecteditemitemsfooter" v-if="hasSlot('selected-items-footer')">
-        <slot name="selected-items-footer"></slot>
-      </li>
-    </ul>
+          <template v-for="(index, name) in selectedItemsSlots" v-slot:[name]="{data}">
+            <slot :name="name" :[getSlotScope(name)]="data"></slot>
+          </template>
+        </SelectedItems>
+      </div>
+    </div>
+    <SelectedItems
+      v-else
+      v-bind="{itemKey, itemLabel, itemDetails, emptyMessage, groupBy, menuVisible, isSplitViewEnabled, selectedItems}"
+    >
+      <template v-for="(index, name) in selectedItemsSlots" v-slot:[name]="{data}">
+        <slot :name="name" :[getSlotScope(name)]="data"></slot>
+      </template>
+    </SelectedItems>
     <transition name="gridmultiselect__slide">
       <div
         ref="menu"
@@ -127,16 +118,29 @@ import {
   copyArray,
   flatGroupBy,
   guid,
-  ensureValue
-} from "./utils/utils";
+  ensureValue,
+  groupBy,
+  checkGroupField,
+  getSlotScope
+} from "../utils";
+import {
+  SELECTED_ITEMS_SLOTNAMES,
+  EVENT_NAMES,
+  SEPARATOR,
+  VIEW_ORIENTATION,
+  MENU_POSITION
+} from "../constants";
+import mixins from "../mixins";
+import SelectedItems from "./SelectedItems";
 export default {
   name: "vue-gridmultiselect",
+  mixins: [mixins],
+  components: { SelectedItems },
   data() {
     return {
       guid: null,
       menuVisible: false,
-      searchTerm: null,
-      rowDetails: []
+      searchTerm: null
     };
   },
   mounted() {
@@ -146,14 +150,6 @@ export default {
     title: {
       type: String,
       default: "Grid Multiselect"
-    },
-    itemLabel: {
-      value: [String, Array],
-      required: true
-    },
-    itemKey: {
-      type: String,
-      required: true
     },
     items: {
       type: Array,
@@ -167,34 +163,19 @@ export default {
       type: Boolean,
       default: true
     },
-    emptyMessage: {
-      type: String,
-      default: "No Data"
-    },
-    groupBy: {
-      type: String
-    },
-    itemDetails: {
-      type: String
-    },
     menuPosition: {
       type: String,
-      default: "dock"
+      default: MENU_POSITION.dock
     },
     tabIndex: {
       type: Number,
       default: 0
+    },
+    splitBy: {
+      type: String
     }
   },
   computed: {
-    selectedItemLabel() {
-      const isItemLabelArray = Array.isArray(this.itemLabel);
-      const hasSelectedItemLabelDefined =
-        isItemLabelArray && this.itemLabel.length > 1;
-      return hasSelectedItemLabelDefined
-        ? this.itemLabel[1]
-        : ensureValue(this.itemLabel);
-    },
     internalItems() {
       const copy = isEmpty(this.groupBy)
         ? copyArray(this.items)
@@ -219,23 +200,42 @@ export default {
         return this.value || [];
       },
       set(newValue) {
-        this.$emit("input", newValue);
+        this.$emit(EVENT_NAMES.input, newValue);
       }
     },
-    isGroupingEnabled() {
-      return !isEmpty(this.groupBy);
-    },
     itemsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"));
+      return ensureValue(this.emptyMessage.split(SEPARATOR));
     },
-    selectedItemsEmptyMessage() {
-      return ensureValue(this.emptyMessage.split("|"), 1);
-    },
-    isRowDetailEnabled() {
-      return !isEmpty(this.itemDetails);
+    viewsEmptyMessage() {
+      return ensureValue(this.emptyMessage.split(SEPARATOR), 2);
     },
     isMenuFloating() {
-      return this.menuPosition === "float";
+      return this.menuPosition === MENU_POSITION.float;
+    },
+    views() {
+      return isEmpty(this.splitBy)
+        ? []
+        : (() => {
+            const splitBy = ensureValue(this.splitBy.split(SEPARATOR));
+            return checkGroupField(this.selectedItems, splitBy)
+              ? []
+              : groupBy(this.selectedItems, splitBy);
+          })();
+    },
+    isSplitViewEnabled() {
+      return !isEmpty(this.splitBy);
+    },
+    splitByOrientation() {
+      const splitByOptions = this.splitBy.split(SEPARATOR);
+      return splitByOptions[1] || VIEW_ORIENTATION.column;
+    },
+    selectedItemsSlots() {
+      return SELECTED_ITEMS_SLOTNAMES.reduce((slots, name) => {
+        if (!isEmpty(this.$scopedSlots[name]))
+          slots[name] = this.$scopedSlots[name];
+
+        return slots;
+      }, {});
     }
   },
   methods: {
@@ -249,48 +249,28 @@ export default {
         el.focus();
       });
     },
-    removeItem(index) {
-      const removedItem = this.selectedItems.splice(index, 1);
-      this.$emit("item-removed", removedItem);
-    },
-    getItemLabel(item, key = "itemLabel") {
-      const label = ensureValue(this[key]);
-      return label
-        .split("|")
-        .map(label => item[label.trim()])
-        .join(" ")
-        .trim();
-    },
-    selectItem(selectedItem) {
-      if (this.menuVisible) return;
-      this.$emit("item-selected", selectedItem);
-    },
     isSelected(item) {
       const itemKey = this.itemKey;
       return this.selectedItems.some(i => i[itemKey] === item[itemKey]);
     },
-    hasSlot(name) {
-      return !!this.$slots[name] || !!this.$scopedSlots[name];
+    removeFromView(removedItem, viewName) {
+      const index = this.selectedItems.findIndex(
+        item => item[this.itemKey] === removedItem[this.itemKey]
+      );
+      this.selectedItems.splice(index, 1);
+      this.$emit(EVENT_NAMES.itemRemoved, removedItem, viewName);
     },
-    toggleDetails(item) {
-      const isOpened = this.rowDetails.includes(item[this.itemKey]);
-
-      if (!isOpened) {
-        this.rowDetails.push(item[this.itemKey]);
-        return;
-      }
-
-      const index = this.rowDetails.indexOf(item[this.itemKey]);
-      this.rowDetails.splice(index, 1);
+    isSingleViewSelected() {
+      const splitBy = ensureValue(this.splitBy.split(SEPARATOR));
+      const views = this.selectedItems.map(item => item[splitBy]).sort();
+      return (
+        views.filter((view, index, self) => self.indexOf(view) === index)
+          .length === 1
+      );
     },
-    getRowDetailsIndicatorClass(item) {
-      return this.isRowDetailEnabled
-        ? `gridmultiselect__selecteditemtext--${
-            this.rowDetails.includes(item[this.itemKey])
-              ? "expanded"
-              : "collapsed"
-          }`
-        : null;
+    getSlotScope: getSlotScope,
+    hasSelectedViews() {
+      return Object.keys(this.views).length > 0;
     }
   }
 };
@@ -345,8 +325,31 @@ export default {
   margin-top: 3px;
   cursor: pointer;
 }
-
-.gridmultiselect__selecteditems,
+.gridmultiselect_splitviewcontainer {
+  display: flex;
+  justify-content: space-between;
+  height: inherit;
+  min-height: inherit;
+  padding: 0.5rem;
+}
+.gridmultiselect_splitview {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  border: 1px solid #e6eceb;
+  border-radius: 4px;
+  height: inherit;
+  min-height: inherit;
+}
+.gridmultiselect_splitview:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.gridmultiselect_splitviewheader {
+  padding: 0.5rem;
+  font-size: 13px;
+  font-weight: bold;
+  border-bottom: 1px solid #e6eceb;
+}
 .gridmultiselect__items {
   list-style: none;
   margin: 0;
@@ -356,10 +359,7 @@ export default {
   height: inherit;
   min-height: inherit;
 }
-.gridmultiselect__selecteditemitemsfooter {
-  padding: 0.5rem;
-  margin-top: auto;
-}
+
 .gridmultiselect__itemsfooter {
   padding: 0.2rem 0.5rem;
   margin-top: auto;
@@ -405,49 +405,6 @@ export default {
   padding-left: 0.2rem 0.2rem 0.2rem 0.7rem;
 }
 
-.gridmultiselect__selecteditem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.gridmultiselect__selecteditem:not(:last-child) {
-  border-bottom: 1px solid #e6eceb;
-}
-
-.gridmultiselect__selecteditem:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.gridmultiselect__selecteditemtext {
-  padding: 0.5rem;
-  overflow: hidden;
-  word-break: break-word;
-  white-space: normal;
-  flex-grow: 1;
-}
-.gridmultiselect__selecteditemtext--collapsed::before,
-.gridmultiselect__selecteditemtext--expanded::before {
-  display: inline-block;
-  color: #b8bcbc;
-  padding-top: 2px;
-  border-style: solid;
-  border-width: 5px 5px 0;
-  border-color: #b8bcbc transparent transparent;
-  content: "";
-  border-radius: 2px;
-  transition: transform 0.3s ease;
-  margin-right: 5px;
-}
-
-.gridmultiselect__selecteditemtext--expanded::before {
-  transform: rotate(180deg);
-  margin-bottom: 2px;
-}
-.gridmultiselect__selecteditemgroupbadge {
-  font-size: 10px;
-  font-style: italic;
-}
 .gridmultiselect__removebutton {
   padding: 0.5rem;
   cursor: pointer;
@@ -505,23 +462,17 @@ export default {
   flex-grow: 1;
 }
 
-.gridmultiselect__selecteditemdetails {
-  padding-top: 0.5rem;
-  cursor: auto;
-}
-
 .gridmultiselect--floatingmenu {
   overflow: visible;
 }
 
 .gridmultiselect__itemlabel--font-small,
 .gridmultiselect__removebutton--font-small,
-.gridmultiselect__searchfield--font-small,
-.gridmultiselect__selecteditem--font-small {
+.gridmultiselect__searchfield--font-small {
   font-size: 13px;
 }
-.gridmultiselect__selecteditem--empty,
-.gridmultiselect__item--empty {
+.gridmultiselect__item--empty,
+.gridmultiselect_splitviewcontainer--empty {
   text-align: center;
   padding: 0.5rem;
   opacity: 0.6;
@@ -535,9 +486,6 @@ export default {
 .gridmultiselect__item--selected {
   color: #856404;
   background-color: #fff3cd;
-}
-.gridmultiselect__selecteditemtext--cursor-pointer {
-  cursor: pointer;
 }
 
 .gridmultiselect__slide-enter-active,
@@ -556,5 +504,25 @@ export default {
 .gridmultiselect__slidedown-leave-to {
   transform: translateY(-15px);
   opacity: 0;
+}
+.gridmultiselect_splitviewcontainer--column {
+  flex-direction: column;
+}
+.gridmultiselect_splitviewcontainer--single {
+  padding: 0;
+}
+.gridmultiselect_splitview--column {
+  height: auto;
+  min-height: auto;
+}
+.gridmultiselect_splitview--column:not(:last-child) {
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+}
+.gridmultiselect_splitview--single {
+  border: 0;
+}
+.gridmultiselect_splitviewcontainer--empty {
+  flex-grow: 1;
 }
 </style>

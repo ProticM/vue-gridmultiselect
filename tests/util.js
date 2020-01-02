@@ -1,8 +1,8 @@
-import { shallowMount } from "@vue/test-utils";
-import GridMultiselect from '@/GridMultiselect.vue';
+import { mount } from "@vue/test-utils";
+import GridMultiselect from '@/components/GridMultiselect.vue';
 
-const wrapShallow = (propsData = {}, requiredProps = { itemKey: 'id', itemLabel: 'text' }) => {
-	return shallowMount(GridMultiselect, {
+const wrap = (propsData = {}, requiredProps = { itemKey: 'id', itemLabel: 'text' }) => {
+	return mount(GridMultiselect, {
 		propsData: {
 			...requiredProps,
 			...propsData
@@ -10,8 +10,8 @@ const wrapShallow = (propsData = {}, requiredProps = { itemKey: 'id', itemLabel:
 	});
 };
 
-const wrapShallowWithOptions = (propsData = {}, options = {}, requiredProps = { itemKey: 'id', itemLabel: 'text' }) => {
-	return shallowMount(GridMultiselect, {
+const wrapWithOptions = (propsData = {}, options = {}, requiredProps = { itemKey: 'id', itemLabel: 'text' }) => {
+	return mount(GridMultiselect, {
 		propsData: {
 			...requiredProps,
 			...propsData
@@ -21,6 +21,6 @@ const wrapShallowWithOptions = (propsData = {}, options = {}, requiredProps = { 
 };
 
 export {
-	wrapShallow,
-	wrapShallowWithOptions
+	wrap,
+	wrapWithOptions
 }

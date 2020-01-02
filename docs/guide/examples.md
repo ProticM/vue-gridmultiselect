@@ -160,7 +160,7 @@ Each _No Data_ message can be customized by using the property:
 
 - __empty-message__ (`String`) - Holds the text to be displayed when nothing is selected. Defaults to `No Data`
 
-Use delimiter `|` to handle both lists. The value before `|` is used for the items list and the value after is used for the selected items list.
+Use delimiter `|` to handle both lists. The value before `|` is used for the items list and the value after is used for the selected items list. If view split is enabled, the additional third part after another `|` represents the text to be shown when no views are selected. A quick example looks something like this: `No Items|No Selection|No Views`
 
 HTML
 
@@ -205,7 +205,7 @@ Live Sample
 
 ## Grouping
 
-The items list can contain groups. To enable grouping you need to provide one additional prop which holds the item property with the desired group label value. The items collection is grouped by this value.
+The items list can contain groups. To enable grouping you need to provide one additional prop which holds the item property with the desired group label value. The items collection is grouped by this value. This property must be present on each item in the collection.
 
 - __group-by__ - Holds the item property name having the desired group label value
 
@@ -254,6 +254,60 @@ export default {
 Live Sample
 
 <Grouping />
+
+## Split View
+
+The selected items view can be split into rows or columns. To split a view, you need to set the `splitBy` component property. The value should be the data source item property name to split the view by. Do note that, as with the grouping option, this property must be present on each item in the data source.
+
+- __split-by__ - Holds the item property name having the desired label value.
+
+By default, the view is split into columns within a single row. To split the view into rows, use `|` separator and specify the orientation, like this `state|row`.
+
+HTML
+
+```html
+<GridMultiSelect 
+  :items="items" 
+  item-key="id" 
+  item-label="name" 
+  v-model="selectedItems" 
+  title="Cities"
+  split-by="state"
+/>
+```
+
+JS
+
+```js
+import GridMultiSelect from 'vue-gridmultiselect';
+
+export default {
+  name: "example",
+  components: { GridMultiSelect },
+  data() {
+    return {
+      selectedItems: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 5, name: "Berlin", state: "Germany" }
+      ],
+      items: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 2, name: "Las Vegas", state: "USA" },
+        { id: 3, name: "Washington", state: "USA" },
+        { id: 4, name: "Munich", state: "Germany" },
+        { id: 5, name: "Berlin", state: "Germany" },
+        { id: 6, name: "Rome", state: "Italy" }
+      ]
+    };
+  }
+};
+```
+
+<SplitBy />
+
+Split By Row
+
+<SplitByRow />
 
 ## Disabled Items
 

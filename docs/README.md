@@ -14,7 +14,11 @@ features:
 footer: MIT Licensed | Copyright © 2019-present Miloš Protić
 ---
 
-#### Default Behaviour
+#### Default Setup
+
+<DefaultSetup />
+
+#### Customized Example
 
 <InitialExample />
 
@@ -23,6 +27,7 @@ footer: MIT Licensed | Copyright © 2019-present Miloš Protić
 - No dependencies
 - Searching
 - Grouping
+- Split View
 - Labeling (title, _no data_ messages, multiple keys as a label source...)
 - Disabling Items
 - Row Details

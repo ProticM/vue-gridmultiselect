@@ -3,7 +3,6 @@
     :items="items"
     item-key="id"
     item-label="name"
-    group-by="state"
     v-model="selectedItems"
     title="Cities"
   />
@@ -11,17 +10,16 @@
 <script>
 import GridMultiSelect from "../../../src/components/GridMultiSelect";
 export default {
-  name: "example-disabled",
-  components: { GridMultiSelect },
+  name: "example-default",
+  components: {
+    GridMultiSelect
+  },
   data() {
     return {
-      selectedItems: [
-        { id: 1, name: "San Francisco", state: "USA" },
-        { id: 5, name: "Berlin", state: "Germany" }
-      ],
+      selectedItems: null,
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
-        { id: 2, name: "Las Vegas", state: "USA", $isDisabled: true },
+        { id: 2, name: "Las Vegas", state: "USA" },
         { id: 3, name: "Washington", state: "USA" },
         { id: 4, name: "Munich", state: "Germany" },
         { id: 5, name: "Berlin", state: "Germany" },
@@ -33,7 +31,7 @@ export default {
 </script>
 <style scoped>
 .gridmultiselect {
-  min-height: 200px;
+  min-height: 150px;
   margin-top: 0.7rem;
 }
 </style>

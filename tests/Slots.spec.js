@@ -1,9 +1,10 @@
-import { wrapShallowWithOptions } from './util';
+import { wrapWithOptions } from './util';
+import SelectedItems from '@/components/SelectedItems';
 
 describe('slots', () => {
 	it('should have selected items footer slot', () => {
 
-		const wrapper = wrapShallowWithOptions({
+		const wrapper = wrapWithOptions({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		}, {
@@ -11,14 +12,15 @@ describe('slots', () => {
 				'selected-items-footer': "<div class=\"footer-slot\">Footer slot</div>"
 			}
 		});
+		const selectedItems = wrapper.find(SelectedItems);
 
-		const slot = wrapper.find("div.footer-slot");
+		const slot = selectedItems.find("div.footer-slot");
 		expect(slot.exists()).toBe(true);
 	});
 
 	it('should have items footer slot', () => {
 
-		const wrapper = wrapShallowWithOptions({
+		const wrapper = wrapWithOptions({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		}, {
@@ -36,7 +38,7 @@ describe('slots', () => {
 
 	it('should have selected item scoped slot', () => {
 
-		const wrapper = wrapShallowWithOptions({
+		const wrapper = wrapWithOptions({
 			value: [{ id: 1, text: 'Item 1' }],
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		}, {
@@ -44,8 +46,9 @@ describe('slots', () => {
 				'selected-item': `<template slot-scope="{selectedItem}"><span>{{selectedItem.text}}</span></template>`
 			}
 		});
+		const selectedItems = wrapper.find(SelectedItems);
 
-		const text = wrapper.find("div.gridmultiselect__selecteditemtext");
+		const text = selectedItems.find("div.gridmultiselect__selecteditemtext");
 		const slot = text.find('span');
 		expect(slot.exists()).toBe(true);
 		expect(slot.text()).toBe('Item 1');
@@ -53,7 +56,7 @@ describe('slots', () => {
 
 	it('should have item scoped slot', () => {
 
-		const wrapper = wrapShallowWithOptions({
+		const wrapper = wrapWithOptions({
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		}, {
@@ -75,7 +78,7 @@ describe('slots', () => {
 	});
 
 	it('should have row details slot', () => {
-		const wrapper = wrapShallowWithOptions({
+		const wrapper = wrapWithOptions({
 			value: [{ id: 1, text: 'Item 1' }],
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
@@ -84,11 +87,13 @@ describe('slots', () => {
 				'selected-item-details': `<template slot-scope="{selectedItem}"><span>{{selectedItem.text}}</span></template>`
 			}
 		});
+		const selectedItems = wrapper.find(SelectedItems);
 
-		expect(wrapper.vm.isRowDetailEnabled).toEqual(true);
+		expect(selectedItems.vm.isRowDetailEnabled).toEqual(true);
 
-		wrapper.vm.toggleDetails(wrapper.vm.selectedItems[0]);
-		const details = wrapper.findAll('.gridmultiselect__selecteditemdetails');
+		selectedItems.vm.toggleDetails(wrapper.vm.selectedItems[0]);
+		expect(selectedItems.vm.selectedItems[0]).toEqual(wrapper.vm.selectedItems[0]);
+		const details = selectedItems.findAll('.gridmultiselect__selecteditemdetails');
 
 		expect(details.length).toEqual(1);
 		const detailsSlot = details.at(0).find('span');

@@ -1,2 +1,2 @@
-import GridMultiSelect from './GridMultiSelect.vue';
+import GridMultiSelect from './components/GridMultiSelect.vue';
 export default GridMultiSelect;
