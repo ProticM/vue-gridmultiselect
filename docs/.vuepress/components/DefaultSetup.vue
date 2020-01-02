@@ -16,7 +16,10 @@ export default {
   },
   data() {
     return {
-      selectedItems: null,
+      selectedItems: [
+        { id: 1, name: "San Francisco", state: "USA" },
+        { id: 5, name: "Berlin", state: "Germany" }
+      ],
       items: [
         { id: 1, name: "San Francisco", state: "USA" },
         { id: 2, name: "Las Vegas", state: "USA" },
