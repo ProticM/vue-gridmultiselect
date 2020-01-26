@@ -66,7 +66,7 @@
               type="text"
               ref="search"
               class="gridmultiselect__searchfield gridmultiselect__searchfield--font-small"
-              placeholder="Search..."
+              :placeholder="searchBoxPlaceholder"
               v-model="searchTerm"
               :tabindex="tabIndex"
               @focus.prevent="showMenu"
@@ -173,6 +173,10 @@ export default {
     },
     splitBy: {
       type: String
+    },
+    searchBoxPlaceholder: {
+      type: String,
+      default: "Search..."
     }
   },
   computed: {
