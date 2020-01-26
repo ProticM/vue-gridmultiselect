@@ -36,5 +36,16 @@ describe('searching', () => {
 
 		expect(wrapper.vm.searchTerm).toEqual('1');
 		expect(wrapper.vm.internalItems).toEqual([{ id: 1, text: 'Item 1' }]);
+	});
+
+	it('should change input placeholder', () => {
+		const wrapper = wrap({
+			value: null,
+			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
+			searchBoxPlaceholder: 'Search items...'
+		}), input = wrapper.find('.gridmultiselect__searchfield');
+
+		expect(wrapper.vm.searchBoxPlaceholder).toEqual('Search items...');
+		expect(input.element.placeholder).toBe('Search items...');
 	})
 })

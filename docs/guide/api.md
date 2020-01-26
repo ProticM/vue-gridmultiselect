@@ -133,6 +133,17 @@ splitBy: {
 }
 ```
 
+### searchBoxPlaceholder
+
+Sets the value for the search input field placeholder attribute.
+
+```js
+searchBoxPlaceholder: {
+  type: String,
+  default: 'Search...'
+}
+```
+
 ## Slots
 
 ### `item`
