@@ -9,7 +9,7 @@ describe('row details', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 		expect(selectedItems.vm.isRowDetailEnabled).toEqual(true);
 	});
 
@@ -20,7 +20,7 @@ describe('row details', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		selectedItems.vm.toggleDetails(wrapper.vm.selectedItems[0]);
 
@@ -54,7 +54,7 @@ describe('row details', () => {
 			items: [{ id: 1, text: 'Item 1', text2: 'Item 1.1' }, { id: 2, text: 'Item 2', text2: 'Item 2.1' }],
 			itemDetails: 'text|text2'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 		selectedItems.vm.toggleDetails(wrapper.vm.selectedItems[0]);
 
 		expect(selectedItems.vm.selectedItems[0]).toEqual(wrapper.vm.selectedItems[0]);

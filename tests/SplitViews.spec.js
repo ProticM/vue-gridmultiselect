@@ -8,7 +8,7 @@ describe('view split', () => {
             items: [{ id: 1, text: 'Item 1', view: 'View 1' }, { id: 2, text: 'Item 2', view: 'View 2' }],
             splitBy: 'view'
         });
-        const selectedItems = wrapper.find(SelectedItems);
+        const selectedItems = wrapper.findComponent(SelectedItems);
 
         expect(selectedItems.vm.isSplitViewEnabled).toEqual(true);
     });
