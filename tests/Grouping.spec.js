@@ -8,7 +8,7 @@ describe('grouping', () => {
             items: [{ id: 1, text: 'Item 1', view: 'View 1' }, { id: 2, text: 'Item 2', view: 'View 2' }],
             groupBy: 'view'
         });
-        const selectedItems = wrapper.find(SelectedItems);
+        const selectedItems = wrapper.findComponent(SelectedItems);
 
         expect(selectedItems.vm.isGroupingEnabled).toEqual(true);
     });
@@ -19,7 +19,7 @@ describe('grouping', () => {
             items: [{ id: 1, text: 'Item 1', view: 'View 1' }, { id: 2, text: 'Item 2', view: 'View 2' }],
             groupBy: 'view'
         });
-        const selectedItems = wrapper.find(SelectedItems);
+        const selectedItems = wrapper.findComponent(SelectedItems);
 
         expect(selectedItems.vm.isGroupingEnabled).toEqual(true);
         expect(selectedItems.find('span.gridmultiselect__selecteditemgroupbadge').exists()).toBe(true);

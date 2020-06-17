@@ -12,7 +12,7 @@ describe('slots', () => {
 				'selected-items-footer': "<div class=\"footer-slot\">Footer slot</div>"
 			}
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		const slot = selectedItems.find("div.footer-slot");
 		expect(slot.exists()).toBe(true);
@@ -46,7 +46,7 @@ describe('slots', () => {
 				'selected-item': `<template slot-scope="{selectedItem}"><span>{{selectedItem.text}}</span></template>`
 			}
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		const text = selectedItems.find("div.gridmultiselect__selecteditemtext");
 		const slot = text.find('span');
@@ -87,7 +87,7 @@ describe('slots', () => {
 				'selected-item-details': `<template slot-scope="{selectedItem}"><span>{{selectedItem.text}}</span></template>`
 			}
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		expect(selectedItems.vm.isRowDetailEnabled).toEqual(true);
 

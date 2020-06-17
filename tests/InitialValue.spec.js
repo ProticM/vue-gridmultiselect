@@ -7,7 +7,7 @@ describe('value binding', () => {
 			value: null,
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }]
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		expect(wrapper.vm.selectedItems).toEqual([]);
 		expect(selectedItems.vm.selectedItems).toEqual([]);

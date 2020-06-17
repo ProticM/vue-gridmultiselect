@@ -9,7 +9,7 @@ describe('row details indicator', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		expect(selectedItems.vm.isRowDetailEnabled).toEqual(true);
 	});
@@ -21,7 +21,7 @@ describe('row details indicator', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		expect(
 			selectedItems.find('.gridmultiselect__selecteditemtext--collapsed').exists()
@@ -39,7 +39,7 @@ describe('row details indicator', () => {
 			items: [{ id: 1, text: 'Item 1' }, { id: 2, text: 'Item 2' }],
 			itemDetails: 'text'
 		});
-		const selectedItems = wrapper.find(SelectedItems);
+		const selectedItems = wrapper.findComponent(SelectedItems);
 
 		selectedItems.vm.toggleDetails(wrapper.vm.selectedItems[0]);
 		expect(selectedItems.vm.selectedItems[0]).toEqual(wrapper.vm.selectedItems[0]);
