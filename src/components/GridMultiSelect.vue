@@ -95,13 +95,13 @@
               />
             </span>
             <span v-if="!item.$isGroup" class="gridmultiselect__itemtext">
-              <slot name="item" :item="item">
-                <label
-                  class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
-                  :class="{'gridmultiselect__itemlabel--disabled': item.$isDisabled}"
-                  :for="(item.$isDisabled ? null : 'item-cb' + item[itemKey] + '_' + guid)"
-                >{{getItemLabel(item)}}</label>
-              </slot>
+              <label
+                class="gridmultiselect__itemlabel gridmultiselect__itemlabel--font-small"
+                :class="{'gridmultiselect__itemlabel--disabled': item.$isDisabled}"
+                :for="(item.$isDisabled ? null : 'item-cb' + item[itemKey] + '_' + guid)"
+              >
+                <slot name="item" :item="item">{{getItemLabel(item)}}</slot>
+              </label>
             </span>
           </li>
           <li class="gridmultiselect__itemsfooter" v-if="hasSlot('items-footer')">
