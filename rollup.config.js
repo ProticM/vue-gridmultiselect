@@ -13,7 +13,7 @@ const extensions = [
 const plugins = [
 	resolve({ extensions }),
 	commonjs(),
-	css({ output: 'dist/vue-gridmultiselect.css' }),
+	css({ output: 'vue-gridmultiselect.css' }),
 	vue({ 
 		css: false, 
 		compileTemplate: true,
