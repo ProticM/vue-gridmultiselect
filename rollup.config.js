@@ -1,10 +1,9 @@
-
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import vue from 'rollup-plugin-vue';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import { uglify } from 'rollup-plugin-uglify';
-import css from 'rollup-plugin-css-only'
+import css from 'rollup-plugin-css-only';
 import pck from './package.json';
 
 const extensions = [
@@ -14,7 +13,7 @@ const extensions = [
 const plugins = [
 	resolve({ extensions }),
 	commonjs(),
-	css({ output: 'dist/vue-gridmultiselect.css' }),
+	css({ output: 'vue-gridmultiselect.css' }),
 	vue({ 
 		css: false, 
 		compileTemplate: true,
@@ -25,7 +24,8 @@ const plugins = [
 	}),
 	babel({
 		extensions: extensions,
-		exclude: ['node_modules/**']
+		exclude: ['node_modules/**'],
+		babelHelpers: 'bundled'
 	})
 ];
 
